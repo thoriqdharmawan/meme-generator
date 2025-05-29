@@ -43,7 +43,7 @@ const MemeEditor = () => {
       </TouchableWithoutFeedback>
 
       {!selectedElement && <ActionInitial />}
-      {selectedElement && <ActionText />}
+      {selectedElement && !isEditing && <ActionText />}
     </>
   );
 };
