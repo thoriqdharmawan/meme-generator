@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import {
   ActivityIndicator,
-  StyleSheet,
   Text,
   TextStyle,
   TouchableOpacity,
@@ -9,6 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { BorderRadius, Colors, Shadows, Spacing, Typography } from '../../../constants/theme';
+import { styles } from './style';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'style'> {
   title?: string;
@@ -161,14 +161,5 @@ export const Button: React.FC<ButtonProps> = ({
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  loader: {
-    marginRight: Spacing.xs,
-  },
-  textWithIcon: {
-    marginLeft: Spacing.xs,
-  },
-});
 
 export default Button;
