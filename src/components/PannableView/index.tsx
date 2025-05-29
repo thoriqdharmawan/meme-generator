@@ -1,6 +1,7 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import { styles } from './style';
 
 function clamp(val: number, min: number, max: number): number {
   return Math.min(Math.max(val, min), max);
@@ -67,19 +68,5 @@ const PannableView: React.FC = () => {
     </GestureHandlerRootView>
   );
 };
-
-const styles = StyleSheet.create({
-  box: {
-    backgroundColor: '#b58df1',
-    height: 100,
-    width: 100,
-  },
-  container: {
-    alignItems: 'center',
-    backgroundColor: 'gray',
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
 
 export default PannableView;
