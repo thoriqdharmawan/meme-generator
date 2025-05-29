@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../constants';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     flex: 1,
   },
   header: {
@@ -10,17 +11,17 @@ export const styles = StyleSheet.create({
     padding: 20,
   },
   playground: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.backgroundSecondary,
     flex: 1,
     position: 'relative',
   },
   subtitle: {
-    color: '#666',
+    color: Colors.gray,
     fontSize: 16,
     textAlign: 'center',
   },
   title: {
-    color: '#333',
+    color: Colors.darkGray,
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 5,
