@@ -109,6 +109,10 @@ const EditableTextBox: FC<Props> = props => {
     return [styles.box, styles.idleBox];
   };
 
+  const handleDuplocate = () => {
+    onDuplicate({ x: translateX.value + 20, y: translateY.value + 20 });
+  };
+
   const combinedGesture = Gesture.Simultaneous(dragGesture, tapGesture);
 
   return (
@@ -136,13 +140,7 @@ const EditableTextBox: FC<Props> = props => {
           {isElementSelected && !isEditing && (
             <>
               <View style={styles.actions}>
-                <Button
-                  title='Duplicate'
-                  size='small'
-                  onPress={() => {
-                    onDuplicate({ x: translateX.value + 20, y: translateY.value + 20 });
-                  }}
-                />
+                <Button title='Duplicate' size='small' onPress={handleDuplocate} />
                 <Button title='Delete' size='small' onPress={onDelete} />
               </View>
 
