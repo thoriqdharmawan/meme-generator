@@ -7,7 +7,7 @@ interface MemeEditorContextType {
 
   setElements: React.Dispatch<React.SetStateAction<CanvasTextElement[]>>;
   setSelectedElement: React.Dispatch<React.SetStateAction<CanvasTextElement | null>>;
-  addElement: () => void;
+  addElement: (element?: Partial<CanvasTextElement>) => void;
   updateElement: (id: string, updates: Partial<CanvasTextElement>) => void;
   deleteElement: (id: string) => void;
   duplicateElement: (id: string, position: Pick<CanvasTextElement, 'x' | 'y'>) => void;
@@ -25,7 +25,7 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   const [elements, setElements] = useState<CanvasTextElement[]>([]);
   const [selectedElement, setSelectedElement] = useState<CanvasTextElement | null>(null);
 
-  const addElement = () => {
+  const addElement = (element?: Partial<CanvasTextElement>) => {
     const newElement: CanvasTextElement = {
       id: `${Date.now()}`,
       text: 'New Text',
@@ -33,6 +33,7 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
       y: 50,
       width: 150,
       height: 'auto',
+      ...element,
     };
     setElements(prev => [...prev, newElement]);
   };
