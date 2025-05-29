@@ -1,7 +1,7 @@
+import Button from '@components/Button';
+import Footer from '@components/Footer';
+import Icon from '@components/Icon';
 import { ScrollView } from 'react-native';
-import Button from '../../../components/Button';
-import Footer from '../../../components/Footer';
-import Icon from '../../../components/Icon';
 import { style } from './style';
 
 const ActionInitial = () => {
