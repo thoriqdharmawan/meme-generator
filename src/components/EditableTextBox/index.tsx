@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import { BorderRadius, Colors, Layout, Spacing, Typography } from '../../constants';
 import { CanvasTextElement } from '../../types/text';
 
 interface Props {
@@ -82,8 +83,8 @@ const EditableTextBox: FC<Props> = props => {
       startHeight.value = Number(boxHeight.value);
     })
     .onUpdate(e => {
-      boxWidth.value = Math.max(60, startWidth.value + e.translationX);
-      boxHeight.value = Math.max(40, startHeight.value + e.translationY);
+      boxWidth.value = Math.max(Layout.textBox.minWidth, startWidth.value + e.translationX);
+      boxHeight.value = Math.max(Layout.textBox.minHeight, startHeight.value + e.translationY);
     })
     .onEnd(() => {
       onUpdate({
@@ -170,67 +171,66 @@ const EditableTextBox: FC<Props> = props => {
 
 const styles = StyleSheet.create({
   actionButton: {
-    backgroundColor: '#007AFF',
-    borderRadius: 4,
-    marginHorizontal: 2,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    backgroundColor: Colors.primary,
+    borderRadius: BorderRadius.sm,
+    marginHorizontal: Spacing.xs / 2,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
     width: 'auto',
   },
   actionText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '600',
+    color: Colors.white,
+    fontSize: Typography.fontSize.sm,
+    fontWeight: Typography.fontWeight.semiBold,
   },
   actions: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderRadius: 8,
+    borderRadius: BorderRadius.md,
     flexDirection: 'row',
-    height: 32,
-    padding: 4,
+    height: Layout.textBox.actionButtonHeight,
+    padding: Spacing.xs,
     position: 'absolute',
     right: 0,
-    top: -35,
+    top: -Layout.textBox.actionBarOffset,
   },
   box: {
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.transparent,
     borderWidth: 1,
-    padding: 4,
+    padding: Spacing.xs,
     position: 'absolute',
   },
   editableBox: {
-    borderColor: 'blue',
+    borderColor: Colors.blue,
     borderWidth: 1,
   },
   idleBox: {
-    borderColor: 'transparent',
+    borderColor: Colors.transparent,
     borderWidth: 0,
   },
   resizeHandle: {
-    backgroundColor: 'red',
-    borderRadius: 2,
-    height: 24,
-    marginTop: -10,
+    backgroundColor: Colors.red,
+    borderRadius: BorderRadius.xs,
+    height: Layout.textBox.resizeHandleSize,
+    marginTop: -Layout.textBox.resizeHandleSize / 2 + 2,
     position: 'absolute',
-    right: -4,
+    right: -Spacing.xs,
     top: '50%',
-    width: 6,
+    width: Layout.textBox.resizeHandleWidth,
   },
   textContainer: {
     justifyContent: 'center',
     minHeight: 30,
-    padding: 4,
+    padding: Spacing.xs,
   },
   textDisplay: {
-    color: '#333',
-    fontSize: 20,
-    fontWeight: 'bold',
+    color: Colors.textSecondary,
+    fontSize: Typography.fontSize.xxl,
+    fontWeight: Typography.fontWeight.bold,
   },
   textInput: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: Typography.fontSize.xxl,
+    fontWeight: Typography.fontWeight.bold,
     minHeight: 30,
-    padding: 4,
+    padding: Spacing.xs,
   },
 });
 
