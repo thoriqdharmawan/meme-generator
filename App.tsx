@@ -8,6 +8,7 @@
 import React from 'react';
 import { StatusBar, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { MemeEditorProvider } from './src/contexts/MemeEditorContext';
 import MemeEditorScreen from './src/screens/MemeEditorScreen';
 
 function App(): React.JSX.Element {
@@ -18,13 +19,13 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <>
+    <MemeEditorProvider>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <MemeEditorScreen />
-    </>
+    </MemeEditorProvider>
   );
 }
 

@@ -21,6 +21,7 @@ interface Props {
 
 const DraggableText: FC<Props> = props => {
   const { element, onUpdate, onDelete, onDuplicate, onSelectElement } = props;
+
   const startX = useSharedValue(0);
   const startY = useSharedValue(0);
   const startWidth = useSharedValue(0);
