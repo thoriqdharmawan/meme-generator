@@ -2,7 +2,7 @@ import BottomDrawer from '@/components/BottomDrawer';
 import { Colors, DefaultTextColorOptions } from '@/constants';
 import { FC } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { drawerStyles } from './style';
+import { drawerColorStyles } from './style';
 
 interface DrawerColorsProps {
   visible: boolean;
@@ -18,20 +18,20 @@ const DrawerColors: FC<DrawerColorsProps> = ({ visible, onClose, onColorSelect }
   return (
     <BottomDrawer visible={visible} onClose={onClose} height={120}>
       {visible && (
-        <View style={drawerStyles.container}>
-          <ScrollView contentContainerStyle={drawerStyles.colorGrid} horizontal>
+        <View style={drawerColorStyles.container}>
+          <ScrollView contentContainerStyle={drawerColorStyles.colorGrid} horizontal>
             {DefaultTextColorOptions.map((colorOption, index) => (
               <TouchableOpacity
                 key={index}
                 style={[
-                  drawerStyles.colorButton,
+                  drawerColorStyles.colorButton,
                   { backgroundColor: colorOption.color },
-                  colorOption.color === Colors.white && drawerStyles.whiteColorBorder,
+                  colorOption.color === Colors.white && drawerColorStyles.whiteColorBorder,
                 ]}
                 onPress={() => handleColorPress(colorOption.color)}
                 activeOpacity={0.7}
               >
-                {colorOption.isDefault && <View style={drawerStyles.defaultIndicator} />}
+                {colorOption.isDefault && <View style={drawerColorStyles.defaultIndicator} />}
               </TouchableOpacity>
             ))}
           </ScrollView>

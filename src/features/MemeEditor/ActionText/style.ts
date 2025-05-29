@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
 });
 
-export const drawerStyles = StyleSheet.create({
+export const drawerColorStyles = StyleSheet.create({
   colorButton: {
     alignItems: 'center',
     borderRadius: 25,
@@ -58,5 +58,11 @@ export const drawerStyles = StyleSheet.create({
   whiteColorBorder: {
     borderColor: '#E0E0E0',
     borderWidth: 1,
+  },
+});
+
+export const drawerFormatStyles = StyleSheet.create({
+  container: {
+    flex: 1,
   },
 });

@@ -5,10 +5,21 @@ import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
 import DrawerColors from './DrawerColors';
+import DrawerFormat from './DrawerFormat';
 import { styles } from './style';
 
+interface VisibleState {
+  drawerColors: boolean;
+  drawerFormat: boolean;
+}
+
+const DEFAULT_VISIBLE_STATE: VisibleState = {
+  drawerColors: false,
+  drawerFormat: false,
+};
+
 const ActionText = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<VisibleState>(DEFAULT_VISIBLE_STATE);
 
   const { selectedElement, updateElement } = useMemeEditor();
 
@@ -26,17 +37,30 @@ const ActionText = () => {
             icon={<Icon library='Ionicons' name='color-palette-outline' />}
             style={styles.action}
             textStyle={styles.actionText}
-            title='Warna'
+            title='Colors'
             variant='ghost'
-            onPress={() => setIsVisible(true)}
+            onPress={() => setIsVisible(prev => ({ ...prev, drawerColors: true }))}
+          />
+          <Button
+            icon={<Icon library='MaterialCommunityIcons' name='format-paint' />}
+            style={styles.action}
+            textStyle={styles.actionText}
+            title='Formats'
+            variant='ghost'
+            onPress={() => setIsVisible(prev => ({ ...prev, drawerFormat: true }))}
           />
         </ScrollView>
       </Footer>
 
       <DrawerColors
-        visible={isVisible}
-        onClose={() => setIsVisible(false)}
+        visible={isVisible.drawerColors}
+        onClose={() => setIsVisible(DEFAULT_VISIBLE_STATE)}
         onColorSelect={handleChangeColor}
+      />
+
+      <DrawerFormat
+        visible={isVisible.drawerFormat}
+        onClose={() => setIsVisible(DEFAULT_VISIBLE_STATE)}
       />
     </>
   );
