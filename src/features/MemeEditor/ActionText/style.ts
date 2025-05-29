@@ -1,4 +1,4 @@
-import { Colors } from '@/constants';
+import { BorderRadius, Colors, Spacing, Typography } from '@/constants';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -63,6 +63,28 @@ export const drawerColorStyles = StyleSheet.create({
 
 export const drawerFormatStyles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+  },
+  formatItem: {
+    alignItems: 'center',
+    borderColor: Colors.primaryLight,
+    borderRadius: BorderRadius.sm,
+    borderWidth: 0.8,
     flex: 1,
+    justifyContent: 'center',
+    marginBottom: Spacing.sm,
+    paddingVertical: Spacing.sm,
+  },
+  formatText: {
+    fontSize: Typography.fontSize.md,
+    fontWeight: Typography.fontWeight.normal,
+    padding: Spacing.sm,
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: Typography.fontSize.xl,
+    fontWeight: Typography.fontWeight.bold,
+    marginBottom: Spacing.md,
   },
 });
