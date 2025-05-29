@@ -31,6 +31,7 @@ const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
     fontStyle,
     textDecorationLineThrough,
     textTransform,
+    textAlign,
   } = selectedElement || {};
 
   const handleFormatPress = (updates: Partial<CanvasTextElement>) => {
@@ -92,18 +93,26 @@ const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
     {
       library: 'MaterialIcons',
       name: 'format-align-left',
+      onPress: () => handleFormatPress({ textAlign: 'left' }),
+      isActive: textAlign === 'left',
     },
     {
       library: 'MaterialIcons',
       name: 'format-align-center',
+      onPress: () => handleFormatPress({ textAlign: 'center' }),
+      isActive: textAlign === 'center',
     },
     {
       library: 'MaterialIcons',
       name: 'format-align-right',
+      onPress: () => handleFormatPress({ textAlign: 'right' }),
+      isActive: textAlign === 'right',
     },
     {
       library: 'MaterialIcons',
       name: 'format-align-justify',
+      onPress: () => handleFormatPress({ textAlign: 'justify' }),
+      isActive: textAlign === 'justify',
     },
   ];
 
@@ -140,21 +149,29 @@ const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
           </View>
 
           <View style={drawerFormatStyles.container}>
-            {fontAlignments.map((alignment, index) => (
-              <Button
-                key={index}
-                variant='ghost'
-                style={drawerFormatStyles.formatItem}
-                icon={
-                  <Icon
-                    library={alignment.library}
-                    name={alignment.name}
-                    size={ICON_SIZE}
-                    color={Colors.black}
-                  />
-                }
-              />
-            ))}
+            {fontAlignments.map((alignment, index) => {
+              const isActive = alignment.isActive || false;
+
+              return (
+                <Button
+                  key={index}
+                  onPress={alignment.onPress}
+                  variant='ghost'
+                  style={[
+                    drawerFormatStyles.formatItem,
+                    isActive && drawerFormatStyles.formatItemActive,
+                  ]}
+                  icon={
+                    <Icon
+                      library={alignment.library}
+                      name={alignment.name}
+                      size={ICON_SIZE}
+                      color={isActive ? Colors.white : Colors.black}
+                    />
+                  }
+                />
+              );
+            })}
           </View>
         </>
       )}

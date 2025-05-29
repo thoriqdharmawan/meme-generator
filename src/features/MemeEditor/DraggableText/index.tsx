@@ -137,6 +137,7 @@ const DraggableText: FC<Props> = props => {
       .filter(Boolean)
       .join(' ') || 'none') as TextStyle['textDecorationLine'],
     textTransform: element.textTransform,
+    textAlign: element.textAlign,
   };
 
   return (

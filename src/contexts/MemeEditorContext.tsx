@@ -40,6 +40,7 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
       fontWeight: 'normal',
       textDecorationUnderline: undefined,
       textDecorationLineThrough: undefined,
+      textAlign: 'center',
       ...element,
     };
     setElements(prev => [...prev, newElement]);

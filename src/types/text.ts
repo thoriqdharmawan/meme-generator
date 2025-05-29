@@ -13,6 +13,7 @@ export interface CanvasTextElement {
   textDecorationUnderline?: 'underline';
   textDecorationLineThrough?: 'line-through';
   textTransform?: 'uppercase';
+  textAlign?: TextStyle['textAlign'];
 }
 
 export type CanvasTextFields = keyof CanvasTextElement;
