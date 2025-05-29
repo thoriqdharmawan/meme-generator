@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
 import { CanvasTextElement } from '@/types/text';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { Pressable, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
@@ -14,13 +14,16 @@ interface Props {
   onDelete: () => void;
   onDuplicate: ({ x, y }: Pick<CanvasTextElement, 'x' | 'y'>) => void;
   isSelected?: boolean;
+  isEditing: boolean;
 
   selectedElement?: CanvasTextElement | null;
-  onSelectElement: (element: CanvasTextElement) => void;
+  onSelectElement: (element: CanvasTextElement | null) => void;
+  setIsEditing: (isEditing: boolean) => void;
 }
 
 const DraggableText: FC<Props> = props => {
-  const { element, onUpdate, onDelete, onDuplicate, onSelectElement } = props;
+  const { element, onUpdate, onDelete, onDuplicate, onSelectElement, isEditing, setIsEditing } =
+    props;
 
   const startX = useSharedValue(0);
   const startY = useSharedValue(0);
@@ -31,8 +34,6 @@ const DraggableText: FC<Props> = props => {
   const translateY = useSharedValue(element.y);
   const boxWidth = useSharedValue(element.width);
   const boxHeight = useSharedValue(element.height);
-
-  const [isEditing, setIsEditing] = useState(false);
 
   const isElementSelected = props.selectedElement?.id === element.id;
 
@@ -63,6 +64,10 @@ const DraggableText: FC<Props> = props => {
       startY.value = translateY.value;
     })
     .onUpdate(e => {
+      if (!isElementSelected) {
+        onSelectElement(null);
+      }
+
       translateX.value = startX.value + e.translationX;
       translateY.value = startY.value + e.translationY;
     })
