@@ -115,9 +115,9 @@ const EditableTextBox: FC<Props> = props => {
       <GestureDetector gesture={combinedGesture}>
         <Animated.View style={[getBoxStyle(), animatedStyle]}>
           {!isElementSelected && (
-            <TouchableOpacity onPress={handleSingleTap} style={styles.textContainer}>
+            <TouchableWithoutFeedback onPress={handleSingleTap} style={styles.textContainer}>
               <Text style={styles.textDisplay}>{element.text || 'Tap to edit'}</Text>
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
           )}
 
           {isElementSelected && isEditing && (
@@ -148,9 +148,9 @@ const EditableTextBox: FC<Props> = props => {
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity onPress={handleSingleTap} style={styles.textContainer}>
+              <TouchableWithoutFeedback onPress={handleSingleTap} style={styles.textContainer}>
                 <Text style={styles.textDisplay}>{element.text || 'Tap to edit'}</Text>
-              </TouchableOpacity>
+              </TouchableWithoutFeedback>
 
               <GestureDetector gesture={resizeGesture}>
                 <Animated.View style={styles.resizeHandle} />
