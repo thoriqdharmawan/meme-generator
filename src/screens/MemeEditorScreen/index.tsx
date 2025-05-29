@@ -1,6 +1,5 @@
 import { SafeAreaView, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Footer from '../../components/Footer';
 import MemeEditor from '../../features/MemeEditor';
 import { styles } from './style';
 
@@ -16,8 +15,6 @@ const MemeEditorScreen: React.FC = () => {
         <View style={styles.playground}>
           <MemeEditor />
         </View>
-
-        <Footer />
       </SafeAreaView>
     </GestureHandlerRootView>
   );
