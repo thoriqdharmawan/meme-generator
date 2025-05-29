@@ -1,16 +1,10 @@
 import { FC, useEffect, useState } from 'react';
-import {
-  Pressable,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { Pressable, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { Layout } from '../../constants';
 import { CanvasTextElement } from '../../types/text';
+import { Button } from '../ui';
 import { styles } from './style';
 
 interface Props {
@@ -142,17 +136,14 @@ const EditableTextBox: FC<Props> = props => {
           {isElementSelected && !isEditing && (
             <>
               <View style={styles.actions}>
-                <TouchableOpacity
+                <Button
+                  title='Duplicate'
+                  size='small'
                   onPress={() => {
                     onDuplicate({ x: translateX.value + 20, y: translateY.value + 20 });
                   }}
-                  style={styles.actionButton}
-                >
-                  <Text style={styles.actionText}>Duplicate</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onDelete} style={styles.actionButton}>
-                  <Text style={styles.actionText}>Delete</Text>
-                </TouchableOpacity>
+                />
+                <Button title='Delete' size='small' onPress={onDelete} />
               </View>
 
               <Pressable onPress={handleSingleTap} style={styles.textContainer}>

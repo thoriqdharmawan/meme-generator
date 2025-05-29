@@ -199,7 +199,7 @@ export const Layout = {
     resizeHandleSize: 24,
     resizeHandleWidth: 6,
     actionButtonHeight: 32,
-    actionBarOffset: 35,
+    actionBarOffset: 42,
   },
 };
 
