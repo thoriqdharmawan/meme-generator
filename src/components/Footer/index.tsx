@@ -1,21 +1,13 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Text } from 'react-native-gesture-handler';
+import { styles } from './style';
 
 const Footer = () => {
   return (
     <View style={styles.container}>
-      <Text style={{ color: '#333' }}>Footer Content</Text>
+      <Text>Footer Content</Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    height: 80,
-    justifyContent: 'center',
-  },
-});
 
 export default Footer;
