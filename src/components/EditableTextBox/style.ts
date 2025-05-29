@@ -1,0 +1,67 @@
+import { StyleSheet } from 'react-native';
+import { BorderRadius, Colors, Layout, Spacing, Typography } from '../../constants';
+
+export const styles = StyleSheet.create({
+  actionButton: {
+    backgroundColor: Colors.primary,
+    borderRadius: BorderRadius.sm,
+    marginHorizontal: Spacing.xs / 2,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    width: 'auto',
+  },
+  actionText: {
+    color: Colors.white,
+    fontSize: Typography.fontSize.sm,
+    fontWeight: Typography.fontWeight.semiBold,
+  },
+  actions: {
+    borderRadius: BorderRadius.md,
+    flexDirection: 'row',
+    height: Layout.textBox.actionButtonHeight,
+    padding: Spacing.xs,
+    position: 'absolute',
+    right: 0,
+    top: -Layout.textBox.actionBarOffset,
+  },
+  box: {
+    backgroundColor: Colors.transparent,
+    borderWidth: 1,
+    padding: Spacing.xs,
+    position: 'absolute',
+  },
+  editableBox: {
+    borderColor: Colors.blue,
+    borderWidth: 1,
+  },
+  idleBox: {
+    borderColor: Colors.transparent,
+    borderWidth: 0,
+  },
+  resizeHandle: {
+    backgroundColor: Colors.red,
+    borderRadius: BorderRadius.xs,
+    height: Layout.textBox.resizeHandleSize,
+    marginTop: -Layout.textBox.resizeHandleSize / 2 + 2,
+    position: 'absolute',
+    right: -Spacing.xs,
+    top: '50%',
+    width: Layout.textBox.resizeHandleWidth,
+  },
+  textContainer: {
+    justifyContent: 'center',
+    minHeight: 30,
+    padding: Spacing.xs,
+  },
+  textDisplay: {
+    color: Colors.textSecondary,
+    fontSize: Typography.fontSize.xxl,
+    fontWeight: Typography.fontWeight.bold,
+  },
+  textInput: {
+    fontSize: Typography.fontSize.xxl,
+    fontWeight: Typography.fontWeight.bold,
+    minHeight: 30,
+    padding: Spacing.xs,
+  },
+});
