@@ -23,7 +23,7 @@ const MemeEditor = () => {
 
       <TouchableWithoutFeedback onPress={handleCanvasPress}>
         <View style={styles.canvas}>
-          <Button title='Add Text' onPress={addElement} />
+          <Button title='Add Text' onPress={() => addElement()} />
           {elements.map(el => (
             <DraggableText
               key={el.id}
