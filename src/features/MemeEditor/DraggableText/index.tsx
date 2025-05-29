@@ -2,9 +2,10 @@ import { FC, useEffect, useState } from 'react';
 import { Pressable, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import { Colors, Layout } from '../../constants';
-import { CanvasTextElement } from '../../types/text';
-import { Button, Icon } from '../ui';
+import Button from '../../../components/button';
+import Icon from '../../../components/icon';
+import { Colors, Layout } from '../../../constants';
+import { CanvasTextElement } from '../../../types/text';
 import { styles } from './style';
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
   onSelectElement: (element: CanvasTextElement) => void;
 }
 
-const EditableTextBox: FC<Props> = props => {
+const DraggableText: FC<Props> = props => {
   const { element, onUpdate, onDelete, onDuplicate, onSelectElement } = props;
   const startX = useSharedValue(0);
   const startY = useSharedValue(0);
@@ -169,4 +170,4 @@ const EditableTextBox: FC<Props> = props => {
   );
 };
 
-export default EditableTextBox;
+export default DraggableText;

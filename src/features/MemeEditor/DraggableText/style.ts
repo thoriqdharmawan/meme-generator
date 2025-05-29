@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { BorderRadius, Colors, Layout, Spacing, Typography } from '../../constants';
+import { BorderRadius, Colors, Layout, Spacing, Typography } from '../../../constants';
 
 export const styles = StyleSheet.create({
   actionButton: {

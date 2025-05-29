@@ -7,7 +7,7 @@ import {
   TouchableOpacityProps,
   ViewStyle,
 } from 'react-native';
-import { BorderRadius, Colors, Shadows, Spacing, Typography } from '../../../constants/theme';
+import { BorderRadius, Colors, Shadows, Spacing, Typography } from '../../constants/theme';
 import { styles } from './style';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'style'> {

@@ -1,10 +1,10 @@
 import { SafeAreaView, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Footer from '../../components/Footer';
-import EditableTextView from '../EditableTextView';
+import MemeEditor from '../../features/MemeEditor';
 import { styles } from './style';
 
-const Canvas: React.FC = () => {
+const MemeEditorScreen: React.FC = () => {
   return (
     <GestureHandlerRootView>
       <SafeAreaView style={styles.container}>
@@ -14,8 +14,7 @@ const Canvas: React.FC = () => {
         </View>
 
         <View style={styles.playground}>
-          {/* <PannableView /> */}
-          <EditableTextView />
+          <MemeEditor />
         </View>
 
         <Footer />
@@ -24,4 +23,4 @@ const Canvas: React.FC = () => {
   );
 };
 
-export default Canvas;
+export default MemeEditorScreen;

@@ -9,7 +9,7 @@ function clamp(val: number, min: number, max: number): number {
 
 const { width, height } = Dimensions.get('screen');
 
-const PannableView: React.FC = () => {
+const CanvasContainer: React.FC = () => {
   const translationX = useSharedValue(0);
   const translationY = useSharedValue(0);
   const prevTranslationX = useSharedValue(0);
@@ -69,4 +69,4 @@ const PannableView: React.FC = () => {
   );
 };
 
-export default PannableView;
+export default CanvasContainer;

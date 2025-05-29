@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { Button, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import EditableTextBox from '../../components/EditableTextBox';
+import { TouchableWithoutFeedback, View } from 'react-native';
+import Button from '../../components/button';
 import { CanvasTextElement } from '../../types/text';
+import CanvasContainer from './CanvasContainer';
+import DraggableText from './DraggableText';
+import { styles } from './style';
 
-const EditableTextView = () => {
+const MemeEditor = () => {
   const [elements, setElements] = useState<CanvasTextElement[]>([]);
   const [selectedElement, setSelectedElement] = useState<CanvasTextElement | null>(null);
 
@@ -50,32 +53,28 @@ const EditableTextView = () => {
   const handleCanvasPress = () => {
     setSelectedElement(null);
   };
-
   return (
-    <TouchableWithoutFeedback onPress={handleCanvasPress}>
-      <View style={styles.canvas}>
-        <Button title='Add Text' onPress={addElement} />
-        {elements.map(el => (
-          <EditableTextBox
-            key={el.id}
-            element={el}
-            onUpdate={updates => updateElement(el.id, updates)}
-            onDelete={() => deleteElement(el.id)}
-            onDuplicate={position => duplicateElement(el.id, position)}
-            selectedElement={selectedElement}
-            onSelectElement={handleSelectElement}
-          />
-        ))}
-      </View>
-    </TouchableWithoutFeedback>
+    <>
+      <CanvasContainer />
+
+      <TouchableWithoutFeedback onPress={handleCanvasPress}>
+        <View style={styles.canvas}>
+          <Button title='Add Text' onPress={addElement} />
+          {elements.map(el => (
+            <DraggableText
+              key={el.id}
+              element={el}
+              onUpdate={updates => updateElement(el.id, updates)}
+              onDelete={() => deleteElement(el.id)}
+              onDuplicate={position => duplicateElement(el.id, position)}
+              selectedElement={selectedElement}
+              onSelectElement={handleSelectElement}
+            />
+          ))}
+        </View>
+      </TouchableWithoutFeedback>
+    </>
   );
 };
 
-const styles = StyleSheet.create({
-  canvas: {
-    backgroundColor: '#f5f5f5',
-    flex: 1,
-  },
-});
-
-export default EditableTextView;
+export default MemeEditor;
