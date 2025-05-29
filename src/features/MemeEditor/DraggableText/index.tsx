@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { Pressable, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import Button from '../../../components/button';
+import Button from '../../../components/Button';
 import Icon from '../../../components/icon';
 import { Colors, Layout } from '../../../constants';
 import { CanvasTextElement } from '../../../types/text';

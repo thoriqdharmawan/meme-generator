@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
-import Button from '../../components/button';
+import Button from '../../components/Button';
 import { CanvasTextElement } from '../../types/text';
 import CanvasContainer from './CanvasContainer';
 import DraggableText from './DraggableText';
