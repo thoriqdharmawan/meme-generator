@@ -1,3 +1,4 @@
+import { BorderRadius, Colors, Shadows, Spacing, Typography } from '@/constants';
 import { ReactNode } from 'react';
 import {
   ActivityIndicator,
@@ -7,7 +8,6 @@ import {
   TouchableOpacityProps,
   ViewStyle,
 } from 'react-native';
-import { BorderRadius, Colors, Shadows, Spacing, Typography } from '../../constants/theme';
 import { styles } from './style';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'style'> {

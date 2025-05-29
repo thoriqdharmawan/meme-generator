@@ -1,5 +1,5 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
-import { CanvasTextElement } from '../types/text';
+import { CanvasTextElement } from '@/types/text';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 interface MemeEditorContextType {
   elements: CanvasTextElement[];

@@ -5,11 +5,10 @@
  * @format
  */
 
-import React from 'react';
+import { MemeEditorProvider } from '@/contexts/MemeEditorContext';
+import MemeEditorScreen from '@/screens/MemeEditorScreen';
 import { StatusBar, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { MemeEditorProvider } from './src/contexts/MemeEditorContext';
-import MemeEditorScreen from './src/screens/MemeEditorScreen';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';

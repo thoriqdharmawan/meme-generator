@@ -1,11 +1,11 @@
+import Button from '@/components/Button';
+import Icon from '@/components/Icon';
+import { Colors, Layout } from '@/constants';
+import { CanvasTextElement } from '@/types/text';
 import { FC, useEffect, useState } from 'react';
 import { Pressable, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import Button from '../../../components/Button';
-import Icon from '../../../components/Icon';
-import { Colors, Layout } from '../../../constants';
-import { CanvasTextElement } from '../../../types/text';
 import { styles } from './style';
 
 interface Props {
@@ -41,7 +41,7 @@ const DraggableText: FC<Props> = props => {
     translateY.value = element.y;
     boxWidth.value = element.width;
     boxHeight.value = element.height;
-  }, [element]);
+  }, [element, boxHeight, boxWidth, translateX, translateY]);
 
   useEffect(() => {
     if (!isElementSelected) {
@@ -134,7 +134,6 @@ const DraggableText: FC<Props> = props => {
               value={element.text}
               onChangeText={text => onUpdate({ text })}
               autoFocus
-              // selectTextOnFocus
               autoComplete='off'
             />
           )}

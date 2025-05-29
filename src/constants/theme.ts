@@ -160,6 +160,7 @@ export const Layout = {
   // Screen dimensions helpers
   screenPadding: Spacing.md,
   headerHeight: 44,
+  footerHeight: 80,
   tabBarHeight: 49,
 
   // Common dimensions

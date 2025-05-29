@@ -1,6 +1,6 @@
+import Button from '@/components/Button';
+import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { TouchableWithoutFeedback, View } from 'react-native';
-import Button from '../../components/Button';
-import { useMemeEditor } from '../../contexts/MemeEditorContext';
 import ActionInitial from './ActionInitial';
 import DraggableText from './DraggableText';
 import { styles } from './style';

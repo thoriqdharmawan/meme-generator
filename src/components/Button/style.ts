@@ -1,5 +1,5 @@
+import { Spacing } from '@/constants';
 import { StyleSheet } from 'react-native';
-import { Spacing } from '../../constants';
 
 export const styles = StyleSheet.create({
   loader: {

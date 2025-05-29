@@ -1,6 +1,6 @@
+import MemeEditor from '@/features/MemeEditor';
 import { SafeAreaView, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import MemeEditor from '../../features/MemeEditor';
 import { styles } from './style';
 
 const MemeEditorScreen: React.FC = () => {
