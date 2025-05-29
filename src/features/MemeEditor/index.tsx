@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import Button from '../../components/Button';
 import { CanvasTextElement } from '../../types/text';
-import CanvasContainer from './CanvasContainer';
 import DraggableText from './DraggableText';
 import { styles } from './style';
 
@@ -55,7 +54,7 @@ const MemeEditor = () => {
   };
   return (
     <>
-      <CanvasContainer />
+      {/* <CanvasContainer /> */}
 
       <TouchableWithoutFeedback onPress={handleCanvasPress}>
         <View style={styles.canvas}>
