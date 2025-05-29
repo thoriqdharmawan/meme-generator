@@ -1,24 +1,31 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import PannableView from '../../components/PannableView';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Footer from '../../components/Footer';
+import EditableTextView from '../EditableTextView';
 
 const PannableViewExample: React.FC = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Pannable View Example</Text>
-        <Text style={styles.subtitle}>Drag the colored boxes around the screen</Text>
-      </View>
+    <GestureHandlerRootView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Pannable View Example</Text>
+          <Text style={styles.subtitle}>Drag the colored boxes around the screen</Text>
+        </View>
 
-      <View style={styles.playground}>
-        <PannableView />
-      </View>
-    </SafeAreaView>
+        <View style={styles.playground}>
+          {/* <PannableView /> */}
+          <EditableTextView />
+        </View>
+
+        <Footer />
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     flex: 1,
   },
   header: {
@@ -26,6 +33,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   playground: {
+    backgroundColor: '#f0f0f0',
     flex: 1,
     position: 'relative',
   },

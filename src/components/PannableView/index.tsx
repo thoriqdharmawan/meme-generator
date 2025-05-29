@@ -14,9 +14,8 @@ const PannableView: React.FC = () => {
   const prevTranslationX = useSharedValue(0);
   const prevTranslationY = useSharedValue(0);
 
-  const animatedStyles = useAnimatedStyle(() => ({
-    transform: [{ translateX: translationX.value }, { translateY: translationY.value }],
-  }));
+  const scale = useSharedValue(1);
+  const startScale = useSharedValue(1);
 
   const pan = Gesture.Pan()
     .minDistance(1)
@@ -41,10 +40,29 @@ const PannableView: React.FC = () => {
     })
     .runOnJS(true);
 
+  const pinch = Gesture.Pinch()
+    .onStart(() => {
+      startScale.value = scale.value;
+    })
+    .onUpdate(event => {
+      scale.value = clamp(startScale.value * event.scale, 0.5, Math.min(width / 100, height / 100));
+    })
+    .runOnJS(true);
+
+  const boxAnimatedStyles = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: translationX.value },
+      { translateY: translationY.value },
+      { scale: scale.value },
+    ],
+  }));
+
+  const combinedGesture = Gesture.Simultaneous(pan, pinch);
+
   return (
     <GestureHandlerRootView style={styles.container}>
-      <GestureDetector gesture={pan}>
-        <Animated.View style={[animatedStyles, styles.box]} />
+      <GestureDetector gesture={combinedGesture}>
+        <Animated.View style={[boxAnimatedStyles, styles.box]} />
       </GestureDetector>
     </GestureHandlerRootView>
   );
@@ -53,12 +71,12 @@ const PannableView: React.FC = () => {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: '#b58df1',
-    borderRadius: 20,
     height: 100,
     width: 100,
   },
   container: {
     alignItems: 'center',
+    backgroundColor: 'gray',
     flex: 1,
     justifyContent: 'center',
   },
