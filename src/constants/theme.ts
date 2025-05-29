@@ -186,6 +186,42 @@ export const Layout = {
   },
 };
 
+export const TextColors = {
+  black: '#000000',
+  white: '#FFFFFF',
+  red: '#FF3B30',
+  blue: '#007AFF',
+  green: '#34C759',
+  yellow: '#FFCC00',
+  orange: '#FF9500',
+  purple: '#AF52DE',
+  pink: '#FF2D92',
+  cyan: '#32D74B',
+  memePink: '#FF69B4',
+  neonBlue: '#00FFFF',
+  hotPink: '#FF1493',
+  limeGreen: '#32CD32',
+  gold: '#FFD700',
+};
+
+export const DefaultTextColorOptions = [
+  { color: TextColors.black, name: 'Black', isDefault: true },
+  { color: TextColors.white, name: 'White' },
+  { color: TextColors.red, name: 'Red' },
+  { color: TextColors.blue, name: 'Blue' },
+  { color: TextColors.green, name: 'Green' },
+  { color: TextColors.yellow, name: 'Yellow' },
+  { color: TextColors.orange, name: 'Orange' },
+  { color: TextColors.purple, name: 'Purple' },
+  { color: TextColors.pink, name: 'Pink' },
+  { color: TextColors.cyan, name: 'Cyan' },
+  { color: TextColors.memePink, name: 'Meme Pink' },
+  { color: TextColors.neonBlue, name: 'Neon Blue' },
+  { color: TextColors.hotPink, name: 'Hot Pink' },
+  { color: TextColors.limeGreen, name: 'Lime Green' },
+  { color: TextColors.gold, name: 'Gold' },
+];
+
 export const Animations = {
   duration: {
     fast: 150,
@@ -202,6 +238,8 @@ export const Animations = {
 
 export const Theme = {
   colors: Colors,
+  textColors: TextColors,
+  defaultTextColorOptions: DefaultTextColorOptions,
   spacing: Spacing,
   typography: Typography,
   borderRadius: BorderRadius,

@@ -1,3 +1,4 @@
+import { Colors } from '@/constants';
 import { CanvasTextElement } from '@/types/text';
 import { createContext, ReactNode, useContext, useState } from 'react';
 
@@ -35,6 +36,7 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
       y: 50,
       width: 150,
       height: 'auto',
+      color: Colors.black,
       ...element,
     };
     setElements(prev => [...prev, newElement]);

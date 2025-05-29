@@ -122,20 +122,24 @@ const DraggableText: FC<Props> = props => {
 
   const combinedGesture = Gesture.Simultaneous(dragGesture, tapGesture);
 
+  const customSyle = {
+    color: element.color || Colors.black,
+  };
+
   return (
     <TouchableWithoutFeedback>
       <GestureDetector gesture={combinedGesture}>
         <Animated.View style={[getBoxStyle(), animatedStyle]}>
           {!isElementSelected && (
             <Pressable onPress={handleSingleTap} style={styles.textContainer}>
-              <Text style={styles.textDisplay}>{element.text || 'Tap to edit'}</Text>
+              <Text style={[styles.textDisplay, customSyle]}>{element.text || 'Tap to edit'}</Text>
             </Pressable>
           )}
 
           {isElementSelected && isEditing && (
             <TextInput
               multiline
-              style={styles.textInput}
+              style={[styles.textInput, customSyle]}
               value={element.text}
               onChangeText={text => onUpdate({ text })}
               autoFocus
@@ -161,7 +165,9 @@ const DraggableText: FC<Props> = props => {
               </View>
 
               <Pressable onPress={handleSingleTap} style={styles.textContainer}>
-                <Text style={styles.textDisplay}>{element.text || 'Tap to edit'}</Text>
+                <Text style={[styles.textDisplay, customSyle]}>
+                  {element.text || 'Tap to edit'}
+                </Text>
               </Pressable>
 
               <GestureDetector gesture={resizeGesture}>

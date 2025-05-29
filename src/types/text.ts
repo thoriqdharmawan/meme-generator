@@ -5,4 +5,5 @@ export interface CanvasTextElement {
   y: number;
   width: number;
   height: number | string;
+  color: string;
 }
