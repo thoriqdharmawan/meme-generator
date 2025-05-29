@@ -1,5 +1,12 @@
 import { FC, useEffect, useState } from 'react';
-import { Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  Pressable,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { Layout } from '../../constants';
@@ -115,9 +122,9 @@ const EditableTextBox: FC<Props> = props => {
       <GestureDetector gesture={combinedGesture}>
         <Animated.View style={[getBoxStyle(), animatedStyle]}>
           {!isElementSelected && (
-            <TouchableWithoutFeedback onPress={handleSingleTap} style={styles.textContainer}>
+            <Pressable onPress={handleSingleTap} style={styles.textContainer}>
               <Text style={styles.textDisplay}>{element.text || 'Tap to edit'}</Text>
-            </TouchableWithoutFeedback>
+            </Pressable>
           )}
 
           {isElementSelected && isEditing && (
@@ -148,9 +155,9 @@ const EditableTextBox: FC<Props> = props => {
                 </TouchableOpacity>
               </View>
 
-              <TouchableWithoutFeedback onPress={handleSingleTap} style={styles.textContainer}>
+              <Pressable onPress={handleSingleTap} style={styles.textContainer}>
                 <Text style={styles.textDisplay}>{element.text || 'Tap to edit'}</Text>
-              </TouchableWithoutFeedback>
+              </Pressable>
 
               <GestureDetector gesture={resizeGesture}>
                 <Animated.View style={styles.resizeHandle} />
