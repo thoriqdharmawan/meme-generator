@@ -1,13 +1,13 @@
+import { FC, ReactNode } from 'react';
 import { View } from 'react-native';
-import { Text } from 'react-native-gesture-handler';
 import { styles } from './style';
 
-const Footer = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Footer Content</Text>
-    </View>
-  );
+interface FooterProps {
+  children?: ReactNode;
+}
+
+const Footer: FC<FooterProps> = ({ children }) => {
+  return <View style={styles.container}>{children}</View>;
 };
 
 export default Footer;

@@ -1,4 +1,4 @@
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import { useMemeEditor } from '../../contexts/MemeEditorContext';
@@ -38,7 +38,9 @@ const MemeEditor = () => {
         </View>
       </TouchableWithoutFeedback>
 
-      <Footer />
+      <Footer>
+        <Text>Text footer</Text>
+      </Footer>
     </>
   );
 };
