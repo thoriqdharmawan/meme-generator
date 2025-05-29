@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -10,7 +11,8 @@ import {
 import { BorderRadius, Colors, Shadows, Spacing, Typography } from '../../../constants/theme';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'style'> {
-  title: string;
+  title?: string;
+  icon?: ReactNode;
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
   size?: 'small' | 'medium' | 'large';
   loading?: boolean;
@@ -22,6 +24,7 @@ export interface ButtonProps extends Omit<TouchableOpacityProps, 'style'> {
 
 export const Button: React.FC<ButtonProps> = ({
   title,
+  icon,
   variant = 'primary',
   size = 'medium',
   loading = false,
@@ -45,7 +48,7 @@ export const Button: React.FC<ButtonProps> = ({
     const sizeStyles: Record<string, ViewStyle> = {
       small: {
         paddingVertical: Spacing.xs,
-        paddingHorizontal: Spacing.md,
+        paddingHorizontal: Spacing.sm,
         minHeight: 32,
       },
       medium: {
@@ -151,7 +154,10 @@ export const Button: React.FC<ButtonProps> = ({
           style={styles.loader}
         />
       )}
-      <Text style={[getTextStyle(), textStyle]}>{title}</Text>
+      {icon && <>{icon}</>}
+      {title && (
+        <Text style={[getTextStyle(), textStyle, icon ? styles.textWithIcon : null]}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };
@@ -159,6 +165,9 @@ export const Button: React.FC<ButtonProps> = ({
 const styles = StyleSheet.create({
   loader: {
     marginRight: Spacing.xs,
+  },
+  textWithIcon: {
+    marginLeft: Spacing.xs,
   },
 });
 

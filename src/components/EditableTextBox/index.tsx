@@ -2,7 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import { Pressable, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import { Layout } from '../../constants';
+import Icon from 'react-native-vector-icons/Feather';
+import { Colors, Layout } from '../../constants';
 import { CanvasTextElement } from '../../types/text';
 import { Button } from '../ui';
 import { styles } from './style';
@@ -140,8 +141,18 @@ const EditableTextBox: FC<Props> = props => {
           {isElementSelected && !isEditing && (
             <>
               <View style={styles.actions}>
-                <Button title='Duplicate' size='small' onPress={handleDuplocate} />
-                <Button title='Delete' size='small' onPress={onDelete} />
+                <Button
+                  icon={<Icon name='copy' size={16} color={Colors.primary} />}
+                  size='small'
+                  variant='ghost'
+                  onPress={handleDuplocate}
+                />
+                <Button
+                  icon={<Icon name='trash' size={16} color={Colors.error} />}
+                  size='small'
+                  variant='ghost'
+                  onPress={onDelete}
+                />
               </View>
 
               <Pressable onPress={handleSingleTap} style={styles.textContainer}>

@@ -8,3 +8,9 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+
+# react-native-vector-icons
+-keep class com.oblador.vectoricons.** { *; }
+
+# Keep font files
+-keep class **.R$font { *; }

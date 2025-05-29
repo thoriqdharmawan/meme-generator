@@ -18,7 +18,6 @@ export const styles = StyleSheet.create({
   actions: {
     borderRadius: BorderRadius.md,
     flexDirection: 'row',
-    gap: Spacing.sm,
     height: Layout.textBox.actionButtonHeight,
     padding: Spacing.xs,
     position: 'absolute',
