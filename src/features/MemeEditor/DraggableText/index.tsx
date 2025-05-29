@@ -3,7 +3,14 @@ import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
 import { CanvasTextElement } from '@/types/text';
 import { FC, useEffect } from 'react';
-import { Pressable, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  Pressable,
+  Text,
+  TextInput,
+  TextStyle,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { styles } from './style';
@@ -122,8 +129,14 @@ const DraggableText: FC<Props> = props => {
 
   const combinedGesture = Gesture.Simultaneous(dragGesture, tapGesture);
 
-  const customSyle = {
+  const customSyle: TextStyle = {
     color: element.color || Colors.black,
+    fontWeight: element.fontWeight,
+    fontStyle: element.fontStyle,
+    textDecorationLine: ([element.textDecorationUnderline, element.textDecorationLineThrough]
+      .filter(Boolean)
+      .join(' ') || 'none') as TextStyle['textDecorationLine'],
+    textTransform: element.textTransform,
   };
 
   return (

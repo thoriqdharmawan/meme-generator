@@ -37,13 +37,22 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
       width: 150,
       height: 'auto',
       color: Colors.black,
+      fontWeight: 'normal',
+      textDecorationUnderline: undefined,
+      textDecorationLineThrough: undefined,
       ...element,
     };
     setElements(prev => [...prev, newElement]);
   };
 
   const updateElement = (id: string, updates: Partial<CanvasTextElement>) => {
-    setElements(prev => prev.map(el => (el.id === id ? { ...el, ...updates } : el)));
+    setElements(prev => {
+      return prev.map(el => {
+        setSelectedElement({ ...el, ...updates });
+
+        return el.id === id ? { ...el, ...updates } : el;
+      });
+    });
   };
 
   const deleteElement = (id: string) => {

@@ -68,13 +68,17 @@ export const drawerFormatStyles = StyleSheet.create({
   },
   formatItem: {
     alignItems: 'center',
-    borderColor: Colors.primaryLight,
+    borderColor: Colors.border,
     borderRadius: BorderRadius.sm,
     borderWidth: 0.8,
     flex: 1,
     justifyContent: 'center',
     marginBottom: Spacing.sm,
     paddingVertical: Spacing.sm,
+  },
+  formatItemActive: {
+    backgroundColor: Colors.secondaryLight,
+    borderColor: Colors.secondaryLight,
   },
   formatText: {
     fontSize: Typography.fontSize.md,

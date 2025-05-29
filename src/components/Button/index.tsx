@@ -2,6 +2,7 @@ import { BorderRadius, Colors, Shadows, Spacing, Typography } from '@/constants'
 import { ReactNode } from 'react';
 import {
   ActivityIndicator,
+  StyleProp,
   Text,
   TextStyle,
   TouchableOpacity,
@@ -17,7 +18,7 @@ export interface ButtonProps extends Omit<TouchableOpacityProps, 'style'> {
   size?: 'small' | 'medium' | 'large';
   loading?: boolean;
   disabled?: boolean;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle> | undefined;
   textStyle?: TextStyle;
   fullWidth?: boolean;
 }
