@@ -1,6 +1,7 @@
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
+import { Opacity, Spacing, zIndex } from '@/constants/theme';
 import { CanvasTextElement } from '@/types/editor';
 import { FC, useEffect, useState } from 'react';
 import {
@@ -16,17 +17,7 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { styles } from './style';
 
-// Snap configuration
 const SNAP_THRESHOLD = 15; // Distance in pixels to trigger snap
-// const SNAP_ZONES = {
-//   CENTER_X: 'centerX',
-//   CENTER_Y: 'centerY',
-//   LEFT_EDGE: 'leftEdge',
-//   RIGHT_EDGE: 'rightEdge',
-//   TOP_EDGE: 'topEdge',
-//   BOTTOM_EDGE: 'bottomEdge',
-// } as const;
-
 interface Props {
   element: CanvasTextElement;
   onUpdate: (updates: Partial<CanvasTextElement>) => void;
@@ -236,31 +227,25 @@ const DraggableText: FC<Props> = props => {
   }));
 
   const snapGuideXStyle = useAnimatedStyle(() => ({
-    opacity: showSnapGuideX.value ? 0.8 : 0,
+    opacity: showSnapGuideX.value ? Opacity.high : Opacity.none,
     position: 'absolute',
     left: snapLineX.value - 0.5,
     top: 0,
-    width: 1,
+    width: Spacing.tiny,
     height: canvasHeight,
-    backgroundColor: '#FF006E',
-    zIndex: 1000,
-    shadowColor: '#FF006E',
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
+    backgroundColor: Colors.snapColor,
+    zIndex: zIndex.modal,
   }));
 
   const snapGuideYStyle = useAnimatedStyle(() => ({
-    opacity: showSnapGuideY.value ? 0.8 : 0,
+    opacity: showSnapGuideY.value ? Opacity.high : Opacity.none,
     position: 'absolute',
     left: 0,
     top: snapLineY.value - 0.5,
     width: canvasWidth,
-    height: 1,
-    backgroundColor: '#FF006E',
-    zIndex: 1000,
-    shadowColor: '#FF006E',
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
+    height: Spacing.tiny,
+    backgroundColor: Colors.snapColor,
+    zIndex: zIndex.modal,
   }));
 
   const getBoxStyle = () => {
@@ -272,7 +257,7 @@ const DraggableText: FC<Props> = props => {
   };
 
   const handleDuplocate = () => {
-    onDuplicate({ x: translateX.value + 20, y: translateY.value + 20 });
+    onDuplicate({ x: translateX.value + Spacing.lg, y: translateY.value + Spacing.lg });
   };
 
   const combinedGesture = Gesture.Simultaneous(dragGesture, tapGesture);

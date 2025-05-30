@@ -44,10 +44,13 @@ export const Colors = {
   red: '#FF3B30',
   redLight: '#FF6961',
   redDark: '#CC2F26',
+
+  snapColor: '#FF006E',
 };
 
 export const Spacing = {
   none: 0,
+  tiny: 1,
   xs: 4,
   sm: 8,
   md: 16,
@@ -239,6 +242,26 @@ export const Animations = {
   },
 };
 
+export const Opacity = {
+  none: 0,
+  low: 0.1,
+  medium: 0.5,
+  high: 0.8,
+  full: 1,
+};
+
+export const zIndex = {
+  modal: 1000,
+  dropdown: 900,
+  tooltip: 800,
+  overlay: 700,
+  header: 600,
+  footer: 500,
+  content: 400,
+  default: 300,
+  background: 200,
+};
+
 export const Theme = {
   colors: Colors,
   textColors: TextColors,
@@ -249,6 +272,7 @@ export const Theme = {
   shadows: Shadows,
   layout: Layout,
   animations: Animations,
+  opacity: Opacity,
 };
 
 export default Theme;
