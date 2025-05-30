@@ -2,10 +2,11 @@ import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { screenHeight, screenWidth } from '@/utils';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import DrawerAddCanvas from './DrawerAddCanvas';
 import { styles } from './style';
 
 function clamp(val: number, min: number, max: number): number {
@@ -18,6 +19,8 @@ interface CanvasContainerProps {
 
 const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
   const { hasCanvas, selectedCanvas } = useMemeEditor();
+
+  const [drawerCanvas, setDrawerCanvas] = useState(false);
 
   const translationX = useSharedValue(0);
   const translationY = useSharedValue(0);
@@ -74,28 +77,33 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
   const combinedGesture = Gesture.Simultaneous(pan, pinch);
 
   return (
-    <View style={styles.container}>
-      {!hasCanvas && (
-        <Button
-          title='Add Canvas'
-          variant='ghost'
-          textStyle={styles.addCanvasLabel}
-          icon={<Icon library='MaterialIcons' name='add' />}
-        />
-      )}
+    <>
+      <View style={styles.container}>
+        {!hasCanvas && (
+          <Button
+            title='Add Canvas'
+            variant='ghost'
+            textStyle={styles.addCanvasLabel}
+            icon={<Icon library='MaterialIcons' name='add' />}
+            onPress={() => setDrawerCanvas(true)}
+          />
+        )}
 
-      {hasCanvas && (
-        <View>
-          {selectedCanvas && (
-            <GestureDetector gesture={combinedGesture}>
-              <Animated.View style={[boxAnimatedStyles, styles.box]}>{children}</Animated.View>
-            </GestureDetector>
-          )}
+        {hasCanvas && (
+          <View>
+            {selectedCanvas && (
+              <GestureDetector gesture={combinedGesture}>
+                <Animated.View style={[boxAnimatedStyles, styles.box]}>{children}</Animated.View>
+              </GestureDetector>
+            )}
 
-          {!selectedCanvas && <View style={styles.box}>{children}</View>}
-        </View>
-      )}
-    </View>
+            {!selectedCanvas && <View style={styles.box}>{children}</View>}
+          </View>
+        )}
+      </View>
+
+      <DrawerAddCanvas visible={drawerCanvas} onClose={() => setDrawerCanvas(false)} />
+    </>
   );
 };
 

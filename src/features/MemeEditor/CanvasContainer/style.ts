@@ -30,3 +30,30 @@ export const styles = StyleSheet.create({
     position: 'relative',
   },
 });
+
+export const canvasDrawerStyles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: Spacing.md,
+    paddingHorizontal: Spacing.padding.sm,
+  },
+});
+
+export const canvasItemStyles = StyleSheet.create({
+  canvasItemContainer: {
+    backgroundColor: Colors.white,
+    borderRadius: 4,
+    justifyContent: 'center',
+    ...Shadows.lg,
+  },
+  canvasItemLabel: {
+    fontSize: Typography.fontSize.md,
+    textAlign: 'center',
+  },
+  container: {
+    gap: Spacing.sm,
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+});
