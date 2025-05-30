@@ -20,7 +20,7 @@ interface FormatItem {
   isActive?: boolean;
 }
 
-const ICON_SIZE = Typography.fontSize.xl;
+const ICON_SIZE = Typography.fontSize.lg;
 
 const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
   const { selectedElement, updateElement } = useMemeEditor();
@@ -129,6 +129,7 @@ const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
                   key={index}
                   onPress={style.onPress}
                   variant='ghost'
+                  size='small'
                   style={[
                     drawerFormatStyles.formatItem,
                     isActive && drawerFormatStyles.formatItemActive,
@@ -155,6 +156,7 @@ const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
                   key={index}
                   onPress={alignment.onPress}
                   variant='ghost'
+                  size='small'
                   style={[
                     drawerFormatStyles.formatItem,
                     isActive && drawerFormatStyles.formatItemActive,
