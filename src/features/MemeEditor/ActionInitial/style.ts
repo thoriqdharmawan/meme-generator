@@ -1,4 +1,4 @@
-import { Colors } from '@/constants';
+import { Colors, Spacing } from '@/constants';
 import { StyleSheet } from 'react-native';
 
 export const style = StyleSheet.create({
@@ -13,5 +13,11 @@ export const style = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
+  },
+});
+
+export const styleDrawer = StyleSheet.create({
+  wrapper: {
+    gap: Spacing.md,
   },
 });
