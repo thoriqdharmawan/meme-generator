@@ -1,4 +1,4 @@
-import { BorderRadius, Colors, Shadows } from '@/constants';
+import { BorderRadius, Colors, Shadows, Spacing } from '@/constants';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -25,10 +25,14 @@ export const styles = StyleSheet.create({
   handle: {
     alignSelf: 'center',
     backgroundColor: Colors.gray,
-    borderRadius: 2,
-    height: 4,
-    marginTop: 8,
-    width: 40,
+    borderRadius: BorderRadius.xs,
+    height: Spacing.xs,
+    width: Spacing.xxl,
+  },
+  handleContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: Spacing.padding.md,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

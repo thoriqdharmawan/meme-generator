@@ -48,7 +48,7 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
     closeDrawer();
   };
 
-  const panGesture = Gesture.Pan()
+  const handlePanGesture = Gesture.Pan()
     .onUpdate(event => {
       if (event.translationY > 0) {
         translateY.value = event.translationY;
@@ -102,20 +102,23 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
         <Animated.View style={[styles.overlay, overlayAnimatedStyle]} />
       </GestureDetector>
 
-      <GestureDetector gesture={panGesture}>
-        <Animated.View
-          style={[
-            styles.drawer,
-            {
-              height,
-            },
-            drawerAnimatedStyle,
-          ]}
-        >
-          <View style={styles.handle} />
-          <View style={styles.content}>{children}</View>
-        </Animated.View>
-      </GestureDetector>
+      <Animated.View
+        style={[
+          styles.drawer,
+          {
+            height,
+          },
+          drawerAnimatedStyle,
+        ]}
+      >
+        <GestureDetector gesture={handlePanGesture}>
+          <View style={styles.handleContainer}>
+            <View style={styles.handle} />
+          </View>
+        </GestureDetector>
+
+        <View style={styles.content}>{children}</View>
+      </Animated.View>
     </View>
   );
 };
