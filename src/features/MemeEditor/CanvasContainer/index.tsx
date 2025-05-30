@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { deviceHeight, deviceWidth } from '@/utils';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { styles } from './style';
@@ -6,8 +6,6 @@ import { styles } from './style';
 function clamp(val: number, min: number, max: number): number {
   return Math.min(Math.max(val, min), max);
 }
-
-const { width, height } = Dimensions.get('screen');
 
 const CanvasContainer: React.FC = () => {
   const translationX = useSharedValue(0);
@@ -25,8 +23,8 @@ const CanvasContainer: React.FC = () => {
       prevTranslationY.value = translationY.value;
     })
     .onUpdate(event => {
-      const maxTranslateX = width / 2 - 50;
-      const maxTranslateY = height / 2 - 50;
+      const maxTranslateX = deviceWidth / 2 - 50;
+      const maxTranslateY = deviceHeight / 2 - 50;
 
       translationX.value = clamp(
         prevTranslationX.value + event.translationX,
@@ -46,7 +44,11 @@ const CanvasContainer: React.FC = () => {
       startScale.value = scale.value;
     })
     .onUpdate(event => {
-      scale.value = clamp(startScale.value * event.scale, 0.5, Math.min(width / 100, height / 100));
+      scale.value = clamp(
+        startScale.value * event.scale,
+        0.5,
+        Math.min(deviceWidth / 100, deviceHeight / 100)
+      );
     })
     .runOnJS(true);
 

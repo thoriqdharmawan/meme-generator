@@ -1,8 +1,8 @@
 import { BorderRadius, Colors, Shadows } from '@/constants';
+import { deviceHeight } from '@/utils';
 import React, { ReactNode, useRef } from 'react';
 import {
   Animated,
-  Dimensions,
   Modal,
   PanResponder,
   StyleSheet,
@@ -17,13 +17,11 @@ interface BottomDrawerProps {
   height?: number;
 }
 
-const { height: screenHeight } = Dimensions.get('window');
-
 const BottomDrawer: React.FC<BottomDrawerProps> = ({
   visible,
   onClose,
   children,
-  height = screenHeight * 0.5,
+  height = deviceHeight * 0.5,
 }) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
   const overlayOpacity = useRef(new Animated.Value(0)).current;
