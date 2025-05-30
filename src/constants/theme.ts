@@ -180,7 +180,7 @@ export const Layout = {
     defaultWidth: 200,
     defaultHeight: 50,
     resizeHandleSize: 24,
-    resizeHandleWidth: 6,
+    resizeHandleWidth: Spacing.sm,
     actionButtonHeight: 32,
     actionBarOffset: 42,
   },
