@@ -28,18 +28,14 @@ const DrawerText: FC<DrawerTextProps> = ({ visible, onClose }) => {
             <Button
               onPress={() => handleAddElement('Add Heading')}
               title='Add Heading'
-              variant='outline'
+              variant='ghost'
             />
             <Button
               onPress={() => handleAddElement('Add Subheading')}
               title='Add Subheading'
-              variant='outline'
+              variant='ghost'
             />
-            <Button
-              onPress={() => handleAddElement('Add Text')}
-              title='Add Text'
-              variant='outline'
-            />
+            <Button onPress={() => handleAddElement('Add Text')} title='Add Text' variant='ghost' />
           </View>
         </>
       )}

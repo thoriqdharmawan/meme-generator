@@ -32,10 +32,10 @@ const DraggableText: FC<Props> = props => {
   const { element, onUpdate, onDelete, onDuplicate, onSelectElement, isEditing, setIsEditing } =
     props;
 
-  const startX = useSharedValue(0);
-  const startY = useSharedValue(0);
-  const startWidth = useSharedValue(0);
-  const startHeight = useSharedValue(0);
+  const startX = useSharedValue(element.x);
+  const startY = useSharedValue(element.y);
+  const startWidth = useSharedValue(element.x);
+  const startHeight = useSharedValue(element.y);
 
   const translateX = useSharedValue(element.x);
   const translateY = useSharedValue(element.y);
