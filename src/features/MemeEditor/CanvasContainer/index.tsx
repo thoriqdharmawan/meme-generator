@@ -1,7 +1,9 @@
+import Button from '@/components/Button';
+import Icon from '@/components/Icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { screenHeight, screenWidth } from '@/utils';
 import { FC } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { styles } from './style';
@@ -71,22 +73,28 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
 
   const combinedGesture = Gesture.Simultaneous(pan, pinch);
 
-  if (!hasCanvas) {
-    return (
-      <View style={styles.container}>
-        <Text>tidak punya canvas</Text>
-      </View>
-    );
-  }
   return (
     <View style={styles.container}>
-      {selectedCanvas && (
-        <GestureDetector gesture={combinedGesture}>
-          <Animated.View style={[boxAnimatedStyles, styles.box]}>{children}</Animated.View>
-        </GestureDetector>
+      {!hasCanvas && (
+        <Button
+          title='Add Canvas'
+          variant='ghost'
+          textStyle={styles.addCanvasLabel}
+          icon={<Icon library='MaterialIcons' name='add' />}
+        />
       )}
 
-      {!selectedCanvas && <View style={styles.box}>{children}</View>}
+      {hasCanvas && (
+        <View>
+          {selectedCanvas && (
+            <GestureDetector gesture={combinedGesture}>
+              <Animated.View style={[boxAnimatedStyles, styles.box]}>{children}</Animated.View>
+            </GestureDetector>
+          )}
+
+          {!selectedCanvas && <View style={styles.box}>{children}</View>}
+        </View>
+      )}
     </View>
   );
 };

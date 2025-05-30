@@ -1,7 +1,21 @@
-import { Colors, Shadows, Spacing } from '@/constants';
+import { Colors, Shadows, Spacing, Typography } from '@/constants';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  addCanvasContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    gap: Spacing.sm,
+  },
+  addCanvasLabel: {
+    alignItems: 'center',
+    color: Colors.black,
+    fontSize: Typography.fontSize.md,
+    fontWeight: Typography.fontWeight.bold,
+    justifyContent: 'center',
+    marginBottom: Spacing.xs,
+  },
   box: {
     backgroundColor: '#b58df1',
     height: Spacing.xl * 3,
