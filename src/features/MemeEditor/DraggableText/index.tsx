@@ -288,10 +288,8 @@ const DraggableText: FC<Props> = props => {
         <GestureDetector gesture={combinedGesture}>
           <Animated.View style={[getBoxStyle(), animatedStyle]}>
             {!isElementSelected && (
-              <Pressable onPress={handleSingleTap} style={styles.textContainer}>
-                <Text style={[styles.textDisplay, customSyle]}>
-                  {element.text || 'Tap to edit'}
-                </Text>
+              <Pressable onPress={handleSingleTap}>
+                <Text style={customSyle}>{element.text || 'Tap to edit'}</Text>
               </Pressable>
             )}
 
@@ -326,11 +324,8 @@ const DraggableText: FC<Props> = props => {
                 <Pressable
                   onLayout={e => setLayoutElement(e.nativeEvent.layout)}
                   onPress={handleSingleTap}
-                  style={styles.textContainer}
                 >
-                  <Text style={[styles.textDisplay, customSyle]}>
-                    {element.text || 'Tap to edit'}
-                  </Text>
+                  <Text style={customSyle}>{element.text || 'Tap to edit'}</Text>
                 </Pressable>
 
                 <GestureDetector gesture={resizeGesture}>

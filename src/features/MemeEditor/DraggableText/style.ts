@@ -26,6 +26,7 @@ export const styles = StyleSheet.create({
   },
   box: {
     backgroundColor: Colors.transparent,
+    borderColor: Colors.transparent,
     borderWidth: 1,
     padding: Spacing.padding.none,
     position: 'absolute',
@@ -36,7 +37,7 @@ export const styles = StyleSheet.create({
   },
   idleBox: {
     borderColor: Colors.transparent,
-    borderWidth: 0,
+    borderWidth: 1,
   },
   resizeHandle: {
     backgroundColor: Colors.red,
@@ -46,17 +47,7 @@ export const styles = StyleSheet.create({
     right: -Spacing.xs,
     width: Layout.textBox.resizeHandleWidth,
   },
-  textContainer: {
-    justifyContent: 'center',
-    minHeight: 30,
-    padding: Spacing.xs,
-  },
-  textDisplay: {
-    color: Colors.textSecondary,
-    fontWeight: Typography.fontWeight.bold,
-  },
   textInput: {
-    fontWeight: Typography.fontWeight.bold,
     minHeight: 30,
     padding: Spacing.xs,
   },
