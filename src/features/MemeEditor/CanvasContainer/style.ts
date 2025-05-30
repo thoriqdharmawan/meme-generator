@@ -18,6 +18,8 @@ export const styles = StyleSheet.create({
   },
   box: {
     backgroundColor: Colors.white,
+    borderColor: Colors.transparent,
+    borderWidth: 1,
   },
   boxActive: {
     borderColor: Colors.primary,
