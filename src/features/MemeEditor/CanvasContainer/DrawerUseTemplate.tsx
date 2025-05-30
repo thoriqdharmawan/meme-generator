@@ -1,5 +1,5 @@
 import { BottomDrawer } from '@/components';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { FlatList, Image, ImageSourcePropType, TouchableWithoutFeedback, View } from 'react-native';
 import { templateStyles } from './style';
 
@@ -18,6 +18,8 @@ interface TemplateItemInterface {
 }
 
 const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => {
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateItemInterface | null>(null);
+
   const templates: TemplateItemInterface[] = [
     { id: '1', source: meme1 },
     { id: '2', source: meme2 },
@@ -25,8 +27,13 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
   ];
 
   const renderTemplateItem = ({ item }: { item: TemplateItemInterface }) => (
-    <TouchableWithoutFeedback>
-      <View style={templateStyles.itemContainer}>
+    <TouchableWithoutFeedback onPress={() => setSelectedTemplate(item)}>
+      <View
+        style={[
+          templateStyles.itemContainer,
+          selectedTemplate?.id === item.id && templateStyles.itemActive,
+        ]}
+      >
         <Image source={item.source} style={templateStyles.image} />
       </View>
     </TouchableWithoutFeedback>

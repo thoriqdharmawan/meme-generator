@@ -88,6 +88,9 @@ export const templateStyles = StyleSheet.create({
     objectFit: 'cover',
     width: '100%',
   },
+  itemActive: {
+    borderBlockColor: Colors.primary,
+  },
   itemContainer: {
     alignItems: 'center',
     borderColor: Colors.border,
