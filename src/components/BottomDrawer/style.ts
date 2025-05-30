@@ -3,13 +3,14 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 1000,
   },
   content: {
     flex: 1,
     paddingBottom: 34,
     paddingHorizontal: 16,
-    paddingTop: 16, // Safe area untuk iPhone
+    paddingTop: 16,
   },
   drawer: {
     backgroundColor: Colors.white,
