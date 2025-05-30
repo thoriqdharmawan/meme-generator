@@ -1,4 +1,4 @@
-import { BottomDrawer } from '@/components';
+import { BottomDrawer, Button } from '@/components';
 import { FC, useState } from 'react';
 import { FlatList, Image, ImageSourcePropType, TouchableWithoutFeedback, View } from 'react-native';
 import { templateStyles } from './style';
@@ -24,7 +24,24 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
     { id: '1', source: meme1 },
     { id: '2', source: meme2 },
     { id: '3', source: meme3 },
+    { id: '12', source: meme1 },
+    { id: '22', source: meme2 },
+    { id: '32', source: meme3 },
+    { id: '123', source: meme1 },
+    { id: '223', source: meme2 },
+    { id: '323', source: meme3 },
+    { id: '1234', source: meme1 },
+    { id: '2234', source: meme2 },
+    { id: '3234', source: meme3 },
   ];
+
+  const handleUseTemplate = () => {
+    if (selectedTemplate) {
+      // TODO: Implement template usage logic
+      onClose();
+      setSelectedTemplate(null);
+    }
+  };
 
   const renderTemplateItem = ({ item }: { item: TemplateItemInterface }) => (
     <TouchableWithoutFeedback onPress={() => setSelectedTemplate(item)}>
@@ -38,7 +55,6 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
       </View>
     </TouchableWithoutFeedback>
   );
-
   return (
     <BottomDrawer visible={visible} onClose={onClose}>
       <FlatList
@@ -48,6 +64,13 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
         numColumns={2}
         contentContainerStyle={templateStyles.container}
         columnWrapperStyle={templateStyles.row}
+      />
+
+      <Button
+        title='Use Template'
+        onPress={handleUseTemplate}
+        disabled={!selectedTemplate}
+        style={templateStyles.useButton}
       />
     </BottomDrawer>
   );

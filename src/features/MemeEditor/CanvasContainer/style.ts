@@ -90,6 +90,7 @@ export const templateStyles = StyleSheet.create({
   },
   itemActive: {
     borderColor: Colors.primary,
+    borderWidth: 1,
   },
   itemContainer: {
     alignItems: 'center',
@@ -106,5 +107,9 @@ export const templateStyles = StyleSheet.create({
     gap: Spacing.sm,
     justifyContent: 'space-between',
     marginBottom: Spacing.sm,
+  },
+  useButton: {
+    marginHorizontal: Spacing.md,
+    marginTop: Spacing.md,
   },
 });
