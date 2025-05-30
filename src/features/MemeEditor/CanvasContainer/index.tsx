@@ -1,5 +1,8 @@
+import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { screenHeight, screenWidth } from '@/utils';
-import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { FC } from 'react';
+import { Text, View } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { styles } from './style';
 
@@ -7,7 +10,13 @@ function clamp(val: number, min: number, max: number): number {
   return Math.min(Math.max(val, min), max);
 }
 
-const CanvasContainer: React.FC = () => {
+interface CanvasContainerProps {
+  children?: React.ReactNode;
+}
+
+const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
+  const { hasCanvas, selectedCanvas } = useMemeEditor();
+
   const translationX = useSharedValue(0);
   const translationY = useSharedValue(0);
   const prevTranslationX = useSharedValue(0);
@@ -62,12 +71,23 @@ const CanvasContainer: React.FC = () => {
 
   const combinedGesture = Gesture.Simultaneous(pan, pinch);
 
+  if (!hasCanvas) {
+    return (
+      <View style={styles.container}>
+        <Text>tidak punya canvas</Text>
+      </View>
+    );
+  }
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <GestureDetector gesture={combinedGesture}>
-        <Animated.View style={[boxAnimatedStyles, styles.box]} />
-      </GestureDetector>
-    </GestureHandlerRootView>
+    <View style={styles.container}>
+      {selectedCanvas && (
+        <GestureDetector gesture={combinedGesture}>
+          <Animated.View style={[boxAnimatedStyles, styles.box]}>{children}</Animated.View>
+        </GestureDetector>
+      )}
+
+      {!selectedCanvas && <View style={styles.box}>{children}</View>}
+    </View>
   );
 };
 

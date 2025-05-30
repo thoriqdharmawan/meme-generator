@@ -1,5 +1,11 @@
 import { TextStyle } from 'react-native';
 
+export interface CanvasElement {
+  id: string;
+  width: number;
+  height: number;
+}
+
 export interface CanvasTextElement {
   id: string;
   text: string;

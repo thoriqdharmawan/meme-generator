@@ -1,7 +1,7 @@
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
-import { CanvasTextElement } from '@/types/text';
+import { CanvasTextElement } from '@/types/editor';
 import { FC, useEffect } from 'react';
 import {
   Pressable,
@@ -55,7 +55,7 @@ const DraggableText: FC<Props> = props => {
     if (!isElementSelected) {
       setIsEditing(false);
     }
-  }, [isElementSelected]);
+  }, [isElementSelected, setIsEditing]);
 
   const handleSingleTap = () => {
     onSelectElement(element);

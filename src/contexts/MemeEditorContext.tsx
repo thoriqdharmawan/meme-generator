@@ -1,15 +1,21 @@
 import { Colors } from '@/constants';
-import { CanvasTextElement } from '@/types/text';
+import { CanvasElement, CanvasTextElement } from '@/types/editor';
 import { createContext, ReactNode, useContext, useState } from 'react';
 
 interface MemeEditorContextType {
-  elements: CanvasTextElement[];
-  selectedElement: CanvasTextElement | null;
-  isEditing: boolean;
+  hasCanvas: boolean;
+  canvases: CanvasElement[];
+  setCanvases: React.Dispatch<React.SetStateAction<CanvasElement[]>>;
+  selectedCanvas: CanvasElement | null;
+  setSelectedCanvas: React.Dispatch<React.SetStateAction<CanvasElement | null>>;
 
+  elements: CanvasTextElement[];
   setElements: React.Dispatch<React.SetStateAction<CanvasTextElement[]>>;
+  selectedElement: CanvasTextElement | null;
   setSelectedElement: React.Dispatch<React.SetStateAction<CanvasTextElement | null>>;
+  isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+
   addElement: (element?: Partial<CanvasTextElement>) => void;
   updateElement: (id: string, updates: Partial<CanvasTextElement>) => void;
   deleteElement: (id: string) => void;
@@ -24,8 +30,12 @@ interface MemeEditorProviderProps {
 }
 
 export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children }) => {
+  const [canvases, setCanvases] = useState<CanvasElement[]>([]);
+  const [selectedCanvas, setSelectedCanvas] = useState<CanvasElement | null>(null);
+
   const [elements, setElements] = useState<CanvasTextElement[]>([]);
   const [selectedElement, setSelectedElement] = useState<CanvasTextElement | null>(null);
+
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const addElement = (element?: Partial<CanvasTextElement>) => {
@@ -81,13 +91,19 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   };
 
   const value: MemeEditorContextType = {
-    elements,
-    selectedElement,
-    isEditing,
+    hasCanvas: canvases.length > 0,
+    canvases,
+    setCanvases,
+    selectedCanvas,
+    setSelectedCanvas,
 
+    elements,
     setElements,
+    selectedElement,
     setSelectedElement,
+    isEditing,
     setIsEditing,
+
     addElement,
     updateElement,
     deleteElement,

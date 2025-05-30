@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import Icon, { IconLibrary } from '@/components/Icon';
 import { Colors, Typography } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
-import { CanvasTextElement } from '@/types/text';
+import { CanvasTextElement } from '@/types/editor';
 import { FC } from 'react';
 import { Text, View } from 'react-native';
 import { drawerFormatStyles } from './style';
