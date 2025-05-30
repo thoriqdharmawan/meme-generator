@@ -7,6 +7,7 @@ import DraggableText from './DraggableText';
 
 const MemeEditor = () => {
   const {
+    hasCanvas,
     elements,
     selectedElement,
     isEditing,
@@ -39,7 +40,7 @@ const MemeEditor = () => {
         </TouchableWithoutFeedback>
       </CanvasContainer>
 
-      {!selectedElement && <ActionInitial />}
+      {hasCanvas && !selectedElement && <ActionInitial />}
       {selectedElement && !isEditing && <ActionText />}
     </>
   );
