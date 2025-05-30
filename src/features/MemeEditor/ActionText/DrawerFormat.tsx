@@ -44,8 +44,8 @@ const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
     {
       library: 'MaterialIcons',
       name: 'format-bold',
-      onPress: () => handleFormatPress({ fontWeight: fontWeight === 'bold' ? 'normal' : 'bold' }),
-      isActive: fontWeight === 'bold',
+      onPress: () => handleFormatPress({ fontWeight: fontWeight === '800' ? 'normal' : '800' }),
+      isActive: fontWeight === '800',
     },
     {
       library: 'MaterialIcons',
