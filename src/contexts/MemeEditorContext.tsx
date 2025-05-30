@@ -51,10 +51,10 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
 
     const newElement: CanvasTextElement = {
       id: `${Date.now()}`,
-      text: 'New Text',
-      x: 50,
-      y: 50,
-      width: 150,
+      text: element?.text || 'New Text',
+      x: element?.x || 50,
+      y: element?.y || 50,
+      width: element?.width || 150,
       height: 'auto',
       color: Colors.black,
       fontWeight: 'normal',
