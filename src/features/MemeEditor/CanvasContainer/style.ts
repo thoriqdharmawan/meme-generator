@@ -48,7 +48,7 @@ export const canvasItemStyles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderRadius: 4,
     justifyContent: 'center',
-    ...Shadows.lg,
+    ...Shadows.md,
   },
   canvasItemLabel: {
     fontSize: Typography.fontSize.md,
