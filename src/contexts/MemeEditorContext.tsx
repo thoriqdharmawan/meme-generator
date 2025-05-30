@@ -28,8 +28,6 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   const [selectedElement, setSelectedElement] = useState<CanvasTextElement | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  console.log(selectedElement);
-
   const addElement = (element?: Partial<CanvasTextElement>) => {
     const newElement: CanvasTextElement = {
       id: `${Date.now()}`,
