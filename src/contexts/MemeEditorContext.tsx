@@ -57,6 +57,7 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   };
 
   const deleteElement = (id: string) => {
+    setSelectedElement(null);
     setElements(prev => prev.filter(el => el.id !== id));
   };
 
