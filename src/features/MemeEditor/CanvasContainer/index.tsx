@@ -99,11 +99,13 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
             <View>
               {selectedCanvas && (
                 <GestureDetector gesture={combinedGesture}>
-                  <Animated.View
-                    style={[boxAnimatedStyles, styles.box, canvasStyle, styles.boxActive]}
-                  >
-                    {children}
-                  </Animated.View>
+                  <TouchableWithoutFeedback onPress={e => e.stopPropagation()}>
+                    <Animated.View
+                      style={[boxAnimatedStyles, styles.box, canvasStyle, styles.boxActive]}
+                    >
+                      {children}
+                    </Animated.View>
+                  </TouchableWithoutFeedback>
                 </GestureDetector>
               )}
 
