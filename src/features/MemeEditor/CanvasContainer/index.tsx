@@ -85,41 +85,37 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
     <>
       <TouchableWithoutFeedback onPress={() => setSelectedCanvas(null)}>
         <View style={styles.container}>
-          <TouchableWithoutFeedback>
+          {!hasCanvas && (
+            <Button
+              title='Add Canvas'
+              variant='ghost'
+              textStyle={styles.addCanvasLabel}
+              icon={<Icon library='MaterialIcons' name='add' />}
+              onPress={() => setDrawerCanvas(true)}
+            />
+          )}
+
+          {hasCanvas && (
             <View>
-              {!hasCanvas && (
-                <Button
-                  title='Add Canvas'
-                  variant='ghost'
-                  textStyle={styles.addCanvasLabel}
-                  icon={<Icon library='MaterialIcons' name='add' />}
-                  onPress={() => setDrawerCanvas(true)}
-                />
+              {selectedCanvas && (
+                <GestureDetector gesture={combinedGesture}>
+                  <Animated.View
+                    style={[boxAnimatedStyles, styles.box, canvasStyle, styles.boxActive]}
+                  >
+                    {children}
+                  </Animated.View>
+                </GestureDetector>
               )}
 
-              {hasCanvas && (
-                <View>
-                  {selectedCanvas && (
-                    <GestureDetector gesture={combinedGesture}>
-                      <Animated.View
-                        style={[boxAnimatedStyles, styles.box, canvasStyle, styles.boxActive]}
-                      >
-                        {children}
-                      </Animated.View>
-                    </GestureDetector>
-                  )}
-
-                  {!selectedCanvas && (
-                    <TouchableWithoutFeedback onPress={() => setSelectedCanvas(canvases[0])}>
-                      <Animated.View style={[boxAnimatedStyles, styles.box, canvasStyle]}>
-                        {children}
-                      </Animated.View>
-                    </TouchableWithoutFeedback>
-                  )}
-                </View>
+              {!selectedCanvas && (
+                <TouchableWithoutFeedback onPress={() => setSelectedCanvas(canvases[0])}>
+                  <Animated.View style={[boxAnimatedStyles, styles.box, canvasStyle]}>
+                    {children}
+                  </Animated.View>
+                </TouchableWithoutFeedback>
               )}
             </View>
-          </TouchableWithoutFeedback>
+          )}
         </View>
       </TouchableWithoutFeedback>
       <DrawerAddCanvas visible={drawerCanvas} onClose={() => setDrawerCanvas(false)} />
