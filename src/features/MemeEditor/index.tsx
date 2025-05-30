@@ -16,7 +16,14 @@ const MemeEditor = () => {
     deleteElement,
     duplicateElement,
     handleSelectElement,
+    selectedCanvas,
+    canvases,
   } = useMemeEditor();
+
+  // Get canvas dimensions
+  const canvas = selectedCanvas || canvases[0];
+  const canvasWidth = canvas?.width || 0;
+  const canvasHeight = canvas?.height || 0;
 
   return (
     <>
@@ -34,6 +41,8 @@ const MemeEditor = () => {
                 onSelectElement={handleSelectElement}
                 isEditing={isEditing}
                 setIsEditing={setIsEditing}
+                canvasWidth={canvasWidth}
+                canvasHeight={canvasHeight}
               />
             ))}
           </View>
