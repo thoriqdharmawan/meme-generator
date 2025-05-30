@@ -17,10 +17,11 @@ export const styles = StyleSheet.create({
     marginBottom: Spacing.xs,
   },
   box: {
-    backgroundColor: '#b58df1',
-    height: Spacing.xl * 3,
-    width: Spacing.xl * 3,
-    ...Shadows.xl,
+    backgroundColor: Colors.white,
+  },
+  boxActive: {
+    borderColor: Colors.primary,
+    borderWidth: 1,
   },
   container: {
     alignItems: 'center',

@@ -3,7 +3,7 @@ import Icon from '@/components/Icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { screenHeight, screenWidth } from '@/utils';
 import { FC, useState } from 'react';
-import { View } from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import DrawerAddCanvas from './DrawerAddCanvas';
@@ -18,7 +18,7 @@ interface CanvasContainerProps {
 }
 
 const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
-  const { hasCanvas, selectedCanvas } = useMemeEditor();
+  const { hasCanvas, selectedCanvas, canvases, setSelectedCanvas } = useMemeEditor();
 
   const [drawerCanvas, setDrawerCanvas] = useState(false);
 
@@ -76,32 +76,52 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
 
   const combinedGesture = Gesture.Simultaneous(pan, pinch);
 
+  const canvasStyle = {
+    width: selectedCanvas?.width || canvases[0]?.width,
+    height: selectedCanvas?.height || canvases[0]?.height,
+  };
+
   return (
     <>
-      <View style={styles.container}>
-        {!hasCanvas && (
-          <Button
-            title='Add Canvas'
-            variant='ghost'
-            textStyle={styles.addCanvasLabel}
-            icon={<Icon library='MaterialIcons' name='add' />}
-            onPress={() => setDrawerCanvas(true)}
-          />
-        )}
+      <TouchableWithoutFeedback onPress={() => setSelectedCanvas(null)}>
+        <View style={styles.container}>
+          <TouchableWithoutFeedback>
+            <View>
+              {!hasCanvas && (
+                <Button
+                  title='Add Canvas'
+                  variant='ghost'
+                  textStyle={styles.addCanvasLabel}
+                  icon={<Icon library='MaterialIcons' name='add' />}
+                  onPress={() => setDrawerCanvas(true)}
+                />
+              )}
 
-        {hasCanvas && (
-          <View>
-            {selectedCanvas && (
-              <GestureDetector gesture={combinedGesture}>
-                <Animated.View style={[boxAnimatedStyles, styles.box]}>{children}</Animated.View>
-              </GestureDetector>
-            )}
+              {hasCanvas && (
+                <View>
+                  {selectedCanvas && (
+                    <GestureDetector gesture={combinedGesture}>
+                      <Animated.View
+                        style={[boxAnimatedStyles, styles.box, canvasStyle, styles.boxActive]}
+                      >
+                        {children}
+                      </Animated.View>
+                    </GestureDetector>
+                  )}
 
-            {!selectedCanvas && <View style={styles.box}>{children}</View>}
-          </View>
-        )}
-      </View>
-
+                  {!selectedCanvas && (
+                    <TouchableWithoutFeedback onPress={() => setSelectedCanvas(canvases[0])}>
+                      <Animated.View style={[boxAnimatedStyles, styles.box, canvasStyle]}>
+                        {children}
+                      </Animated.View>
+                    </TouchableWithoutFeedback>
+                  )}
+                </View>
+              )}
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      </TouchableWithoutFeedback>
       <DrawerAddCanvas visible={drawerCanvas} onClose={() => setDrawerCanvas(false)} />
     </>
   );

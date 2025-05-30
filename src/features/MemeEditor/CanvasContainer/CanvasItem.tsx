@@ -1,4 +1,5 @@
 import { Spacing } from '@/constants';
+import { AspectRatio } from '@/types/editor';
 import { FC, useMemo } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { canvasItemStyles } from './style';
@@ -6,7 +7,7 @@ import { canvasItemStyles } from './style';
 interface CanvasItemProps {
   label: string;
   onPress?: () => void;
-  aspectRatio?: '1:1' | '9:16' | '4:5' | '2:3';
+  aspectRatio?: AspectRatio;
 }
 
 const CanvasItem: FC<CanvasItemProps> = ({ label, onPress, aspectRatio = '1:1' }) => {
