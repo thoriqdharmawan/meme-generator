@@ -3,7 +3,7 @@ import { Spacing } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { AspectRatio, CanvasElement } from '@/types/editor';
 import { screenHeight, screenWidth } from '@/utils';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import CanvasItem from './CanvasItem';
 import { canvasDrawerStyles } from './style';
@@ -16,7 +16,10 @@ interface DrawerAddCanvasProps {
 const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
   const { setCanvases, setSelectedCanvas } = useMemeEditor();
 
+  const [selectedAspectRatio, setSelectedAspectRatio] = useState<AspectRatio | null>(null);
+
   const handleAddCanvas = (aspectRatio: AspectRatio) => {
+    setSelectedAspectRatio(aspectRatio);
     const horizontalMargin = Spacing.xxl;
     const verticalMargin = Spacing.containerPadding * 10;
 
@@ -88,14 +91,46 @@ const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
     setSelectedCanvas(newCanvas);
   };
 
+  const canvases = [
+    {
+      label: '1:1',
+      aspectRatio: '1:1',
+      isActive: selectedAspectRatio === '1:1',
+      onPress: () => handleAddCanvas('1:1'),
+    },
+    {
+      label: '4:5',
+      aspectRatio: '4:5',
+      isActive: selectedAspectRatio === '4:5',
+      onPress: () => handleAddCanvas('4:5'),
+    },
+    {
+      label: '2:3',
+      aspectRatio: '2:3',
+      isActive: selectedAspectRatio === '2:3',
+      onPress: () => handleAddCanvas('2:3'),
+    },
+    {
+      label: '9:16',
+      aspectRatio: '9:16',
+      isActive: selectedAspectRatio === '9:16',
+      onPress: () => handleAddCanvas('9:16'),
+    },
+  ];
+
   return (
     <BottomDrawer visible={visible} onClose={onClose} height={250}>
       <ScrollView horizontal>
         <View style={canvasDrawerStyles.container}>
-          <CanvasItem label='1:1' aspectRatio='1:1' onPress={() => handleAddCanvas('1:1')} />
-          <CanvasItem label='9:16' aspectRatio='9:16' onPress={() => handleAddCanvas('9:16')} />
-          <CanvasItem label='4:5' aspectRatio='4:5' onPress={() => handleAddCanvas('4:5')} />
-          <CanvasItem label='2:3' aspectRatio='2:3' onPress={() => handleAddCanvas('2:3')} />
+          {canvases.map(canvas => (
+            <CanvasItem
+              key={canvas.aspectRatio}
+              label={canvas.label}
+              aspectRatio={canvas.aspectRatio as AspectRatio}
+              isActive={canvas.isActive}
+              onPress={canvas.onPress}
+            />
+          ))}
         </View>
       </ScrollView>
     </BottomDrawer>

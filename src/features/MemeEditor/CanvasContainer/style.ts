@@ -1,4 +1,4 @@
-import { Colors, Shadows, Spacing, Typography } from '@/constants';
+import { Colors, Spacing, Typography } from '@/constants';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -44,11 +44,14 @@ export const canvasDrawerStyles = StyleSheet.create({
 });
 
 export const canvasItemStyles = StyleSheet.create({
+  canvasItemActive: {
+    borderColor: Colors.primary,
+  },
   canvasItemContainer: {
     backgroundColor: Colors.white,
-    borderRadius: 4,
+    borderColor: Colors.border,
+    borderWidth: 1,
     justifyContent: 'center',
-    ...Shadows.md,
   },
   canvasItemLabel: {
     fontSize: Typography.fontSize.md,

@@ -8,9 +8,10 @@ interface CanvasItemProps {
   label: string;
   onPress?: () => void;
   aspectRatio?: AspectRatio;
+  isActive?: boolean;
 }
 
-const CanvasItem: FC<CanvasItemProps> = ({ label, onPress, aspectRatio = '1:1' }) => {
+const CanvasItem: FC<CanvasItemProps> = ({ label, onPress, aspectRatio = '1:1', isActive }) => {
   const containerStyle = useMemo(() => {
     const baseWidth = Spacing.xxl * 1.5;
 
@@ -43,7 +44,7 @@ const CanvasItem: FC<CanvasItemProps> = ({ label, onPress, aspectRatio = '1:1' }
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={canvasItemStyles.container}>
-        <View style={containerStyle}>
+        <View style={[containerStyle, isActive && canvasItemStyles.canvasItemActive]}>
           <Text style={canvasItemStyles.canvasItemLabel}>{label}</Text>
         </View>
       </View>
