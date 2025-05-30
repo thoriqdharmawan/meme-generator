@@ -85,11 +85,11 @@ export const templateStyles = StyleSheet.create({
   },
   image: {
     height: '100%',
-    objectFit: 'cover',
+    resizeMode: 'contain',
     width: '100%',
   },
   itemActive: {
-    borderBlockColor: Colors.primary,
+    borderColor: Colors.primary,
   },
   itemContainer: {
     alignItems: 'center',

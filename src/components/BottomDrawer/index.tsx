@@ -19,7 +19,7 @@ interface BottomDrawerProps {
   height?: number;
 }
 
-const DEFAULT_DRAWER_HEIGHT = screenHeight * 0.5;
+const DEFAULT_DRAWER_HEIGHT = screenHeight * 0.85;
 
 const BottomDrawer: React.FC<BottomDrawerProps> = ({
   visible,
