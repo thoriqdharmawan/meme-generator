@@ -18,6 +18,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-na
 import { styles } from './style';
 
 const SNAP_THRESHOLD = 15; // Distance in pixels to trigger snap
+
 interface Props {
   element: CanvasTextElement;
   onUpdate: (updates: Partial<CanvasTextElement>) => void;
@@ -49,7 +50,7 @@ const DraggableText: FC<Props> = props => {
   const [layoutElement, setLayoutElement] = useState<LayoutRectangle | null>(null);
 
   const elWidth = layoutElement?.width || element.width;
-  const elHeight = layoutElement?.height || element.height;
+  const elHeight = layoutElement?.height || Number(element.height);
 
   const startX = useSharedValue(element.x);
   const startY = useSharedValue(element.y);
@@ -72,7 +73,7 @@ const DraggableText: FC<Props> = props => {
     translateX.value = element.x;
     translateY.value = element.y;
     boxWidth.value = element.width;
-    boxHeight.value = element.height;
+    boxHeight.value = Number(element.height);
   }, [element, boxHeight, boxWidth, translateX, translateY]);
 
   useEffect(() => {
@@ -333,7 +334,12 @@ const DraggableText: FC<Props> = props => {
                 </Pressable>
 
                 <GestureDetector gesture={resizeGesture}>
-                  <Animated.View style={styles.resizeHandle} />
+                  <Animated.View
+                    style={[
+                      styles.resizeHandle,
+                      { top: elHeight / 2 - Layout.textBox.resizeHandleSize / 2 },
+                    ]}
+                  />
                 </GestureDetector>
               </>
             )}
