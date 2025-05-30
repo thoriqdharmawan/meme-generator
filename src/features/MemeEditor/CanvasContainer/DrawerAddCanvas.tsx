@@ -89,7 +89,7 @@ const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
   };
 
   return (
-    <BottomDrawer visible={visible} onClose={onClose} height={220}>
+    <BottomDrawer visible={visible} onClose={onClose} height={250}>
       <ScrollView horizontal>
         <View style={canvasDrawerStyles.container}>
           <CanvasItem label='1:1' aspectRatio='1:1' onPress={() => handleAddCanvas('1:1')} />
