@@ -42,10 +42,8 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.red,
     borderRadius: BorderRadius.xs,
     height: Layout.textBox.resizeHandleSize,
-    // marginTop: -Layout.textBox.resizeHandleSize / 2 + 2,
     position: 'absolute',
     right: -Spacing.xs,
-    // top: '50%',
     width: Layout.textBox.resizeHandleWidth,
   },
   textContainer: {
