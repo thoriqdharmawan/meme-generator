@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
   box: {
     backgroundColor: Colors.transparent,
     borderWidth: 1,
-    padding: Spacing.xs,
+    padding: Spacing.padding.none,
     position: 'absolute',
   },
   editableBox: {
