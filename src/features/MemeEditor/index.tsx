@@ -20,7 +20,6 @@ const MemeEditor = () => {
     canvases,
   } = useMemeEditor();
 
-  // Get canvas dimensions
   const canvas = selectedCanvas || canvases[0];
   const canvasWidth = canvas?.width || 0;
   const canvasHeight = canvas?.height || 0;
