@@ -14,7 +14,7 @@ interface DrawerAddCanvasProps {
 }
 
 const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
-  const { setCanvases, setSelectedCanvas } = useMemeEditor();
+  const { hasCanvas, setCanvases, setSelectedCanvas } = useMemeEditor();
 
   const [selectedAspectRatio, setSelectedAspectRatio] = useState<AspectRatio | null>(null);
 
@@ -127,7 +127,7 @@ const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
               key={canvas.aspectRatio}
               label={canvas.label}
               aspectRatio={canvas.aspectRatio as AspectRatio}
-              isActive={canvas.isActive}
+              isActive={hasCanvas && canvas.isActive}
               onPress={canvas.onPress}
             />
           ))}
