@@ -21,6 +21,8 @@ interface MemeEditorContextType {
   deleteElement: (id: string) => void;
   duplicateElement: (id: string, position: Pick<CanvasTextElement, 'x' | 'y'>) => void;
   handleSelectElement: (element: CanvasTextElement | null) => void;
+
+  onResetAll: () => void;
 }
 
 const MemeEditorContext = createContext<MemeEditorContextType | undefined>(undefined);
@@ -110,6 +112,14 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     setSelectedCanvas(canvas);
   };
 
+  const onResetAll = () => {
+    setCanvases([]);
+    setSelectedCanvas(null);
+    setElements([]);
+    setSelectedElement(null);
+    setIsEditing(false);
+  };
+
   const value: MemeEditorContextType = {
     hasCanvas: canvases.length > 0,
     canvases,
@@ -129,6 +139,8 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     deleteElement,
     duplicateElement,
     handleSelectElement,
+
+    onResetAll,
   };
 
   return <MemeEditorContext.Provider value={value}>{children}</MemeEditorContext.Provider>;

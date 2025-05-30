@@ -11,6 +11,9 @@ export const style = StyleSheet.create({
   actionText: {
     color: Colors.black,
   },
+  actionTextDanger: {
+    color: Colors.error,
+  },
   container: {
     flexDirection: 'row',
   },

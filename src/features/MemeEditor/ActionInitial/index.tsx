@@ -1,3 +1,5 @@
+import { Colors } from '@/constants';
+import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import Button from '@components/Button';
 import Footer from '@components/Footer';
 import Icon from '@components/Icon';
@@ -7,6 +9,8 @@ import DrawerText from './DrawerText';
 import { style } from './style';
 
 const ActionInitial = () => {
+  const { onResetAll } = useMemeEditor();
+
   const [textDrawerVisible, setTextDrawerVisible] = useState(false);
 
   const openTextDrawer = () => setTextDrawerVisible(true);
@@ -39,11 +43,12 @@ const ActionInitial = () => {
             variant='ghost'
           />
           <Button
-            icon={<Icon library='MaterialCommunityIcons' name='brush' />}
+            icon={<Icon library='Feather' name='trash' color={Colors.error} />}
             style={style.action}
-            textStyle={style.actionText}
-            title='Draw'
+            textStyle={style.actionTextDanger}
+            title='Delete'
             variant='ghost'
+            onPress={onResetAll}
           />
         </ScrollView>
       </Footer>
