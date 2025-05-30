@@ -77,3 +77,31 @@ export const canvasItemStyles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export const templateStyles = StyleSheet.create({
+  container: {
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+  },
+  image: {
+    height: '100%',
+    objectFit: 'cover',
+    width: '100%',
+  },
+  itemContainer: {
+    alignItems: 'center',
+    borderColor: Colors.border,
+    borderWidth: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    gap: Spacing.sm,
+    height: 200,
+    maxWidth: '50%',
+  },
+  row: {
+    gap: Spacing.sm,
+    justifyContent: 'space-between',
+    marginBottom: Spacing.sm,
+  },
+});
