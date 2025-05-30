@@ -7,6 +7,7 @@ import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import DrawerAddCanvas from './DrawerAddCanvas';
+import DrawerUseTemplate from './DrawerUseTemplate';
 import { styles } from './style';
 
 function clamp(val: number, min: number, max: number): number {
@@ -17,10 +18,20 @@ interface CanvasContainerProps {
   children?: React.ReactNode;
 }
 
+interface DrawerState {
+  openCreate: boolean;
+  openTemplate: boolean;
+}
+
+const DEFAULT_DRAWER_STATE: DrawerState = {
+  openCreate: false,
+  openTemplate: false,
+};
+
 const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
   const { hasCanvas, selectedCanvas, canvases, setSelectedCanvas } = useMemeEditor();
 
-  const [drawerCanvas, setDrawerCanvas] = useState(false);
+  const [drawer, setDrawer] = useState<DrawerState>(DEFAULT_DRAWER_STATE);
 
   const translationX = useSharedValue(0);
   const translationY = useSharedValue(0);
@@ -92,7 +103,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
                 variant='ghost'
                 textStyle={styles.addCanvasLabel}
                 icon={<Icon library='MaterialIcons' name='add' />}
-                onPress={() => setDrawerCanvas(true)}
+                onPress={() => setDrawer(prev => ({ ...prev, openCreate: true }))}
               />
               <Text style={styles.or}>Or</Text>
               <Button
@@ -100,7 +111,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
                 variant='ghost'
                 textStyle={styles.addCanvasLabel}
                 icon={<Icon library='MaterialIcons' name='add' />}
-                onPress={() => setDrawerCanvas(true)}
+                onPress={() => setDrawer(prev => ({ ...prev, openTemplate: true }))}
               />
             </View>
           )}
@@ -130,7 +141,16 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
           )}
         </View>
       </TouchableWithoutFeedback>
-      <DrawerAddCanvas visible={drawerCanvas} onClose={() => setDrawerCanvas(false)} />
+
+      <DrawerAddCanvas
+        visible={drawer.openCreate}
+        onClose={() => setDrawer(DEFAULT_DRAWER_STATE)}
+      />
+
+      <DrawerUseTemplate
+        visible={drawer.openTemplate}
+        onClose={() => setDrawer(DEFAULT_DRAWER_STATE)}
+      />
     </>
   );
 };
