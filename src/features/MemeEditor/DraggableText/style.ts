@@ -55,11 +55,9 @@ export const styles = StyleSheet.create({
   },
   textDisplay: {
     color: Colors.textSecondary,
-    fontSize: Typography.fontSize.xxl,
     fontWeight: Typography.fontWeight.bold,
   },
   textInput: {
-    fontSize: Typography.fontSize.xxl,
     fontWeight: Typography.fontWeight.bold,
     minHeight: 30,
     padding: Spacing.xs,

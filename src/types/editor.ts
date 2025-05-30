@@ -14,6 +14,7 @@ export interface CanvasTextElement {
   width: number;
   height: number | string;
   color: string;
+  fontSize?: number;
   fontWeight: TextStyle['fontWeight'];
   fontStyle?: TextStyle['fontStyle'];
   textDecorationUnderline?: 'underline';

@@ -1,4 +1,4 @@
-import { Colors } from '@/constants';
+import { Colors, Typography } from '@/constants';
 import { CanvasElement, CanvasTextElement } from '@/types/editor';
 import { createContext, ReactNode, useContext, useState } from 'react';
 
@@ -61,6 +61,7 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
       textDecorationUnderline: undefined,
       textDecorationLineThrough: undefined,
       textAlign: 'center',
+      fontSize: Typography.fontSize.xxl,
       ...element,
     };
     setElements(prev => [...prev, newElement]);

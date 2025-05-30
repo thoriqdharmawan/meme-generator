@@ -131,6 +131,7 @@ const DraggableText: FC<Props> = props => {
 
   const customSyle: TextStyle = {
     color: element.color || Colors.black,
+    fontSize: element.fontSize,
     fontWeight: element.fontWeight,
     fontStyle: element.fontStyle,
     textDecorationLine: ([element.textDecorationUnderline, element.textDecorationLineThrough]
