@@ -32,6 +32,20 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
   },
+  emptyCanvas: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: Spacing.sm,
+    padding: Spacing.md,
+  },
+  or: {
+    alignItems: 'center',
+    color: Colors.textSecondary,
+    fontSize: Typography.fontSize.md,
+    fontWeight: Typography.fontWeight.light,
+    justifyContent: 'center',
+  },
 });
 
 export const canvasDrawerStyles = StyleSheet.create({

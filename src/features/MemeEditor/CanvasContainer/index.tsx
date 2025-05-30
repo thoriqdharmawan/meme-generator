@@ -3,7 +3,7 @@ import Icon from '@/components/Icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { screenHeight, screenWidth } from '@/utils';
 import { FC, useState } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import DrawerAddCanvas from './DrawerAddCanvas';
@@ -86,13 +86,23 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
       <TouchableWithoutFeedback onPress={() => setSelectedCanvas(null)}>
         <View style={styles.container}>
           {!hasCanvas && (
-            <Button
-              title='Add Canvas'
-              variant='ghost'
-              textStyle={styles.addCanvasLabel}
-              icon={<Icon library='MaterialIcons' name='add' />}
-              onPress={() => setDrawerCanvas(true)}
-            />
+            <View style={styles.emptyCanvas}>
+              <Button
+                title='Crete Meme'
+                variant='ghost'
+                textStyle={styles.addCanvasLabel}
+                icon={<Icon library='MaterialIcons' name='add' />}
+                onPress={() => setDrawerCanvas(true)}
+              />
+              <Text style={styles.or}>Or</Text>
+              <Button
+                title='Use Template'
+                variant='ghost'
+                textStyle={styles.addCanvasLabel}
+                icon={<Icon library='MaterialIcons' name='add' />}
+                onPress={() => setDrawerCanvas(true)}
+              />
+            </View>
           )}
 
           {hasCanvas && (
