@@ -2,8 +2,9 @@ import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
 import { CanvasTextElement } from '@/types/editor';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
+  LayoutRectangle,
   Pressable,
   Text,
   TextInput,
@@ -54,6 +55,11 @@ const DraggableText: FC<Props> = props => {
     canvasHeight = 0,
   } = props;
 
+  const [layoutElement, setLayoutElement] = useState<LayoutRectangle | null>(null);
+
+  const elWidth = layoutElement?.width || element.width;
+  const elHeight = layoutElement?.height || element.height;
+
   const startX = useSharedValue(element.x);
   const startY = useSharedValue(element.y);
   const startWidth = useSharedValue(element.x);
@@ -61,13 +67,13 @@ const DraggableText: FC<Props> = props => {
 
   const translateX = useSharedValue(element.x);
   const translateY = useSharedValue(element.y);
-  const boxWidth = useSharedValue(element.width);
-  const boxHeight = useSharedValue(element.height);
+  const boxWidth = useSharedValue(elWidth);
+  const boxHeight = useSharedValue(elHeight);
 
   const showSnapGuideX = useSharedValue(false);
   const showSnapGuideY = useSharedValue(false);
-  const snapLineX = useSharedValue(0); // Position of vertical snap line
-  const snapLineY = useSharedValue(0); // Position of horizontal snap line
+  const snapLineX = useSharedValue(0);
+  const snapLineY = useSharedValue(0);
 
   const isElementSelected = props.selectedElement?.id === element.id;
 
@@ -106,8 +112,8 @@ const DraggableText: FC<Props> = props => {
       translateY.value = startY.value + e.translationY;
 
       // Calculate snap positions for visual feedback
-      const elementWidth = Number(element.width);
-      const elementHeight = Number(element.height);
+      const elementWidth = Number(elWidth);
+      const elementHeight = Number(elHeight);
 
       const centerX = (canvasWidth - elementWidth) / 2;
       const centerY = (canvasHeight - elementHeight) / 2;
@@ -154,8 +160,8 @@ const DraggableText: FC<Props> = props => {
     })
     .onEnd(() => {
       // Calculate snap positions
-      const elementWidth = Number(element.width);
-      const elementHeight = Number(element.height);
+      const elementWidth = Number(elWidth);
+      const elementHeight = Number(elHeight);
 
       const centerX = (canvasWidth - elementWidth) / 2;
       const centerY = (canvasHeight - elementHeight) / 2;
@@ -331,7 +337,11 @@ const DraggableText: FC<Props> = props => {
                   />
                 </View>
 
-                <Pressable onPress={handleSingleTap} style={styles.textContainer}>
+                <Pressable
+                  onLayout={e => setLayoutElement(e.nativeEvent.layout)}
+                  onPress={handleSingleTap}
+                  style={styles.textContainer}
+                >
                   <Text style={[styles.textDisplay, customSyle]}>
                     {element.text || 'Tap to edit'}
                   </Text>
