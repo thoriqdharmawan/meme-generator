@@ -8,9 +8,9 @@ export const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingBottom: 34,
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    marginBottom: Spacing.padding.lg,
+    paddingHorizontal: Spacing.padding.md,
+    paddingVertical: Spacing.padding.md,
   },
   drawer: {
     backgroundColor: Colors.white,

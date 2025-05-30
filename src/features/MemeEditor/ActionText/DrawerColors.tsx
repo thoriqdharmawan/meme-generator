@@ -16,10 +16,14 @@ const DrawerColors: FC<DrawerColorsProps> = ({ visible, onClose, onColorSelect }
   };
 
   return (
-    <BottomDrawer visible={visible} onClose={onClose} height={120}>
+    <BottomDrawer visible={visible} onClose={onClose} height={140}>
       {visible && (
         <View style={drawerColorStyles.container}>
-          <ScrollView contentContainerStyle={drawerColorStyles.colorGrid} horizontal>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={drawerColorStyles.colorGrid}
+            horizontal
+          >
             {DefaultTextColorOptions.map((colorOption, index) => (
               <TouchableOpacity
                 key={index}

@@ -1,3 +1,4 @@
+import { Animations } from '@/constants';
 import { screenHeight } from '@/utils';
 import { ReactNode, useEffect } from 'react';
 import { View } from 'react-native';
@@ -18,11 +19,13 @@ interface BottomDrawerProps {
   height?: number;
 }
 
+const DEFAULT_DRAWER_HEIGHT = screenHeight * 0.5;
+
 const BottomDrawer: React.FC<BottomDrawerProps> = ({
   visible,
   onClose,
   children,
-  height = screenHeight * 0.5,
+  height = DEFAULT_DRAWER_HEIGHT,
 }) => {
   const translateY = useSharedValue(height);
   const overlayOpacity = useSharedValue(0);
@@ -32,12 +35,12 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
       damping: 20,
       stiffness: 90,
     });
-    overlayOpacity.value = withTiming(1, { duration: 300 });
+    overlayOpacity.value = withTiming(1, { duration: Animations.duration.normal });
   };
 
   const closeDrawer = () => {
-    translateY.value = withTiming(height, { duration: 250 });
-    overlayOpacity.value = withTiming(0, { duration: 250 }, finished => {
+    translateY.value = withTiming(height, { duration: Animations.duration.fast });
+    overlayOpacity.value = withTiming(0, { duration: Animations.duration.fast }, finished => {
       if (finished) {
         runOnJS(onClose)();
       }

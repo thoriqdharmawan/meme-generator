@@ -224,7 +224,7 @@ export const DefaultTextColorOptions = [
 
 export const Animations = {
   duration: {
-    fast: 150,
+    fast: 250,
     normal: 300,
     slow: 500,
   },

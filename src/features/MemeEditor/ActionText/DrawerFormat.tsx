@@ -5,7 +5,7 @@ import { Colors, Typography } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { CanvasTextElement } from '@/types/editor';
 import { FC } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { drawerFormatStyles } from './style';
 
 interface DrawerFormatsProps {
@@ -117,11 +117,9 @@ const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
   ];
 
   return (
-    <BottomDrawer visible={visible} onClose={onClose} height={200}>
+    <BottomDrawer visible={visible} onClose={onClose} height={190}>
       {visible && (
         <>
-          <Text style={drawerFormatStyles.title}>Formats</Text>
-
           <View style={drawerFormatStyles.container}>
             {fontStyles.map((style, index) => {
               const isActive = style.isActive || false;
