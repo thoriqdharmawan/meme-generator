@@ -71,8 +71,9 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
 
     setElements(prev => {
       return prev.map(el => {
-        setSelectedElement({ ...el, ...updates });
-
+        if (el.id === id) {
+          setSelectedElement({ ...el, ...updates });
+        }
         return el.id === id ? { ...el, ...updates } : el;
       });
     });
