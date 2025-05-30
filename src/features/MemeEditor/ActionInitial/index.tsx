@@ -1,3 +1,4 @@
+import { ConfirmationDialog } from '@/components';
 import { Colors } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import Button from '@components/Button';
@@ -12,9 +13,15 @@ const ActionInitial = () => {
   const { onResetAll } = useMemeEditor();
 
   const [textDrawerVisible, setTextDrawerVisible] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
 
   const openTextDrawer = () => setTextDrawerVisible(true);
   const closeTextDrawer = () => setTextDrawerVisible(false);
+
+  const handleDeleteConfirm = () => {
+    onResetAll();
+    setShowDeleteConfirmation(false);
+  };
 
   return (
     <>
@@ -48,12 +55,23 @@ const ActionInitial = () => {
             textStyle={style.actionTextDanger}
             title='Delete'
             variant='ghost'
-            onPress={onResetAll}
+            onPress={() => setShowDeleteConfirmation(true)}
           />
         </ScrollView>
       </Footer>
 
       <DrawerText visible={textDrawerVisible} onClose={closeTextDrawer} />
+
+      <ConfirmationDialog
+        visible={showDeleteConfirmation}
+        title='Delete Text'
+        message='Are you sure you want to delete this project?'
+        confirmText='Delete'
+        cancelText='Cancel'
+        variant='danger'
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setShowDeleteConfirmation(false)}
+      />
     </>
   );
 };
