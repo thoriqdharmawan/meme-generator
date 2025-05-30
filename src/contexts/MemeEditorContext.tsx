@@ -7,7 +7,7 @@ interface MemeEditorContextType {
   canvases: CanvasElement[];
   setCanvases: React.Dispatch<React.SetStateAction<CanvasElement[]>>;
   selectedCanvas: CanvasElement | null;
-  setSelectedCanvas: React.Dispatch<React.SetStateAction<CanvasElement | null>>;
+  setSelectedCanvas: (canvas: CanvasElement | null) => void;
 
   elements: CanvasTextElement[];
   setElements: React.Dispatch<React.SetStateAction<CanvasTextElement[]>>;
@@ -38,7 +38,17 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
+  const removeSelectedCanvas = () => {
+    setSelectedCanvas(null);
+  };
+
+  const removeSelectedElement = () => {
+    setSelectedElement(null);
+  };
+
   const addElement = (element?: Partial<CanvasTextElement>) => {
+    removeSelectedCanvas();
+
     const newElement: CanvasTextElement = {
       id: `${Date.now()}`,
       text: 'New Text',
@@ -57,6 +67,8 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   };
 
   const updateElement = (id: string, updates: Partial<CanvasTextElement>) => {
+    removeSelectedCanvas();
+
     setElements(prev => {
       return prev.map(el => {
         setSelectedElement({ ...el, ...updates });
@@ -72,6 +84,7 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   };
 
   const duplicateElement = (id: string, position: Pick<CanvasTextElement, 'x' | 'y'>) => {
+    removeSelectedCanvas();
     const original = elements.find(el => el.id === id);
     if (original) {
       const newCopy: CanvasTextElement = {
@@ -87,7 +100,13 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   };
 
   const handleSelectElement = (element: CanvasTextElement | null) => {
+    removeSelectedCanvas();
     setSelectedElement(element);
+  };
+
+  const handleSelectCanvas = (canvas: CanvasElement | null) => {
+    removeSelectedElement();
+    setSelectedCanvas(canvas);
   };
 
   const value: MemeEditorContextType = {
@@ -95,7 +114,7 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     canvases,
     setCanvases,
     selectedCanvas,
-    setSelectedCanvas,
+    setSelectedCanvas: handleSelectCanvas,
 
     elements,
     setElements,
