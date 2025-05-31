@@ -77,7 +77,7 @@ const ActionInitial = () => {
 
       <ConfirmationDialog
         visible={showDeleteConfirmation}
-        title='Delete Text'
+        title='Delete Project'
         message='Are you sure you want to delete this project?'
         confirmText='Delete'
         cancelText='Cancel'
