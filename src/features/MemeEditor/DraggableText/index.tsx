@@ -2,7 +2,7 @@ import { SnapGuides } from '@/components';
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
-import { Spacing } from '@/constants/theme';
+import { Spacing, Typography } from '@/constants/theme';
 import { useSnapGuide } from '@/hooks';
 import { CanvasTextElement } from '@/types/editor';
 import { FC, useEffect, useMemo, useState } from 'react';
@@ -216,6 +216,42 @@ const DraggableText: FC<Props> = props => {
     ]
   );
 
+  const handleChangeFontsize = (action: 'increase' | 'decrease') => {
+    const defaultFontSize = Typography.fontSize.lg;
+
+    const changes = Typography.fontSize.xs / 2;
+
+    const newFontSize =
+      action === 'increase'
+        ? (element.fontSize || defaultFontSize) + changes
+        : (element.fontSize || defaultFontSize) - changes;
+
+    onUpdate({ fontSize: newFontSize });
+  };
+
+  const actionButtons = [
+    {
+      icon: 'format-font-size-decrease',
+      color: Colors.primary,
+      onPress: () => handleChangeFontsize('decrease'),
+    },
+    {
+      icon: 'format-font-size-increase',
+      color: Colors.primary,
+      onPress: () => handleChangeFontsize('increase'),
+    },
+    {
+      icon: 'content-copy',
+      color: Colors.primary,
+      onPress: handleDuplicate,
+    },
+    {
+      icon: 'trash-can-outline',
+      color: Colors.error,
+      onPress: onDelete,
+    },
+  ];
+
   return (
     <>
       <SnapGuides
@@ -250,58 +286,22 @@ const DraggableText: FC<Props> = props => {
             {isElementSelected && !isEditing && (
               <>
                 <View style={styles.actions}>
-                  <Button
-                    icon={
-                      <Icon
-                        library='MaterialCommunityIcons'
-                        name='format-font-size-decrease'
-                        size={Spacing.md}
-                        color={Colors.primary}
-                      />
-                    }
-                    size='small'
-                    variant='ghost'
-                    onPress={handleDuplicate}
-                  />
-                  <Button
-                    icon={
-                      <Icon
-                        library='MaterialCommunityIcons'
-                        name='format-font-size-increase'
-                        size={Spacing.md}
-                        color={Colors.primary}
-                      />
-                    }
-                    size='small'
-                    variant='ghost'
-                    onPress={handleDuplicate}
-                  />
-                  <Button
-                    icon={
-                      <Icon
-                        library='MaterialCommunityIcons'
-                        name='content-copy'
-                        size={Spacing.md}
-                        color={Colors.primary}
-                      />
-                    }
-                    size='small'
-                    variant='ghost'
-                    onPress={handleDuplicate}
-                  />
-                  <Button
-                    icon={
-                      <Icon
-                        library='MaterialCommunityIcons'
-                        name='trash-can-outline'
-                        size={Spacing.md}
-                        color={Colors.error}
-                      />
-                    }
-                    size='small'
-                    variant='ghost'
-                    onPress={onDelete}
-                  />
+                  {actionButtons.map((button, index) => (
+                    <Button
+                      key={index}
+                      icon={
+                        <Icon
+                          library='MaterialCommunityIcons'
+                          name={button.icon}
+                          size={Spacing.md}
+                          color={button.color}
+                        />
+                      }
+                      size='small'
+                      variant='ghost'
+                      onPress={button.onPress}
+                    />
+                  ))}
                 </View>
 
                 <Pressable
