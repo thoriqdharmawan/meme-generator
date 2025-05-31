@@ -78,8 +78,8 @@ const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
       isActive: !!textDecorationLineThrough,
     },
     {
-      library: 'MaterialIcons',
-      name: 'format-size',
+      library: 'MaterialCommunityIcons',
+      name: 'format-letter-case',
       onPress: () => {
         handleFormatPress({
           textTransform: textTransform ? undefined : 'uppercase',
