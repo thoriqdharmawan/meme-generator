@@ -13,7 +13,7 @@ export interface CanvasTextElement {
   x: number;
   y: number;
   width: number;
-  height: number | string;
+  height?: number | string;
   color: string;
   fontSize?: number;
   fontWeight: TextStyle['fontWeight'];
