@@ -3,7 +3,13 @@ import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
 import { Spacing, Typography } from '@/constants/theme';
-import { useDragElement, useRotationElement, useSnapGuide } from '@/hooks';
+import {
+  useDragElement,
+  useResizeElement,
+  useRotationElement,
+  useSnapGuide,
+  useTapElement,
+} from '@/hooks';
 import { CanvasTextElement } from '@/types/editor';
 import { FC, useEffect, useMemo, useState } from 'react';
 import {
@@ -16,7 +22,7 @@ import {
   View,
 } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { styles } from './style';
 
 interface Props {
@@ -52,12 +58,6 @@ const DraggableText: FC<Props> = props => {
   const elWidth = layoutElement?.width || element.width;
   const elHeight = layoutElement?.height || Number(element.height);
 
-  const startWidth = useSharedValue(element.x);
-  const startHeight = useSharedValue(element.y);
-
-  const boxWidth = useSharedValue(elWidth);
-  const boxHeight = useSharedValue(elHeight);
-
   const {
     showSnapGuideX,
     showSnapGuideY,
@@ -85,6 +85,19 @@ const DraggableText: FC<Props> = props => {
     hideSnapGuides,
   });
 
+  const { resizeGesture, boxWidth, boxHeight } = useResizeElement({
+    initialWidth: elWidth,
+    initialHeight: elHeight,
+    minWidth: Layout.textBox.minWidth,
+    minHeight: Layout.textBox.minHeight,
+    onUpdate: updates => {
+      onUpdate({
+        width: updates.width,
+        height: updates.height,
+      });
+    },
+  });
+
   const { rotationGesture, angle, updateAngle } = useRotationElement({
     initialAngle: element.rotate || 0,
     onUpdate: updates => {
@@ -94,49 +107,23 @@ const DraggableText: FC<Props> = props => {
     },
   });
 
+  const { tapGesture, handleTap } = useTapElement({
+    isElementSelected,
+    element,
+    onSelectElement,
+    onTapAction: () => setIsEditing(true),
+  });
+
   useEffect(() => {
     updatePosition(element.x, element.y);
-    boxWidth.value = element.width;
-    boxHeight.value = Number(element.height);
     updateAngle(element.rotate || 0);
-  }, [element, boxHeight, boxWidth, updatePosition]);
+  }, [element, updatePosition, updateAngle]);
 
   useEffect(() => {
     if (!isElementSelected) {
       setIsEditing(false);
     }
   }, [isElementSelected, setIsEditing]);
-
-  const handleSingleTap = () => {
-    onSelectElement(element);
-
-    if (isElementSelected) {
-      setIsEditing(true);
-    }
-  };
-
-  const resizeGesture = Gesture.Pan()
-    .onStart(() => {
-      startWidth.value = Number(boxWidth.value);
-      startHeight.value = Number(boxHeight.value);
-    })
-    .onUpdate(e => {
-      boxWidth.value = Math.max(Layout.textBox.minWidth, startWidth.value + e.translationX);
-      boxHeight.value = Math.max(Layout.textBox.minHeight, startHeight.value + e.translationY);
-    })
-    .onEnd(() => {
-      onUpdate({
-        width: boxWidth.value,
-        height: boxHeight.value,
-      });
-    })
-    .runOnJS(true);
-
-  const tapGesture = Gesture.Tap()
-    .onEnd(() => {
-      handleSingleTap();
-    })
-    .runOnJS(true);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -253,7 +240,7 @@ const DraggableText: FC<Props> = props => {
         <GestureDetector gesture={combinedGesture}>
           <Animated.View style={[getBoxStyle(), animatedStyle]}>
             {!isElementSelected && (
-              <Pressable onPress={handleSingleTap}>
+              <Pressable onPress={handleTap}>
                 <Text style={customStyle}>{element.text || 'Tap to edit'}</Text>
               </Pressable>
             )}
@@ -292,7 +279,7 @@ const DraggableText: FC<Props> = props => {
 
                 <Pressable
                   onLayout={e => setLayoutElement(e.nativeEvent.layout)}
-                  onPress={handleSingleTap}
+                  onPress={handleTap}
                 >
                   <Text style={customStyle}>{element.text || 'Tap to edit'}</Text>
                 </Pressable>
