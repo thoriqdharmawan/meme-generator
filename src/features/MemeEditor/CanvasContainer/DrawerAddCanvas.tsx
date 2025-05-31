@@ -32,11 +32,11 @@ const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
       height: dimensions.height,
     };
 
-    setCanvases(prev => [...prev, newCanvas]);
+    setCanvases(() => [newCanvas]);
     setSelectedCanvas(newCanvas);
   };
 
-  const canvases = [
+  const aspectRatioOptions = [
     {
       label: '1:1',
       aspectRatio: '1:1',
@@ -67,13 +67,13 @@ const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
     <BottomDrawer visible={visible} onClose={onClose} height={250}>
       <ScrollView horizontal>
         <View style={canvasDrawerStyles.container}>
-          {canvases.map(canvas => (
+          {aspectRatioOptions.map(option => (
             <CanvasItem
-              key={canvas.aspectRatio}
-              label={canvas.label}
-              aspectRatio={canvas.aspectRatio as AspectRatio}
-              isActive={hasCanvas && canvas.isActive}
-              onPress={canvas.onPress}
+              key={option.aspectRatio}
+              label={option.label}
+              aspectRatio={option.aspectRatio as AspectRatio}
+              isActive={hasCanvas && option.isActive}
+              onPress={option.onPress}
             />
           ))}
         </View>
