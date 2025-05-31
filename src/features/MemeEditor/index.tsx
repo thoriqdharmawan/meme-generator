@@ -46,7 +46,11 @@ const MemeEditor = () => {
               />
             ))}
             {imageElements.map(el => (
-              <Image key={el.id} source={el.source} />
+              <Image
+                key={el.id}
+                source={el.source}
+                style={{ width: el.width, height: el.height }}
+              />
             ))}
           </View>
         </TouchableWithoutFeedback>

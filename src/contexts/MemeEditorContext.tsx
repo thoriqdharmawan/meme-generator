@@ -131,7 +131,6 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     }
   };
 
-  // Image element functions
   const addImageElement = (element?: Partial<CanvasImageElement>) => {
     removeSelectedCanvas();
     removeSelectedElement();
