@@ -15,3 +15,5 @@ export { useRotationElement, type RotationElementOptions } from './useRotationEl
 export { useTapElement, type TapElementOptions } from './useTapElement';
 
 export { useCanvasPan, type CanvasPanOptions } from './useCanvasPan';
+
+export { useHistory, type HistoryState, type UseHistoryReturn } from './useHistory';

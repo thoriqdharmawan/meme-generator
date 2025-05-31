@@ -1,6 +1,7 @@
 import { Colors } from '@/constants';
+import { useHistory } from '@/hooks';
 import type { CanvasElement, CanvasElementItem, ImageElement, TextElement } from '@/types/editor';
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 interface MemeEditorContextType {
   hasCanvas: boolean;
@@ -25,6 +26,11 @@ interface MemeEditorContextType {
   addImageElement: (element?: Partial<ImageElement>) => void;
 
   onResetAll: () => void;
+
+  canUndo: boolean;
+  canRedo: boolean;
+  undo: () => void;
+  redo: () => void;
 }
 
 const MemeEditorContext = createContext<MemeEditorContextType | undefined>(undefined);
@@ -37,10 +43,24 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   const [canvases, setCanvases] = useState<CanvasElement[]>([]);
   const [selectedCanvas, setSelectedCanvas] = useState<CanvasElement | null>(null);
 
-  const [elements, setElements] = useState<CanvasElementItem[]>([]);
   const [selectedElement, setSelectedElement] = useState<CanvasElementItem | null>(null);
-
   const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  const {
+    state: elements,
+    canUndo,
+    canRedo,
+    undo,
+    redo,
+    set: setElementsHistory,
+    reset: resetElementsHistory,
+  } = useHistory<CanvasElementItem[]>([]);
+
+  useEffect(() => {
+    if (selectedElement && !elements.find(el => el.id === selectedElement.id)) {
+      setSelectedElement(null);
+    }
+  }, [elements, selectedElement]);
 
   const removeSelectedCanvas = () => {
     setSelectedCanvas(null);
@@ -68,32 +88,35 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
       textAlign: 'center',
       ...element,
     };
-    setElements(prev => [...prev, newElement]);
+
+    const newElements = [...elements, newElement];
+    setElementsHistory(newElements);
   };
 
   const updateElement = (id: string, updates: Partial<CanvasElementItem>) => {
     removeSelectedCanvas();
 
-    setElements(prev => {
-      return prev.map(el => {
-        if (el.id === id) {
-          const updatedElement = { ...el, ...updates } as CanvasElementItem;
-          setSelectedElement(updatedElement);
-          return updatedElement;
-        }
-        return el;
-      });
+    const newElements = elements.map((el: CanvasElementItem) => {
+      if (el.id === id) {
+        const updatedElement = { ...el, ...updates } as CanvasElementItem;
+        setSelectedElement(updatedElement);
+        return updatedElement;
+      }
+      return el;
     });
+
+    setElementsHistory(newElements);
   };
 
   const deleteElement = (id: string) => {
     setSelectedElement(null);
-    setElements(prev => prev.filter(el => el.id !== id));
+    const newElements = elements.filter((el: CanvasElementItem) => el.id !== id);
+    setElementsHistory(newElements);
   };
 
   const duplicateElement = (id: string, position: Pick<CanvasElementItem, 'x' | 'y'>) => {
     removeSelectedCanvas();
-    const original = elements.find(el => el.id === id);
+    const original = elements.find((el: CanvasElementItem) => el.id === id);
     if (original) {
       const newCopy: CanvasElementItem = {
         ...original,
@@ -103,7 +126,8 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
       };
 
       setSelectedElement(newCopy);
-      setElements(prev => [...prev, newCopy]);
+      const newElements = [...elements, newCopy];
+      setElementsHistory(newElements);
     }
   };
 
@@ -113,10 +137,9 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
 
     // Move selected element to the end of the array (bring to front)
     if (element) {
-      setElements(prev => {
-        const filteredElements = prev.filter(el => el.id !== element.id);
-        return [...filteredElements, element];
-      });
+      const filteredElements = elements.filter((el: CanvasElementItem) => el.id !== element.id);
+      const newElements = [...filteredElements, element];
+      setElementsHistory(newElements);
     }
   };
 
@@ -136,7 +159,9 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
       opacity: element?.opacity || 1,
       ...element,
     };
-    setElements(prev => [...prev, newImageElement]);
+
+    const newElements = [...elements, newImageElement];
+    setElementsHistory(newElements);
     setSelectedElement(newImageElement);
   };
 
@@ -148,9 +173,18 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   const onResetAll = () => {
     setCanvases([]);
     setSelectedCanvas(null);
-    setElements([]);
+    resetElementsHistory([]);
     setSelectedElement(null);
     setIsEditing(false);
+  };
+
+  const setElements: React.Dispatch<React.SetStateAction<CanvasElementItem[]>> = value => {
+    if (typeof value === 'function') {
+      const newElements = value(elements);
+      setElementsHistory(newElements);
+    } else {
+      setElementsHistory(value);
+    }
   };
 
   const value: MemeEditorContextType = {
@@ -176,6 +210,11 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     addImageElement,
 
     onResetAll,
+
+    canUndo,
+    canRedo,
+    undo,
+    redo,
   };
 
   return <MemeEditorContext.Provider value={value}>{children}</MemeEditorContext.Provider>;
