@@ -128,4 +128,8 @@ export const calculateCanvasDimensionsForAspectRatio = (
   return { width: Math.round(width), height: Math.round(height) };
 };
 
+export const clamp = (value: number, min: number, max: number): number => {
+  return Math.min(Math.max(value, min), max);
+};
+
 export { screenHeight, screenWidth };
