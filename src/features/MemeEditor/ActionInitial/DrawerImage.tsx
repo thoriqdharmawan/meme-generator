@@ -1,5 +1,6 @@
 import { BottomDrawer, Button } from '@/components';
 import { IMAGES } from '@/constants/templates';
+import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import type { ImageInterface } from '@/types/editor';
 import { FC, useState } from 'react';
 import { FlatList, Image, TouchableWithoutFeedback } from 'react-native';
@@ -11,6 +12,7 @@ interface DrawerImageProps {
 }
 
 const DrawerImage: FC<DrawerImageProps> = ({ onClose, visible }) => {
+  const { addImageElement } = useMemeEditor();
   const [selectedImage, setSelectedImage] = useState<ImageInterface | null>(null);
 
   const renderImageItem = ({ item }: { item: ImageInterface }) => (
@@ -23,7 +25,13 @@ const DrawerImage: FC<DrawerImageProps> = ({ onClose, visible }) => {
     </TouchableWithoutFeedback>
   );
 
-  const handleAddToCanvas = () => {};
+  const handleAddToCanvas = () => {
+    if (selectedImage) {
+      addImageElement({ source: selectedImage.source });
+      setSelectedImage(null);
+      onClose();
+    }
+  };
 
   return (
     <BottomDrawer visible={visible} onClose={onClose}>

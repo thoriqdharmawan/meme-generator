@@ -26,6 +26,17 @@ export interface CanvasTextElement {
   rotate?: number; // in radians
 }
 
+export interface CanvasImageElement {
+  id: string;
+  source: ImageSourcePropType;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotate?: number; // in radians
+  opacity?: number;
+}
+
 export type CanvasTextFields = keyof CanvasTextElement;
 
 export type AspectRatio = '1:1' | '9:16' | '4:5' | '2:3';

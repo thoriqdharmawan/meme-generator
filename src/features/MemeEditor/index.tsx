@@ -1,5 +1,5 @@
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { Image, TouchableWithoutFeedback, View } from 'react-native';
 import ActionInitial from './ActionInitial';
 import ActionText from './ActionText';
 import CanvasContainer from './CanvasContainer';
@@ -18,6 +18,7 @@ const MemeEditor = () => {
     handleSelectElement,
     selectedCanvas,
     canvases,
+    imageElements,
   } = useMemeEditor();
 
   const canvas = selectedCanvas || canvases[0];
@@ -43,6 +44,9 @@ const MemeEditor = () => {
                 canvasWidth={canvasWidth}
                 canvasHeight={canvasHeight}
               />
+            ))}
+            {imageElements.map(el => (
+              <Image key={el.id} source={el.source} />
             ))}
           </View>
         </TouchableWithoutFeedback>
