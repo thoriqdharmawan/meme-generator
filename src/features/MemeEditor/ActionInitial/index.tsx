@@ -1,9 +1,9 @@
 import { ConfirmationDialog } from '@/components';
+import Icon from '@/components/icon';
 import { Colors } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import Button from '@components/Button';
 import Footer from '@components/Footer';
-import Icon from '@components/Icon';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
 import DrawerImage from './DrawerImage';

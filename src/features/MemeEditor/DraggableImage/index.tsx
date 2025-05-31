@@ -1,6 +1,6 @@
 import { SnapGuides } from '@/components';
 import Button from '@/components/Button';
-import Icon from '@/components/Icon';
+import Icon from '@/components/icon';
 import { Colors, Layout } from '@/constants';
 import { Spacing } from '@/constants/theme';
 import {

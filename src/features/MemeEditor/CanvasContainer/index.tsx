@@ -1,5 +1,5 @@
 import Button from '@/components/Button';
-import Icon from '@/components/Icon';
+import Icon from '@/components/icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { useCanvasPan } from '@/hooks';
 import { clamp, screenHeight, screenWidth } from '@/utils';

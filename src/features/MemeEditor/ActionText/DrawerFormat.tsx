@@ -1,6 +1,6 @@
 import BottomDrawer from '@/components/BottomDrawer';
 import Button from '@/components/Button';
-import Icon, { IconLibrary } from '@/components/Icon';
+import Icon, { IconLibrary } from '@/components/icon';
 import { Colors, Typography } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { CanvasTextElement } from '@/types/editor';
