@@ -16,6 +16,44 @@ export interface DragElementOptions {
   hideSnapGuides: () => void;
 }
 
+/**
+ * Custom hook for handling draggable elements with snap guides and boundaries
+ *
+ * This hook provides drag functionality for elements within a canvas, including:
+ * - Drag gesture handling with smooth animations
+ * - Snap guides for alignment assistance
+ * - Boundary constraints within canvas
+ * - Element selection management
+ * - Spring animations for smooth position updates
+ *
+ * @param options - Configuration options for drag behavior
+ * @returns Object containing drag gesture, translation values, and utility functions
+ *
+ * @example
+ * ```typescript
+ * const { dragGesture, translateX, translateY, updatePosition } = useDragElement({
+ *   initialX: 100,
+ *   initialY: 100,
+ *   canvasWidth: 400,
+ *   canvasHeight: 600,
+ *   elementWidth: 80,
+ *   elementHeight: 80,
+ *   isElementSelected: true,
+ *   onSelectElement: (element) => setSelectedElement(element),
+ *   onUpdate: (updates) => handleElementUpdate(updates),
+ *   updateSnapGuides: (x, y, bounds) => showSnapGuides(x, y, bounds),
+ *   calculateSnapPosition: (x, y, bounds) => getSnapPosition(x, y, bounds),
+ *   hideSnapGuides: () => hideGuides(),
+ * });
+ *
+ * // Use with Animated.View
+ * <Animated.View style={[{ transform: [{ translateX }, { translateY }] }]}>
+ *   <GestureDetector gesture={dragGesture}>
+ *     <YourDraggableElement />
+ *   </GestureDetector>
+ * </Animated.View>
+ * ```
+ */
 export const useDragElement = (options: DragElementOptions) => {
   const {
     initialX,
@@ -34,6 +72,7 @@ export const useDragElement = (options: DragElementOptions) => {
 
   const startX = useSharedValue(initialX);
   const startY = useSharedValue(initialY);
+
   const translateX = useSharedValue(initialX);
   const translateY = useSharedValue(initialY);
 
