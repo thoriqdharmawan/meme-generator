@@ -5,17 +5,20 @@ import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
 import DrawerColors from './DrawerColors';
+import DrawerFontSize from './DrawerFontSize';
 import DrawerFormat from './DrawerFormat';
 import { styles } from './style';
 
 interface VisibleState {
   drawerColors: boolean;
   drawerFormat: boolean;
+  drawerFontSize: boolean;
 }
 
 const DEFAULT_VISIBLE_STATE: VisibleState = {
   drawerColors: false,
   drawerFormat: false,
+  drawerFontSize: false,
 };
 
 const ActionText = () => {
@@ -55,6 +58,7 @@ const ActionText = () => {
             textStyle={styles.actionText}
             title='Font Size'
             variant='ghost'
+            onPress={() => setIsVisible(prev => ({ ...prev, drawerFontSize: true }))}
           />
         </ScrollView>
       </Footer>
@@ -67,6 +71,11 @@ const ActionText = () => {
 
       <DrawerFormat
         visible={isVisible.drawerFormat}
+        onClose={() => setIsVisible(DEFAULT_VISIBLE_STATE)}
+      />
+
+      <DrawerFontSize
+        visible={isVisible.drawerFontSize}
         onClose={() => setIsVisible(DEFAULT_VISIBLE_STATE)}
       />
     </>
