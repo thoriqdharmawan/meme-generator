@@ -105,6 +105,14 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   const handleSelectElement = (element: CanvasTextElement | null) => {
     removeSelectedCanvas();
     setSelectedElement(element);
+
+    // Move selected element to the end of the array (bring to front)
+    if (element) {
+      setElements(prev => {
+        const filteredElements = prev.filter(el => el.id !== element.id);
+        return [...filteredElements, element];
+      });
+    }
   };
 
   const handleSelectCanvas = (canvas: CanvasElement | null) => {
