@@ -36,6 +36,47 @@ const ELEMENTS_DEMO_MEME1: CanvasTextElement[] = [
   },
 ];
 
+const ELEMENTS_DEMO_MEME2: CanvasTextElement[] = [
+  {
+    id: '1748676221531',
+    text: 'Langsung angkat karena penasaran',
+    x: 32.345610067248344,
+    y: 51.5063359439373,
+    width: 118.87723418644498,
+    color: '#000000',
+    fontWeight: 'normal',
+    textAlign: 'center',
+    fontSize: 15,
+    rotate: -0.26029629226590734,
+    backgroundColor: '#FFFFFF',
+  },
+  {
+    id: '1748676291983-copy',
+    text: 'Diam, tatap layar, berharap dia menyerah',
+    x: 149.3452356159687,
+    y: 25.664430618286133,
+    width: 119.83556636742185,
+    color: '#000000',
+    fontWeight: 'normal',
+    textAlign: 'center',
+    fontSize: 15,
+    rotate: -0.1905156804036654,
+    backgroundColor: '#FFFFFF',
+  },
+  {
+    id: '1748676665166',
+    text: 'Ditelfon nomor tidak dikenal',
+    x: 44.547607421875,
+    y: 456.5412902832031,
+    width: 259.91592189243863,
+    color: '#000000',
+    fontWeight: 'normal',
+    textAlign: 'center',
+    fontSize: 20,
+    backgroundColor: '#FFFFFF',
+  },
+];
+
 const ELEMENTS_DEMO_MEME3: CanvasTextElement[] = [
   {
     id: 'el-demo-meme-1',
@@ -77,7 +118,7 @@ const ELEMENTS_DEMO_MEME3: CanvasTextElement[] = [
 
 export const MEME_TEMPLATES: MemeTemplate[] = [
   { id: '1', source: meme1, elemets: ELEMENTS_DEMO_MEME1 },
-  { id: '2', source: meme2 },
+  { id: '2', source: meme2, elemets: ELEMENTS_DEMO_MEME2 },
   { id: '3', source: meme3, elemets: ELEMENTS_DEMO_MEME3 },
   { id: '12', source: meme1 },
   { id: '22', source: meme2 },
