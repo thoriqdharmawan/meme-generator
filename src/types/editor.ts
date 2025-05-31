@@ -1,9 +1,10 @@
-import { TextStyle } from 'react-native';
+import { ImageSourcePropType, TextStyle } from 'react-native';
 
 export interface CanvasElement {
   id: string;
   width: number;
   height: number;
+  backgroundImage?: ImageSourcePropType;
 }
 
 export interface CanvasTextElement {

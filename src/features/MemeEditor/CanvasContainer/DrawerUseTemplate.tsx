@@ -1,4 +1,7 @@
 import { BottomDrawer, Button } from '@/components';
+import { useMemeEditor } from '@/contexts/MemeEditorContext';
+import { CanvasElement } from '@/types/editor';
+import { calculateCanvasDimensions } from '@/utils';
 import { FC, useState } from 'react';
 import { FlatList, Image, ImageSourcePropType, TouchableWithoutFeedback, View } from 'react-native';
 import { templateStyles } from './style';
@@ -18,6 +21,7 @@ interface TemplateItemInterface {
 }
 
 const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => {
+  const { setCanvases, setSelectedCanvas } = useMemeEditor();
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateItemInterface | null>(null);
 
   const templates: TemplateItemInterface[] = [
@@ -35,11 +39,26 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
     { id: '3234', source: meme3 },
   ];
 
-  const handleUseTemplate = () => {
+  const handleUseTemplate = async () => {
     if (selectedTemplate) {
-      // TODO: Implement template usage logic
-      onClose();
-      setSelectedTemplate(null);
+      try {
+        const dimensions = await calculateCanvasDimensions(selectedTemplate.source);
+
+        const newCanvas: CanvasElement = {
+          id: `canvas-template-${Date.now()}`,
+          width: dimensions.width,
+          height: dimensions.height,
+          backgroundImage: selectedTemplate.source,
+        };
+
+        setCanvases(prev => [...prev, newCanvas]);
+        setSelectedCanvas(newCanvas);
+
+        onClose();
+        setSelectedTemplate(null);
+      } catch (error) {
+        console.error('Error calculating canvas dimensions:', error);
+      }
     }
   };
 

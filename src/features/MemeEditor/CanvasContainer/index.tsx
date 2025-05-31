@@ -3,7 +3,7 @@ import Icon from '@/components/Icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { screenHeight, screenWidth } from '@/utils';
 import { FC, useState } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { ImageBackground, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import DrawerAddCanvas from './DrawerAddCanvas';
@@ -92,6 +92,24 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
     height: selectedCanvas?.height || canvases[0]?.height,
   };
 
+  const currentCanvas = selectedCanvas || canvases[0];
+  const hasBackgroundImage = currentCanvas?.backgroundImage;
+
+  const renderCanvasContent = () => {
+    if (hasBackgroundImage) {
+      return (
+        <ImageBackground
+          source={currentCanvas.backgroundImage}
+          style={styles.canvasBackground}
+          resizeMode='cover'
+        >
+          {children}
+        </ImageBackground>
+      );
+    }
+    return children;
+  };
+
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setSelectedCanvas(null)}>
@@ -124,7 +142,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
                     <Animated.View
                       style={[boxAnimatedStyles, styles.box, canvasStyle, styles.boxActive]}
                     >
-                      {children}
+                      {renderCanvasContent()}
                     </Animated.View>
                   </TouchableWithoutFeedback>
                 </GestureDetector>
@@ -133,7 +151,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
               {!selectedCanvas && (
                 <TouchableWithoutFeedback onPress={() => setSelectedCanvas(canvases[0])}>
                   <Animated.View style={[boxAnimatedStyles, styles.box, canvasStyle]}>
-                    {children}
+                    {renderCanvasContent()}
                   </Animated.View>
                 </TouchableWithoutFeedback>
               )}

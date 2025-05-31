@@ -25,6 +25,10 @@ export const styles = StyleSheet.create({
     borderColor: Colors.primary,
     borderWidth: 1,
   },
+  canvasBackground: {
+    height: '100%',
+    width: '100%',
+  },
   container: {
     alignItems: 'center',
     backgroundColor: Colors.backgroundSecondary,
