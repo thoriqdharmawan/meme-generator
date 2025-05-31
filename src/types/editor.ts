@@ -23,6 +23,7 @@ export interface CanvasTextElement {
   textTransform?: 'uppercase';
   textAlign?: TextStyle['textAlign'];
   backgroundColor?: TextStyle['backgroundColor'];
+  rotate?: number; // in radians
 }
 
 export type CanvasTextFields = keyof CanvasTextElement;

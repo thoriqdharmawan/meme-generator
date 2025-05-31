@@ -62,6 +62,9 @@ const DraggableText: FC<Props> = props => {
   const boxWidth = useSharedValue(elWidth);
   const boxHeight = useSharedValue(elHeight);
 
+  const angle = useSharedValue(element.rotate || 0);
+  const startAngle = useSharedValue(0);
+
   const {
     showSnapGuideX,
     showSnapGuideY,
@@ -79,7 +82,8 @@ const DraggableText: FC<Props> = props => {
     translateY.value = element.y;
     boxWidth.value = element.width;
     boxHeight.value = Number(element.height);
-  }, [element, boxHeight, boxWidth, translateX, translateY]);
+    angle.value = element.rotate || 0;
+  }, [element, boxHeight, boxWidth, translateX, translateY, angle]);
 
   useEffect(() => {
     if (!isElementSelected) {
@@ -152,6 +156,20 @@ const DraggableText: FC<Props> = props => {
     })
     .runOnJS(true);
 
+  const rotation = Gesture.Rotation()
+    .onStart(() => {
+      startAngle.value = angle.value;
+    })
+    .onUpdate(event => {
+      angle.value = startAngle.value + event.rotation;
+    })
+    .onEnd(() => {
+      onUpdate({
+        rotate: angle.value,
+      });
+    })
+    .runOnJS(true);
+
   const tapGesture = Gesture.Tap()
     .onEnd(() => {
       handleSingleTap();
@@ -159,7 +177,11 @@ const DraggableText: FC<Props> = props => {
     .runOnJS(true);
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
+    transform: [
+      { translateX: translateX.value },
+      { translateY: translateY.value },
+      { rotate: `${angle.value || 0}rad` },
+    ],
     width: Number(boxWidth.value),
     height: Number(boxHeight.value),
   }));
@@ -176,7 +198,7 @@ const DraggableText: FC<Props> = props => {
     onDuplicate({ x: translateX.value + Spacing.lg, y: translateY.value + Spacing.lg });
   };
 
-  const combinedGesture = Gesture.Simultaneous(dragGesture, tapGesture);
+  const combinedGesture = Gesture.Simultaneous(dragGesture, tapGesture, rotation);
 
   const getTextDecorationLine = (): TextStyle['textDecorationLine'] => {
     const decorations: string[] = [];
