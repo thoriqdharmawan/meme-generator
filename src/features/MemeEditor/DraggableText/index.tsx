@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
 import { Spacing, Typography } from '@/constants/theme';
-import { useDragElement, useSnapGuide } from '@/hooks';
+import { useDragElement, useRotationElement, useSnapGuide } from '@/hooks';
 import { CanvasTextElement } from '@/types/editor';
 import { FC, useEffect, useMemo, useState } from 'react';
 import {
@@ -58,9 +58,6 @@ const DraggableText: FC<Props> = props => {
   const boxWidth = useSharedValue(elWidth);
   const boxHeight = useSharedValue(elHeight);
 
-  const angle = useSharedValue(element.rotate || 0);
-  const startAngle = useSharedValue(0);
-
   const {
     showSnapGuideX,
     showSnapGuideY,
@@ -88,12 +85,21 @@ const DraggableText: FC<Props> = props => {
     hideSnapGuides,
   });
 
+  const { rotationGesture, angle, updateAngle } = useRotationElement({
+    initialAngle: element.rotate || 0,
+    onUpdate: updates => {
+      onUpdate({
+        rotate: updates.rotate,
+      });
+    },
+  });
+
   useEffect(() => {
     updatePosition(element.x, element.y);
     boxWidth.value = element.width;
     boxHeight.value = Number(element.height);
-    angle.value = element.rotate || 0;
-  }, [element, boxHeight, boxWidth, updatePosition, angle]);
+    updateAngle(element.rotate || 0);
+  }, [element, boxHeight, boxWidth, updatePosition]);
 
   useEffect(() => {
     if (!isElementSelected) {
@@ -126,20 +132,6 @@ const DraggableText: FC<Props> = props => {
     })
     .runOnJS(true);
 
-  const rotation = Gesture.Rotation()
-    .onStart(() => {
-      startAngle.value = angle.value;
-    })
-    .onUpdate(event => {
-      angle.value = startAngle.value + event.rotation;
-    })
-    .onEnd(() => {
-      onUpdate({
-        rotate: angle.value,
-      });
-    })
-    .runOnJS(true);
-
   const tapGesture = Gesture.Tap()
     .onEnd(() => {
       handleSingleTap();
@@ -168,7 +160,7 @@ const DraggableText: FC<Props> = props => {
     onDuplicate({ x: translateX.value + Spacing.lg, y: translateY.value + Spacing.lg });
   };
 
-  const combinedGesture = Gesture.Simultaneous(dragGesture, tapGesture, rotation);
+  const combinedGesture = Gesture.Simultaneous(dragGesture, tapGesture, rotationGesture);
 
   const getTextDecorationLine = (): TextStyle['textDecorationLine'] => {
     const decorations: string[] = [];

@@ -8,4 +8,6 @@ export {
 
 export { useDragElement, type DragElementOptions } from './useDragElement';
 
+export { useRotationElement, type RotationElementOptions } from './useRotationElement';
+
 export { useCanvasPan, type CanvasPanOptions } from './useCanvasPan';
