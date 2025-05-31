@@ -112,7 +112,7 @@ const DraggableImage: FC<Props> = props => {
     ],
     width: Number(boxWidth.value),
     height: Number(boxHeight.value),
-    opacity: element.opacity || 1,
+    opacity: element.opacity ?? 1,
   }));
 
   const getBoxStyle = () => {

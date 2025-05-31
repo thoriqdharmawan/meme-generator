@@ -74,7 +74,6 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   const updateElement = (id: string, updates: Partial<CanvasElementItem>) => {
     removeSelectedCanvas();
 
-    console.log({ updates });
     setElements(prev => {
       return prev.map(el => {
         if (el.id === id) {

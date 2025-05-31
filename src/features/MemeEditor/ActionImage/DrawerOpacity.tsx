@@ -14,7 +14,7 @@ interface DrawerOpacityProps {
 const DrawerOpacity: FC<DrawerOpacityProps> = ({ visible, onClose }) => {
   const { selectedElement, updateElement } = useMemeEditor();
 
-  const currentOpacity = (selectedElement as ImageElement)?.opacity || 1;
+  const currentOpacity = (selectedElement as ImageElement)?.opacity ?? 1;
 
   const handleOpacityChange = (opacity: number) => {
     if (selectedElement) {

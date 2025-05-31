@@ -14,6 +14,7 @@ export interface BaseElement {
   width: number;
   height?: number | string;
   rotate?: number; // in radians
+  opacity?: number;
 }
 
 export interface TextElement extends BaseElement {
@@ -33,7 +34,6 @@ export interface TextElement extends BaseElement {
 export interface ImageElement extends BaseElement {
   type: 'image';
   source: ImageSourcePropType;
-  opacity?: number;
 }
 
 export type CanvasElementItem = TextElement | ImageElement;
