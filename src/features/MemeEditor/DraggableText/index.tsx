@@ -253,8 +253,8 @@ const DraggableText: FC<Props> = props => {
                   <Button
                     icon={
                       <Icon
-                        library='Feather'
-                        name='copy'
+                        library='MaterialCommunityIcons'
+                        name='format-font-size-decrease'
                         size={Spacing.md}
                         color={Colors.primary}
                       />
@@ -265,7 +265,38 @@ const DraggableText: FC<Props> = props => {
                   />
                   <Button
                     icon={
-                      <Icon library='Feather' name='trash' size={Spacing.md} color={Colors.error} />
+                      <Icon
+                        library='MaterialCommunityIcons'
+                        name='format-font-size-increase'
+                        size={Spacing.md}
+                        color={Colors.primary}
+                      />
+                    }
+                    size='small'
+                    variant='ghost'
+                    onPress={handleDuplicate}
+                  />
+                  <Button
+                    icon={
+                      <Icon
+                        library='MaterialCommunityIcons'
+                        name='content-copy'
+                        size={Spacing.md}
+                        color={Colors.primary}
+                      />
+                    }
+                    size='small'
+                    variant='ghost'
+                    onPress={handleDuplicate}
+                  />
+                  <Button
+                    icon={
+                      <Icon
+                        library='MaterialCommunityIcons'
+                        name='trash-can-outline'
+                        size={Spacing.md}
+                        color={Colors.error}
+                      />
                     }
                     size='small'
                     variant='ghost'
