@@ -120,13 +120,4 @@ export const MEME_TEMPLATES: MemeTemplate[] = [
   { id: '1', source: meme1, elemets: ELEMENTS_DEMO_MEME1 },
   { id: '2', source: meme2, elemets: ELEMENTS_DEMO_MEME2 },
   { id: '3', source: meme3, elemets: ELEMENTS_DEMO_MEME3 },
-  { id: '12', source: meme1 },
-  { id: '22', source: meme2 },
-  { id: '32', source: meme3 },
-  { id: '123', source: meme1 },
-  { id: '223', source: meme2 },
-  { id: '323', source: meme3 },
-  { id: '1234', source: meme1 },
-  { id: '2234', source: meme2 },
-  { id: '3234', source: meme3 },
 ];
