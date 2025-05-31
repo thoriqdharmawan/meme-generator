@@ -1,6 +1,7 @@
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import type { ImageElement, TextElement } from '@/types/editor';
 import { TouchableWithoutFeedback, View } from 'react-native';
+import ActionImage from './ActionImage';
 import ActionInitial from './ActionInitial';
 import ActionText from './ActionText';
 import CanvasContainer from './CanvasContainer';
@@ -69,6 +70,7 @@ const MemeEditor = () => {
 
       {hasCanvas && !selectedElement && <ActionInitial />}
       {selectedElement && !isEditing && selectedElement.type === 'text' && <ActionText />}
+      {selectedElement && !isEditing && selectedElement.type === 'image' && <ActionImage />}
     </>
   );
 };
