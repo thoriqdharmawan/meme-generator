@@ -192,16 +192,14 @@ const DraggableText: FC<Props> = props => {
 
   return (
     <>
-      {isElementSelected && (
-        <SnapGuides
-          showSnapGuideX={showSnapGuideX}
-          showSnapGuideY={showSnapGuideY}
-          snapLineX={snapLineX}
-          snapLineY={snapLineY}
-          canvasWidth={canvasWidth}
-          canvasHeight={canvasHeight}
-        />
-      )}
+      <SnapGuides
+        showSnapGuideX={showSnapGuideX}
+        showSnapGuideY={showSnapGuideY}
+        snapLineX={snapLineX}
+        snapLineY={snapLineY}
+        canvasWidth={canvasWidth}
+        canvasHeight={canvasHeight}
+      />
 
       <TouchableWithoutFeedback>
         <GestureDetector gesture={combinedGesture}>
