@@ -1,6 +1,7 @@
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
+import { useCanvasPan } from '@/hooks';
 import { screenHeight, screenWidth } from '@/utils';
 import { FC, useState } from 'react';
 import { ImageBackground, Text, TouchableWithoutFeedback, View } from 'react-native';
@@ -33,36 +34,13 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
 
   const [drawer, setDrawer] = useState<DrawerState>(DEFAULT_DRAWER_STATE);
 
-  const translationX = useSharedValue(0);
-  const translationY = useSharedValue(0);
-  const prevTranslationX = useSharedValue(0);
-  const prevTranslationY = useSharedValue(0);
+  const { pan, translationX, translationY } = useCanvasPan({
+    screenWidth,
+    screenHeight,
+  });
 
   const scale = useSharedValue(1);
   const startScale = useSharedValue(1);
-
-  const pan = Gesture.Pan()
-    .minDistance(1)
-    .onStart(() => {
-      prevTranslationX.value = translationX.value;
-      prevTranslationY.value = translationY.value;
-    })
-    .onUpdate(event => {
-      const maxTranslateX = screenWidth / 2 - 50;
-      const maxTranslateY = screenHeight / 2 - 50;
-
-      translationX.value = clamp(
-        prevTranslationX.value + event.translationX,
-        -maxTranslateX,
-        maxTranslateX
-      );
-      translationY.value = clamp(
-        prevTranslationY.value + event.translationY,
-        -maxTranslateY,
-        maxTranslateY
-      );
-    })
-    .runOnJS(true);
 
   const pinch = Gesture.Pinch()
     .onStart(() => {

@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
 import { Spacing, Typography } from '@/constants/theme';
-import { useSnapGuide } from '@/hooks';
+import { useDragElement, useSnapGuide } from '@/hooks';
 import { CanvasTextElement } from '@/types/editor';
 import { FC, useEffect, useMemo, useState } from 'react';
 import {
@@ -16,7 +16,7 @@ import {
   View,
 } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { styles } from './style';
 
 interface Props {
@@ -52,13 +52,9 @@ const DraggableText: FC<Props> = props => {
   const elWidth = layoutElement?.width || element.width;
   const elHeight = layoutElement?.height || Number(element.height);
 
-  const startX = useSharedValue(element.x);
-  const startY = useSharedValue(element.y);
   const startWidth = useSharedValue(element.x);
   const startHeight = useSharedValue(element.y);
 
-  const translateX = useSharedValue(element.x);
-  const translateY = useSharedValue(element.y);
   const boxWidth = useSharedValue(elWidth);
   const boxHeight = useSharedValue(elHeight);
 
@@ -77,13 +73,27 @@ const DraggableText: FC<Props> = props => {
 
   const isElementSelected = props.selectedElement?.id === element.id;
 
+  const { dragGesture, translateX, translateY, updatePosition } = useDragElement({
+    initialX: element.x,
+    initialY: element.y,
+    canvasWidth,
+    canvasHeight,
+    elementWidth: Number(elWidth),
+    elementHeight: Number(elHeight),
+    isElementSelected,
+    onSelectElement,
+    onUpdate,
+    updateSnapGuides,
+    calculateSnapPosition,
+    hideSnapGuides,
+  });
+
   useEffect(() => {
-    translateX.value = element.x;
-    translateY.value = element.y;
+    updatePosition(element.x, element.y);
     boxWidth.value = element.width;
     boxHeight.value = Number(element.height);
     angle.value = element.rotate || 0;
-  }, [element, boxHeight, boxWidth, translateX, translateY, angle]);
+  }, [element, boxHeight, boxWidth, updatePosition, angle]);
 
   useEffect(() => {
     if (!isElementSelected) {
@@ -98,46 +108,6 @@ const DraggableText: FC<Props> = props => {
       setIsEditing(true);
     }
   };
-
-  const dragGesture = Gesture.Pan()
-    .onStart(() => {
-      startX.value = translateX.value;
-      startY.value = translateY.value;
-    })
-    .onUpdate(e => {
-      if (!isElementSelected) {
-        onSelectElement(null);
-      }
-
-      translateX.value = startX.value + e.translationX;
-      translateY.value = startY.value + e.translationY;
-
-      updateSnapGuides(translateX.value, translateY.value, {
-        canvasWidth,
-        canvasHeight,
-        elementWidth: Number(elWidth),
-        elementHeight: Number(elHeight),
-      });
-    })
-    .onEnd(() => {
-      const snapResult = calculateSnapPosition(translateX.value, translateY.value, {
-        canvasWidth,
-        canvasHeight,
-        elementWidth: Number(elWidth),
-        elementHeight: Number(elHeight),
-      });
-
-      hideSnapGuides();
-
-      translateX.value = withSpring(snapResult.finalX, { damping: 20 });
-      translateY.value = withSpring(snapResult.finalY, { damping: 20 });
-
-      onUpdate({
-        x: snapResult.finalX,
-        y: snapResult.finalY,
-      });
-    })
-    .runOnJS(true);
 
   const resizeGesture = Gesture.Pan()
     .onStart(() => {
