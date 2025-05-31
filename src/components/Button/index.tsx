@@ -117,19 +117,19 @@ export const Button: React.FC<ButtonProps> = ({
 
     const variantTextStyles: Record<string, TextStyle> = {
       primary: {
-        color: isDisabled ? Colors.textTertiary : Colors.textInverse,
+        color: isDisabled ? Colors.white : Colors.textInverse,
       },
       secondary: {
-        color: isDisabled ? Colors.textTertiary : Colors.textInverse,
+        color: isDisabled ? Colors.white : Colors.textInverse,
       },
       outline: {
-        color: isDisabled ? Colors.textTertiary : Colors.primary,
+        color: isDisabled ? Colors.white : Colors.primary,
       },
       ghost: {
-        color: isDisabled ? Colors.textTertiary : Colors.primary,
+        color: isDisabled ? Colors.white : Colors.primary,
       },
       danger: {
-        color: isDisabled ? Colors.textTertiary : Colors.textInverse,
+        color: isDisabled ? Colors.white : Colors.textInverse,
       },
     };
 
