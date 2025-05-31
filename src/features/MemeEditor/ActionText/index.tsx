@@ -37,10 +37,10 @@ const ActionText = () => {
       <Footer>
         <ScrollView horizontal style={styles.container}>
           <Button
-            icon={<Icon library='Ionicons' name='color-palette-outline' />}
+            icon={<Icon library='MaterialCommunityIcons' name='format-color-text' />}
             style={styles.action}
             textStyle={styles.actionText}
-            title='Colors'
+            title='Color'
             variant='ghost'
             onPress={() => setIsVisible(prev => ({ ...prev, drawerColors: true }))}
           />
