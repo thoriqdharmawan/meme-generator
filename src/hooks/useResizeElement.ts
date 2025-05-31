@@ -1,3 +1,4 @@
+import { clamp } from '@/utils';
 import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -56,10 +57,6 @@ export const useResizeElement = (options: ResizeElementOptions) => {
   const startHeight = useSharedValue(initialHeight);
 
   const aspectRatio = initialWidth / initialHeight;
-
-  const clamp = (value: number, min: number, max: number): number => {
-    return Math.min(Math.max(value, min), max);
-  };
 
   /**
    * Calculate new dimensions with constraints applied

@@ -1,3 +1,4 @@
+import { clamp } from '@/utils';
 import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -53,10 +54,6 @@ export const useRotationElement = (options: RotationElementOptions) => {
 
   const angle = useSharedValue(initialAngle);
   const startAngle = useSharedValue(0);
-
-  const clamp = (value: number, min: number, max: number): number => {
-    return Math.min(Math.max(value, min), max);
-  };
 
   const findSnapAngle = (currentAngle: number): number => {
     if (snapToAngles.length === 0) {

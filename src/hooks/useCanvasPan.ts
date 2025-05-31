@@ -1,9 +1,6 @@
+import { clamp } from '@/utils';
 import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
-
-function clamp(val: number, min: number, max: number): number {
-  return Math.min(Math.max(val, min), max);
-}
 
 export interface CanvasPanOptions {
   screenWidth: number;

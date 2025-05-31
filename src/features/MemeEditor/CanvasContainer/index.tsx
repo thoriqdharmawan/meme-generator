@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { useCanvasPan } from '@/hooks';
-import { screenHeight, screenWidth } from '@/utils';
+import { clamp, screenHeight, screenWidth } from '@/utils';
 import { FC, useState } from 'react';
 import { ImageBackground, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -10,10 +10,6 @@ import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanima
 import DrawerAddCanvas from './DrawerAddCanvas';
 import DrawerUseTemplate from './DrawerUseTemplate';
 import { styles } from './style';
-
-function clamp(val: number, min: number, max: number): number {
-  return Math.min(Math.max(val, min), max);
-}
 
 interface CanvasContainerProps {
   children?: React.ReactNode;
