@@ -5,7 +5,7 @@ import { Colors, Layout } from '@/constants';
 import { Spacing } from '@/constants/theme';
 import { useSnapGuide } from '@/hooks';
 import { CanvasTextElement } from '@/types/editor';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import {
   LayoutRectangle,
   Pressable,
@@ -178,17 +178,43 @@ const DraggableText: FC<Props> = props => {
 
   const combinedGesture = Gesture.Simultaneous(dragGesture, tapGesture);
 
-  const customSyle: TextStyle = {
-    color: element.color || Colors.black,
-    fontSize: element.fontSize,
-    fontWeight: element.fontWeight,
-    fontStyle: element.fontStyle,
-    textTransform: element.textTransform,
-    textAlign: element.textAlign,
-    textDecorationLine: ([element.textDecorationUnderline, element.textDecorationLineThrough]
-      .filter(Boolean)
-      .join(' ') || 'none') as TextStyle['textDecorationLine'],
+  const getTextDecorationLine = (): TextStyle['textDecorationLine'] => {
+    const decorations: string[] = [];
+
+    if (element.textDecorationUnderline) {
+      decorations.push('underline');
+    }
+
+    if (element.textDecorationLineThrough) {
+      decorations.push('line-through');
+    }
+
+    return decorations.length > 0
+      ? (decorations.join(' ') as TextStyle['textDecorationLine'])
+      : 'none';
   };
+
+  const customStyle: TextStyle = useMemo(
+    () => ({
+      color: element.color || Colors.black,
+      fontSize: element.fontSize,
+      fontWeight: element.fontWeight,
+      fontStyle: element.fontStyle,
+      textTransform: element.textTransform,
+      textAlign: element.textAlign,
+      textDecorationLine: getTextDecorationLine(),
+    }),
+    [
+      element.color,
+      element.fontSize,
+      element.fontWeight,
+      element.fontStyle,
+      element.textTransform,
+      element.textAlign,
+      element.textDecorationUnderline,
+      element.textDecorationLineThrough,
+    ]
+  );
 
   return (
     <>
@@ -206,14 +232,14 @@ const DraggableText: FC<Props> = props => {
           <Animated.View style={[getBoxStyle(), animatedStyle]}>
             {!isElementSelected && (
               <Pressable onPress={handleSingleTap}>
-                <Text style={customSyle}>{element.text || 'Tap to edit'}</Text>
+                <Text style={customStyle}>{element.text || 'Tap to edit'}</Text>
               </Pressable>
             )}
 
             {isElementSelected && isEditing && (
               <TextInput
                 multiline
-                style={[styles.textInput, customSyle]}
+                style={[styles.textInput, customStyle]}
                 value={element.text}
                 onChangeText={text => onUpdate({ text })}
                 autoFocus
@@ -242,7 +268,7 @@ const DraggableText: FC<Props> = props => {
                   onLayout={e => setLayoutElement(e.nativeEvent.layout)}
                   onPress={handleSingleTap}
                 >
-                  <Text style={customSyle}>{element.text || 'Tap to edit'}</Text>
+                  <Text style={customStyle}>{element.text || 'Tap to edit'}</Text>
                 </Pressable>
 
                 <GestureDetector gesture={resizeGesture}>
