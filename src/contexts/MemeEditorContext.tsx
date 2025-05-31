@@ -9,29 +9,20 @@ interface MemeEditorContextType {
   selectedCanvas: CanvasElement | null;
   setSelectedCanvas: (canvas: CanvasElement | null) => void;
 
-  elements: TextElement[];
-  setElements: React.Dispatch<React.SetStateAction<TextElement[]>>;
-  selectedElement: TextElement | null;
-  setSelectedElement: React.Dispatch<React.SetStateAction<TextElement | null>>;
+  elements: CanvasElementItem[];
+  setElements: React.Dispatch<React.SetStateAction<CanvasElementItem[]>>;
+  selectedElement: CanvasElementItem | null;
+  setSelectedElement: React.Dispatch<React.SetStateAction<CanvasElementItem | null>>;
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 
-  imageElements: ImageElement[];
-  setImageElements: React.Dispatch<React.SetStateAction<ImageElement[]>>;
-  selectedImageElement: ImageElement | null;
-  setSelectedImageElement: React.Dispatch<React.SetStateAction<ImageElement | null>>;
-
   addElement: (element?: Partial<TextElement>) => void;
-  updateElement: (id: string, updates: Partial<TextElement>) => void;
+  updateElement: (id: string, updates: Partial<CanvasElementItem>) => void;
   deleteElement: (id: string) => void;
-  duplicateElement: (id: string, position: Pick<TextElement, 'x' | 'y'>) => void;
-  handleSelectElement: (element: TextElement | null) => void;
+  duplicateElement: (id: string, position: Pick<CanvasElementItem, 'x' | 'y'>) => void;
+  handleSelectElement: (element: CanvasElementItem | null) => void;
 
   addImageElement: (element?: Partial<ImageElement>) => void;
-  updateImageElement: (id: string, updates: Partial<ImageElement>) => void;
-  deleteImageElement: (id: string) => void;
-  duplicateImageElement: (id: string, position: Pick<ImageElement, 'x' | 'y'>) => void;
-  handleSelectImageElement: (element: ImageElement | null) => void;
 
   onResetAll: () => void;
 }
@@ -46,11 +37,8 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
   const [canvases, setCanvases] = useState<CanvasElement[]>([]);
   const [selectedCanvas, setSelectedCanvas] = useState<CanvasElement | null>(null);
 
-  const [elements, setElements] = useState<TextElement[]>([]);
-  const [selectedElement, setSelectedElement] = useState<TextElement | null>(null);
-
-  const [imageElements, setImageElements] = useState<ImageElement[]>([]);
-  const [selectedImageElement, setSelectedImageElement] = useState<ImageElement | null>(null);
+  const [elements, setElements] = useState<CanvasElementItem[]>([]);
+  const [selectedElement, setSelectedElement] = useState<CanvasElementItem | null>(null);
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -60,7 +48,6 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
 
   const removeSelectedElement = () => {
     setSelectedElement(null);
-    setSelectedImageElement(null);
   };
 
   const addElement = (element?: Partial<TextElement>) => {
@@ -84,15 +71,17 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     setElements(prev => [...prev, newElement]);
   };
 
-  const updateElement = (id: string, updates: Partial<TextElement>) => {
+  const updateElement = (id: string, updates: Partial<CanvasElementItem>) => {
     removeSelectedCanvas();
 
     setElements(prev => {
       return prev.map(el => {
         if (el.id === id) {
-          setSelectedElement({ ...el, ...updates, type: 'text' });
+          const updatedElement = { ...el, ...updates } as CanvasElementItem;
+          setSelectedElement(updatedElement);
+          return updatedElement;
         }
-        return el.id === id ? { ...el, ...updates, type: 'text' } : el;
+        return el;
       });
     });
   };
@@ -118,10 +107,9 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     }
   };
 
-  const handleSelectElement = (element: TextElement | null) => {
+  const handleSelectElement = (element: CanvasElementItem | null) => {
     removeSelectedCanvas();
     setSelectedElement(element);
-    setSelectedImageElement(null); // Deselect image when selecting text
 
     // Move selected element to the end of the array (bring to front)
     if (element) {
@@ -148,60 +136,8 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
       opacity: element?.opacity || 1,
       ...element,
     };
-    setImageElements(prev => [...prev, newImageElement]);
-    setSelectedImageElement(newImageElement);
-  };
-
-  const updateImageElement = (id: string, updates: Partial<ImageElement>) => {
-    removeSelectedCanvas();
-
-    setImageElements(prev => {
-      return prev.map(el => {
-        if (el.id === id) {
-          const updatedElement = { ...el, ...updates };
-          setSelectedImageElement(updatedElement);
-          return updatedElement;
-        }
-        return el;
-      });
-    });
-  };
-
-  const deleteImageElement = (id: string) => {
-    setSelectedImageElement(null);
-    setImageElements(prev => prev.filter(el => el.id !== id));
-  };
-
-  const duplicateImageElement = (id: string, position: Pick<CanvasElementItem, 'x' | 'y'>) => {
-    removeSelectedCanvas();
-    removeSelectedElement();
-
-    const original = imageElements.find(el => el.id === id);
-    if (original) {
-      const newCopy: CanvasElementItem = {
-        ...original,
-        id: `img-${Date.now()}-copy`,
-        x: position.x,
-        y: position.y,
-      };
-
-      setSelectedImageElement(newCopy);
-      setImageElements(prev => [...prev, newCopy]);
-    }
-  };
-
-  const handleSelectImageElement = (element: ImageElement | null) => {
-    removeSelectedCanvas();
-    setSelectedImageElement(element);
-    setSelectedElement(null); // Deselect text when selecting image
-
-    // Move selected element to the end of the array (bring to front)
-    if (element) {
-      setImageElements(prev => {
-        const filteredElements = prev.filter(el => el.id !== element.id);
-        return [...filteredElements, element];
-      });
-    }
+    setElements(prev => [...prev, newImageElement]);
+    setSelectedElement(newImageElement);
   };
 
   const handleSelectCanvas = (canvas: CanvasElement | null) => {
@@ -214,8 +150,6 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     setSelectedCanvas(null);
     setElements([]);
     setSelectedElement(null);
-    setImageElements([]);
-    setSelectedImageElement(null);
     setIsEditing(false);
   };
 
@@ -233,11 +167,6 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     isEditing,
     setIsEditing,
 
-    imageElements,
-    setImageElements,
-    selectedImageElement,
-    setSelectedImageElement,
-
     addElement,
     updateElement,
     deleteElement,
@@ -245,10 +174,6 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     handleSelectElement,
 
     addImageElement,
-    updateImageElement,
-    deleteImageElement,
-    duplicateImageElement,
-    handleSelectImageElement,
 
     onResetAll,
   };

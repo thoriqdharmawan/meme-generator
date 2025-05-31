@@ -1,4 +1,5 @@
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
+import type { ImageElement, TextElement } from '@/types/editor';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import ActionInitial from './ActionInitial';
 import ActionText from './ActionText';
@@ -19,12 +20,6 @@ const MemeEditor = () => {
     handleSelectElement,
     selectedCanvas,
     canvases,
-    imageElements,
-    selectedImageElement,
-    updateImageElement,
-    deleteImageElement,
-    duplicateImageElement,
-    handleSelectImageElement,
   } = useMemeEditor();
 
   const canvas = selectedCanvas || canvases[0];
@@ -34,46 +29,45 @@ const MemeEditor = () => {
   return (
     <>
       <CanvasContainer>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            handleSelectElement(null);
-            handleSelectImageElement(null);
-          }}
-        >
+        <TouchableWithoutFeedback onPress={() => handleSelectElement(null)}>
           <View>
-            {elements.map(el => (
-              <DraggableText
-                key={el.id}
-                element={el}
-                onUpdate={updates => updateElement(el.id, updates)}
-                onDelete={() => deleteElement(el.id)}
-                onDuplicate={position => duplicateElement(el.id, position)}
-                selectedElement={selectedElement}
-                onSelectElement={handleSelectElement}
-                isEditing={isEditing}
-                setIsEditing={setIsEditing}
-                canvasWidth={canvasWidth}
-                canvasHeight={canvasHeight}
-              />
-            ))}
-            {imageElements.map(el => (
-              <DraggableImage
-                key={el.id}
-                element={el}
-                onUpdate={updates => updateImageElement(el.id, updates)}
-                onDelete={() => deleteImageElement(el.id)}
-                onDuplicate={position => duplicateImageElement(el.id, position)}
-                selectedImageElement={selectedImageElement}
-                onSelectImageElement={handleSelectImageElement}
-                canvasWidth={canvasWidth}
-                canvasHeight={canvasHeight}
-              />
-            ))}
+            {elements.map(el => {
+              if (el.type === 'text') {
+                return (
+                  <DraggableText
+                    key={el.id}
+                    element={el}
+                    onUpdate={updates => updateElement(el.id, updates)}
+                    onDelete={() => deleteElement(el.id)}
+                    onDuplicate={position => duplicateElement(el.id, position)}
+                    selectedElement={selectedElement as TextElement}
+                    onSelectElement={handleSelectElement}
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                    canvasWidth={canvasWidth}
+                    canvasHeight={canvasHeight}
+                  />
+                );
+              }
+              return (
+                <DraggableImage
+                  key={el.id}
+                  element={el}
+                  onUpdate={updates => updateElement(el.id, updates)}
+                  onDelete={() => deleteElement(el.id)}
+                  onDuplicate={position => duplicateElement(el.id, position)}
+                  selectedImageElement={selectedElement as ImageElement}
+                  onSelectImageElement={handleSelectElement}
+                  canvasWidth={canvasWidth}
+                  canvasHeight={canvasHeight}
+                />
+              );
+            })}
           </View>
         </TouchableWithoutFeedback>
       </CanvasContainer>
 
-      {hasCanvas && !selectedElement && !selectedImageElement && <ActionInitial />}
+      {hasCanvas && !selectedElement && <ActionInitial />}
       {selectedElement && !isEditing && <ActionText />}
     </>
   );
