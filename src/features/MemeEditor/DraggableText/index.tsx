@@ -251,13 +251,22 @@ const DraggableText: FC<Props> = props => {
               <>
                 <View style={styles.actions}>
                   <Button
-                    icon={<Icon library='Feather' name='copy' size={16} color={Colors.primary} />}
+                    icon={
+                      <Icon
+                        library='Feather'
+                        name='copy'
+                        size={Spacing.md}
+                        color={Colors.primary}
+                      />
+                    }
                     size='small'
                     variant='ghost'
                     onPress={handleDuplicate}
                   />
                   <Button
-                    icon={<Icon library='Feather' name='trash' size={16} color={Colors.error} />}
+                    icon={
+                      <Icon library='Feather' name='trash' size={Spacing.md} color={Colors.error} />
+                    }
                     size='small'
                     variant='ghost'
                     onPress={onDelete}

@@ -16,10 +16,11 @@ export const styles = StyleSheet.create({
     fontWeight: Typography.fontWeight.semiBold,
   },
   actions: {
-    borderRadius: BorderRadius.md,
+    backgroundColor: Colors.background,
+    borderRadius: BorderRadius.sm,
     flexDirection: 'row',
     height: Layout.textBox.actionButtonHeight,
-    padding: Spacing.xs,
+    padding: Spacing.padding.none,
     position: 'absolute',
     right: 0,
     top: -Layout.textBox.actionBarOffset,
