@@ -13,7 +13,7 @@ interface DrawerImageProps {
 const DrawerImage: FC<DrawerImageProps> = ({ onClose, visible }) => {
   const [selectedImage, setSelectedImage] = useState<ImageInterface | null>(null);
 
-  const renderTemplateItem = ({ item }: { item: ImageInterface }) => (
+  const renderImageItem = ({ item }: { item: ImageInterface }) => (
     <TouchableWithoutFeedback onPress={() => setSelectedImage(item)}>
       <Image
         source={item.source}
@@ -29,7 +29,7 @@ const DrawerImage: FC<DrawerImageProps> = ({ onClose, visible }) => {
     <BottomDrawer visible={visible} onClose={onClose}>
       <FlatList
         data={IMAGES}
-        renderItem={renderTemplateItem}
+        renderItem={renderImageItem}
         keyExtractor={item => item.id}
         contentContainerStyle={imageStyles.container}
         columnWrapperStyle={imageStyles.row}
