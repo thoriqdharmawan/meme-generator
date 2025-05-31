@@ -80,3 +80,11 @@ export const drawerFormatStyles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
 });
+
+export const drawerFontSizeStyles = StyleSheet.create({
+  title: {
+    fontSize: Typography.fontSize.lg,
+    fontWeight: Typography.fontWeight.semiBold,
+    marginBottom: Spacing.md,
+  },
+});

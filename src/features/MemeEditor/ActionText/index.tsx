@@ -3,6 +3,7 @@ import Footer from '@/components/Footer';
 import Icon from '@/components/icon';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
+import DrawerOpacity from '../ActionImage/DrawerOpacity';
 import DrawerColors from './DrawerColors';
 import DrawerFontSize from './DrawerFontSize';
 import DrawerFormat from './DrawerFormat';
@@ -12,12 +13,14 @@ interface VisibleState {
   drawerColors: boolean;
   drawerFormat: boolean;
   drawerFontSize: boolean;
+  drawerOpacity: boolean;
 }
 
 const DEFAULT_VISIBLE_STATE: VisibleState = {
   drawerColors: false,
   drawerFormat: false,
   drawerFontSize: false,
+  drawerOpacity: false,
 };
 
 const ActionText = () => {
@@ -51,6 +54,14 @@ const ActionText = () => {
             variant='ghost'
             onPress={() => setIsVisible(prev => ({ ...prev, drawerFontSize: true }))}
           />
+          <Button
+            icon={<Icon library='MaterialCommunityIcons' name='opacity' />}
+            style={styles.action}
+            textStyle={styles.actionText}
+            title='Opacity'
+            variant='ghost'
+            onPress={() => setIsVisible(prev => ({ ...prev, drawerOpacity: true }))}
+          />
         </ScrollView>
       </Footer>
 
@@ -66,6 +77,11 @@ const ActionText = () => {
 
       <DrawerFontSize
         visible={isVisible.drawerFontSize}
+        onClose={() => setIsVisible(DEFAULT_VISIBLE_STATE)}
+      />
+
+      <DrawerOpacity
+        visible={isVisible.drawerOpacity}
         onClose={() => setIsVisible(DEFAULT_VISIBLE_STATE)}
       />
     </>
