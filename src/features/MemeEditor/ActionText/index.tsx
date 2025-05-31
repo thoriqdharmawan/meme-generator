@@ -49,6 +49,13 @@ const ActionText = () => {
             variant='ghost'
             onPress={() => setIsVisible(prev => ({ ...prev, drawerFormat: true }))}
           />
+          <Button
+            icon={<Icon library='MaterialCommunityIcons' name='format-size' />}
+            style={styles.action}
+            textStyle={styles.actionText}
+            title='Font Size'
+            variant='ghost'
+          />
         </ScrollView>
       </Footer>
 
