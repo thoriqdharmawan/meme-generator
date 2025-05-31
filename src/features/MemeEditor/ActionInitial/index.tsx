@@ -6,17 +6,27 @@ import Footer from '@components/Footer';
 import Icon from '@components/Icon';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
+import DrawerImage from './DrawerImage';
 import DrawerText from './DrawerText';
 import { style } from './style';
+
+const DEFAULT_DRAWER_STATE = {
+  openText: false,
+  openImage: false,
+};
 
 const ActionInitial = () => {
   const { onResetAll } = useMemeEditor();
 
-  const [textDrawerVisible, setTextDrawerVisible] = useState(false);
+  const [drawer, setDrawer] = useState(DEFAULT_DRAWER_STATE);
+
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
 
-  const openTextDrawer = () => setTextDrawerVisible(true);
-  const closeTextDrawer = () => setTextDrawerVisible(false);
+  const handleOpenDrawer = (field: 'openText' | 'openImage') => {
+    setDrawer(prev => ({ ...prev, [field]: true }));
+  };
+
+  const closeDrawer = () => setDrawer(DEFAULT_DRAWER_STATE);
 
   const handleDeleteConfirm = () => {
     onResetAll();
@@ -33,7 +43,7 @@ const ActionInitial = () => {
             textStyle={style.actionText}
             title='Text'
             variant='ghost'
-            onPress={openTextDrawer}
+            onPress={() => handleOpenDrawer('openText')}
           />
           <Button
             icon={<Icon library='MaterialCommunityIcons' name='image' />}
@@ -41,6 +51,7 @@ const ActionInitial = () => {
             textStyle={style.actionText}
             title='Image'
             variant='ghost'
+            onPress={() => handleOpenDrawer('openImage')}
           />
           <Button
             icon={<Icon library='MaterialCommunityIcons' name='sticker-emoji' />}
@@ -60,7 +71,9 @@ const ActionInitial = () => {
         </ScrollView>
       </Footer>
 
-      <DrawerText visible={textDrawerVisible} onClose={closeTextDrawer} />
+      <DrawerText visible={drawer.openText} onClose={closeDrawer} />
+
+      <DrawerImage visible={drawer.openImage} onClose={closeDrawer} />
 
       <ConfirmationDialog
         visible={showDeleteConfirmation}
