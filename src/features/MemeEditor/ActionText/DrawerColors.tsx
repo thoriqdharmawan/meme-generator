@@ -34,9 +34,7 @@ const DrawerColors: FC<DrawerColorsProps> = ({ visible, onClose, onColorSelect }
                 ]}
                 onPress={() => handleColorPress(colorOption.color)}
                 activeOpacity={0.7}
-              >
-                {colorOption.isDefault && <View style={drawerColorStyles.defaultIndicator} />}
-              </TouchableOpacity>
+              />
             ))}
           </ScrollView>
         </View>

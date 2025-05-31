@@ -19,44 +19,23 @@ export const styles = StyleSheet.create({
 export const drawerColorStyles = StyleSheet.create({
   colorButton: {
     alignItems: 'center',
-    borderRadius: 25,
-    elevation: 2,
-    height: 42,
+    borderRadius: BorderRadius.full,
+    height: Spacing.xxl,
     justifyContent: 'center',
-    marginBottom: 16,
-    marginHorizontal: 4,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    width: 42,
+    marginBottom: Spacing.margin.md,
+    width: Spacing.xxl,
   },
   colorGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    gap: Spacing.sm,
     justifyContent: 'space-between',
-    paddingHorizontal: 8,
   },
   container: {
     flex: 1,
   },
-  defaultIndicator: {
-    backgroundColor: '#000',
-    borderRadius: 4,
-    height: 8,
-    width: 8,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
   whiteColorBorder: {
-    borderColor: '#E0E0E0',
+    borderColor: Colors.gray,
     borderWidth: 1,
   },
 });

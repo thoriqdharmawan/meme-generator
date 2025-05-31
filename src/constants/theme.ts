@@ -211,7 +211,7 @@ export const TextColors = {
 };
 
 export const DefaultTextColorOptions = [
-  { color: TextColors.black, name: 'Black', isDefault: true },
+  { color: TextColors.black, name: 'Black' },
   { color: TextColors.white, name: 'White' },
   { color: TextColors.red, name: 'Red' },
   { color: TextColors.blue, name: 'Blue' },
