@@ -29,3 +29,8 @@ export interface CanvasTextElement {
 export type CanvasTextFields = keyof CanvasTextElement;
 
 export type AspectRatio = '1:1' | '9:16' | '4:5' | '2:3';
+
+export interface ImageInterface {
+  id: string;
+  source: ImageSourcePropType;
+}

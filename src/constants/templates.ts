@@ -1,6 +1,6 @@
 import { ImageSourcePropType } from 'react-native';
 
-import { CanvasTextElement } from '@/types/editor';
+import { CanvasTextElement, ImageInterface } from '@/types/editor';
 import meme1 from '../assets/images/meme1.jpg';
 import meme2 from '../assets/images/meme2.jpg';
 import meme3 from '../assets/images/meme3.jpg';
@@ -161,4 +161,11 @@ export const MEME_TEMPLATES: MemeTemplate[] = [
   { id: '2', source: meme2, elemets: ELEMENTS_DEMO_MEME2 },
   { id: '3', source: meme3, elemets: ELEMENTS_DEMO_MEME3 },
   { id: '4', source: meme4, elemets: ELEMENTS_DEMO_MEME4 },
+];
+
+export const IMAGES: ImageInterface[] = [
+  { id: '1', source: meme1 },
+  { id: '2', source: meme2 },
+  { id: '3', source: meme3 },
+  { id: '4', source: meme4 },
 ];
