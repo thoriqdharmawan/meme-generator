@@ -68,7 +68,7 @@ const MemeEditor = () => {
       </CanvasContainer>
 
       {hasCanvas && !selectedElement && <ActionInitial />}
-      {selectedElement && !isEditing && <ActionText />}
+      {selectedElement && !isEditing && selectedElement.type === 'text' && <ActionText />}
     </>
   );
 };
