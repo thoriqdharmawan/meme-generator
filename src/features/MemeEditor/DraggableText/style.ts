@@ -49,6 +49,6 @@ export const styles = StyleSheet.create({
   },
   textInput: {
     minHeight: 30,
-    padding: Spacing.xs,
+    padding: Spacing.none,
   },
 });
