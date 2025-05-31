@@ -10,7 +10,7 @@ import {
   useSnapGuide,
   useTapElement,
 } from '@/hooks';
-import { CanvasImageElement } from '@/types/editor';
+import type { ImageElement } from '@/types/editor';
 import { FC, useEffect, useState } from 'react';
 import { Image, LayoutRectangle, Pressable, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -18,12 +18,12 @@ import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { styles } from './style';
 
 interface Props {
-  element: CanvasImageElement;
-  onUpdate: (updates: Partial<CanvasImageElement>) => void;
+  element: ImageElement;
+  onUpdate: (updates: Partial<ImageElement>) => void;
   onDelete: () => void;
-  onDuplicate: ({ x, y }: Pick<CanvasImageElement, 'x' | 'y'>) => void;
-  selectedImageElement?: CanvasImageElement | null;
-  onSelectImageElement: (element: CanvasImageElement | null) => void;
+  onDuplicate: ({ x, y }: Pick<ImageElement, 'x' | 'y'>) => void;
+  selectedImageElement?: ImageElement | null;
+  onSelectImageElement: (element: ImageElement | null) => void;
   canvasWidth?: number;
   canvasHeight?: number;
 }
@@ -73,7 +73,7 @@ const DraggableImage: FC<Props> = props => {
 
   const { resizeGesture, boxWidth, boxHeight } = useResizeElement({
     initialWidth: elWidth,
-    initialHeight: elHeight,
+    initialHeight: Number(elHeight),
     minWidth: Layout.textBox.minWidth,
     minHeight: Layout.textBox.minHeight,
     onUpdate: updates => {

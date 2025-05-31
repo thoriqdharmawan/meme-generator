@@ -2,7 +2,7 @@ import { BottomDrawer, Button } from '@/components';
 import { MEME_TEMPLATES, type MemeTemplate } from '@/constants';
 import { PROPORTIONAL_HEIGHT, PROPORTIONAL_WIDTH } from '@/constants/templates';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
-import type { CanvasElement } from '@/types/editor';
+import type { CanvasElement, TextElement } from '@/types/editor';
 import { calculateCanvasDimensions, convertXCoordinate, screenHeight, screenWidth } from '@/utils';
 import { FC, useState } from 'react';
 import { FlatList, Image, TouchableWithoutFeedback, View } from 'react-native';
@@ -33,11 +33,11 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
         setSelectedCanvas(newCanvas);
         setElements(() => {
           return (
-            selectedTemplate.elemets?.map(element => ({
+            (selectedTemplate.elemets?.map(element => ({
               ...element,
               x: convertXCoordinate(element.x, PROPORTIONAL_WIDTH, screenWidth),
               y: convertXCoordinate(element.y, PROPORTIONAL_HEIGHT, screenHeight),
-            })) || []
+            })) as TextElement[]) || []
           );
         });
 

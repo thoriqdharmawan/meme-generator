@@ -7,37 +7,36 @@ export interface CanvasElement {
   backgroundImage?: ImageSourcePropType;
 }
 
-export interface CanvasTextElement {
+export interface BaseElement {
   id: string;
-  text: string;
   x: number;
   y: number;
   width: number;
   height?: number | string;
-  color: string;
+  rotate?: number; // in radians
+}
+
+export interface TextElement extends BaseElement {
+  type: 'text';
+  text: string;
+  color?: string;
   fontSize?: number;
-  fontWeight: TextStyle['fontWeight'];
+  fontWeight?: TextStyle['fontWeight'];
   fontStyle?: TextStyle['fontStyle'];
   textDecorationUnderline?: 'underline';
   textDecorationLineThrough?: 'line-through';
   textTransform?: 'uppercase';
   textAlign?: TextStyle['textAlign'];
   backgroundColor?: TextStyle['backgroundColor'];
-  rotate?: number; // in radians
 }
 
-export interface CanvasImageElement {
-  id: string;
+export interface ImageElement extends BaseElement {
+  type: 'image';
   source: ImageSourcePropType;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  rotate?: number; // in radians
   opacity?: number;
 }
 
-export type CanvasTextFields = keyof CanvasTextElement;
+export type CanvasElementItem = TextElement | ImageElement;
 
 export type AspectRatio = '1:1' | '9:16' | '4:5' | '2:3';
 

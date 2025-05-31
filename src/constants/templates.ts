@@ -1,6 +1,6 @@
 import { ImageSourcePropType } from 'react-native';
 
-import { CanvasTextElement, ImageInterface } from '@/types/editor';
+import { CanvasElementItem, ImageInterface } from '@/types/editor';
 import meme1 from '../assets/images/meme1.jpg';
 import meme2 from '../assets/images/meme2.jpg';
 import meme3 from '../assets/images/meme3.jpg';
@@ -13,12 +13,13 @@ export const PROPORTIONAL_HEIGHT = 914.285714;
 export interface MemeTemplate {
   id: string;
   source: ImageSourcePropType;
-  elemets?: CanvasTextElement[];
+  elemets?: CanvasElementItem[];
 }
 
-const ELEMENTS_DEMO_MEME1: CanvasTextElement[] = [
+const ELEMENTS_DEMO_MEME1: CanvasElementItem[] = [
   {
     id: 'el-demo-meme-1',
+    type: 'text',
     text: 'Thoriq Dharmawan',
     x: 190.00928622484207,
     y: 229.02455711364746,
@@ -30,6 +31,7 @@ const ELEMENTS_DEMO_MEME1: CanvasTextElement[] = [
   },
   {
     id: 'el-demo-meme-2',
+    type: 'text',
     text: 'Kandidat Lain',
     x: 189.24924212694168,
     y: 55.68898582458496,
@@ -41,9 +43,10 @@ const ELEMENTS_DEMO_MEME1: CanvasTextElement[] = [
   },
 ];
 
-const ELEMENTS_DEMO_MEME2: CanvasTextElement[] = [
+const ELEMENTS_DEMO_MEME2: CanvasElementItem[] = [
   {
     id: '1748676221531',
+    type: 'text',
     text: 'Langsung angkat karena penasaran',
     x: 32.345610067248344,
     y: 51.5063359439373,
@@ -57,6 +60,7 @@ const ELEMENTS_DEMO_MEME2: CanvasTextElement[] = [
   },
   {
     id: '1748676291983-copy',
+    type: 'text',
     text: 'Diam, tatap layar, berharap dia menyerah',
     x: 149.3452356159687,
     y: 25.664430618286133,
@@ -70,6 +74,7 @@ const ELEMENTS_DEMO_MEME2: CanvasTextElement[] = [
   },
   {
     id: '1748676665166',
+    type: 'text',
     text: 'Ditelfon nomor tidak dikenal',
     x: 44.547607421875,
     y: 456.5412902832031,
@@ -82,9 +87,10 @@ const ELEMENTS_DEMO_MEME2: CanvasTextElement[] = [
   },
 ];
 
-const ELEMENTS_DEMO_MEME3: CanvasTextElement[] = [
+const ELEMENTS_DEMO_MEME3: CanvasElementItem[] = [
   {
     id: 'el-demo-meme-1',
+    type: 'text',
     text: 'Thoriq Dharmawan',
     x: 45.31287384033203,
     y: 155.0282745361328,
@@ -97,6 +103,7 @@ const ELEMENTS_DEMO_MEME3: CanvasTextElement[] = [
   },
   {
     id: 'el-demo-meme-2',
+    type: 'text',
     text: 'Kandidat Lain',
     x: 248.14694690704346,
     y: 141.85157585144043,
@@ -109,6 +116,7 @@ const ELEMENTS_DEMO_MEME3: CanvasTextElement[] = [
   },
   {
     id: 'el-demo-meme-3',
+    type: 'text',
     text: 'Lahelu',
     x: 176.73475110530853,
     y: 104.38095092773438,
@@ -121,9 +129,10 @@ const ELEMENTS_DEMO_MEME3: CanvasTextElement[] = [
   },
 ];
 
-const ELEMENTS_DEMO_MEME4: CanvasTextElement[] = [
+const ELEMENTS_DEMO_MEME4: CanvasElementItem[] = [
   {
     id: 'el-demo-meme-2',
+    type: 'text',
     text: 'Mahasiswa Semester Akhir',
     x: 61.880950927734375,
     y: 250.00112676620483,
@@ -136,6 +145,7 @@ const ELEMENTS_DEMO_MEME4: CanvasTextElement[] = [
   },
   {
     id: 'el-demo-meme-1',
+    type: 'text',
     text: 'Belajar buat ujian',
     x: 20.22023904323578,
     y: 58.27678394317627,
@@ -148,6 +158,7 @@ const ELEMENTS_DEMO_MEME4: CanvasTextElement[] = [
   },
   {
     id: '1748677200781-copy',
+    type: 'text',
     text: 'Nonton teori konspirasi 3 jam di YT',
     x: 182.89099872112274,
     y: 47.167428851127625,

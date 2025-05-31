@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import Icon, { IconLibrary } from '@/components/icon';
 import { Colors, Typography } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
-import { CanvasTextElement } from '@/types/editor';
+import type { TextElement } from '@/types/editor';
 import { FC } from 'react';
 import { View } from 'react-native';
 import { drawerFormatStyles } from './style';
@@ -32,9 +32,9 @@ const DrawerFormat: FC<DrawerFormatsProps> = ({ onClose, visible }) => {
     textDecorationLineThrough,
     textTransform,
     textAlign,
-  } = selectedElement || {};
+  } = (selectedElement as TextElement) || {};
 
-  const handleFormatPress = (updates: Partial<CanvasTextElement>) => {
+  const handleFormatPress = (updates: Partial<TextElement>) => {
     if (id) {
       updateElement(id, updates);
     }

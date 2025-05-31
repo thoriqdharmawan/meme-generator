@@ -2,7 +2,7 @@ import BottomDrawer from '@/components/BottomDrawer';
 import Button from '@/components/Button';
 import { Colors, Spacing, Typography } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
-import { CanvasTextElement } from '@/types/editor';
+import type { TextElement } from '@/types/editor';
 import { screenWidth } from '@/utils';
 import { FC } from 'react';
 import { View } from 'react-native';
@@ -14,7 +14,7 @@ interface DrawerTextProps {
 }
 
 type NewElementType = Pick<
-  CanvasTextElement,
+  TextElement,
   'fontSize' | 'fontWeight' | 'color' | 'text' | 'width' | 'x' | 'y'
 >;
 
@@ -29,7 +29,7 @@ const DEFAULT_WIDTH = screenWidth - DEFAULT_SPACING * 4;
 const DrawerText: FC<DrawerTextProps> = ({ visible, onClose }) => {
   const { addElement } = useMemeEditor();
 
-  const handleAddElement = (element: Partial<CanvasTextElement>) => {
+  const handleAddElement = (element: Partial<TextElement>) => {
     addElement(element);
     onClose();
   };

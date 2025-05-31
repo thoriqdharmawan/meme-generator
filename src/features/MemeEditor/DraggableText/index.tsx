@@ -10,7 +10,7 @@ import {
   useSnapGuide,
   useTapElement,
 } from '@/hooks';
-import { CanvasTextElement } from '@/types/editor';
+import type { TextElement } from '@/types/editor';
 import { FC, useEffect, useMemo, useState } from 'react';
 import {
   LayoutRectangle,
@@ -26,15 +26,15 @@ import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { styles } from './style';
 
 interface Props {
-  element: CanvasTextElement;
-  onUpdate: (updates: Partial<CanvasTextElement>) => void;
+  element: TextElement;
+  onUpdate: (updates: Partial<TextElement>) => void;
   onDelete: () => void;
-  onDuplicate: ({ x, y }: Pick<CanvasTextElement, 'x' | 'y'>) => void;
+  onDuplicate: ({ x, y }: Pick<TextElement, 'x' | 'y'>) => void;
   isSelected?: boolean;
   isEditing: boolean;
 
-  selectedElement?: CanvasTextElement | null;
-  onSelectElement: (element: CanvasTextElement | null) => void;
+  selectedElement?: TextElement | null;
+  onSelectElement: (element: TextElement | null) => void;
   setIsEditing: (isEditing: boolean) => void;
   canvasWidth?: number;
   canvasHeight?: number;
