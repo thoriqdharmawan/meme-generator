@@ -1,4 +1,6 @@
+import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { clamp } from '@/utils';
+import { useEffect } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -35,10 +37,19 @@ export interface CanvasPanOptions {
 export const useCanvasPan = (options: CanvasPanOptions) => {
   const { screenWidth, screenHeight } = options;
 
+  const { canvases } = useMemeEditor();
+
   const translationX = useSharedValue(0);
   const translationY = useSharedValue(0);
   const prevTranslationX = useSharedValue(0);
   const prevTranslationY = useSharedValue(0);
+
+  useEffect(() => {
+    if (canvases.length === 0) {
+      translationX.value = 0;
+      translationY.value = 0;
+    }
+  }, [canvases]);
 
   const pan = Gesture.Pan()
     .minDistance(1)
@@ -68,11 +79,5 @@ export const useCanvasPan = (options: CanvasPanOptions) => {
     pan,
     translationX,
     translationY,
-    resetPosition: () => {
-      translationX.value = 0;
-      translationY.value = 0;
-      prevTranslationX.value = 0;
-      prevTranslationY.value = 0;
-    },
   };
 };
