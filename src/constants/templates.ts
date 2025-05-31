@@ -6,6 +6,10 @@ import meme2 from '../assets/images/meme2.jpg';
 import meme3 from '../assets/images/meme3.jpg';
 import meme4 from '../assets/images/meme4.jpg';
 
+// developer emulator device size, for comparison purposes
+export const PROPORTIONAL_WIDTH = 411.428571;
+export const PROPORTIONAL_HEIGHT = 914.285714;
+
 export interface MemeTemplate {
   id: string;
   source: ImageSourcePropType;
