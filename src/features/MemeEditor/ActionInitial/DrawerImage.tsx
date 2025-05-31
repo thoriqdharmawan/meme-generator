@@ -96,7 +96,12 @@ const DrawerImage: FC<DrawerImageProps> = ({ onClose, visible }) => {
         numColumns={2}
       />
 
-      <Button title='Add to Canvas' onPress={handleAddToCanvas} style={imageStyles.useButton} />
+      <Button
+        title='Add to Canvas'
+        disabled={!selectedImage}
+        onPress={handleAddToCanvas}
+        style={imageStyles.useButton}
+      />
     </BottomDrawer>
   );
 };
