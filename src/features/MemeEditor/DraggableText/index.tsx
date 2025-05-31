@@ -1,7 +1,9 @@
+import { SnapGuides } from '@/components';
 import Button from '@/components/Button';
 import Icon from '@/components/Icon';
 import { Colors, Layout } from '@/constants';
-import { Opacity, Spacing, zIndex } from '@/constants/theme';
+import { Spacing } from '@/constants/theme';
+import { useSnapGuide } from '@/hooks';
 import { CanvasTextElement } from '@/types/editor';
 import { FC, useEffect, useState } from 'react';
 import {
@@ -16,8 +18,6 @@ import {
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { styles } from './style';
-
-const SNAP_THRESHOLD = 15; // Distance in pixels to trigger snap
 
 interface Props {
   element: CanvasTextElement;
@@ -62,10 +62,15 @@ const DraggableText: FC<Props> = props => {
   const boxWidth = useSharedValue(elWidth);
   const boxHeight = useSharedValue(elHeight);
 
-  const showSnapGuideX = useSharedValue(false);
-  const showSnapGuideY = useSharedValue(false);
-  const snapLineX = useSharedValue(0);
-  const snapLineY = useSharedValue(0);
+  const {
+    showSnapGuideX,
+    showSnapGuideY,
+    snapLineX,
+    snapLineY,
+    updateSnapGuides,
+    calculateSnapPosition,
+    hideSnapGuides,
+  } = useSnapGuide();
 
   const isElementSelected = props.selectedElement?.id === element.id;
 
@@ -103,97 +108,29 @@ const DraggableText: FC<Props> = props => {
       translateX.value = startX.value + e.translationX;
       translateY.value = startY.value + e.translationY;
 
-      // Calculate snap positions for visual feedback
-      const elementWidth = Number(elWidth);
-      const elementHeight = Number(elHeight);
-
-      const centerX = (canvasWidth - elementWidth) / 2;
-      const centerY = (canvasHeight - elementHeight) / 2;
-      const leftEdge = 0;
-      const rightEdge = canvasWidth - elementWidth;
-      const topEdge = 0;
-      const bottomEdge = canvasHeight - elementHeight;
-
-      // Check horizontal snapping
-      const nearCenterX = Math.abs(translateX.value - centerX) < SNAP_THRESHOLD;
-      const nearLeftEdge = Math.abs(translateX.value - leftEdge) < SNAP_THRESHOLD;
-      const nearRightEdge = Math.abs(translateX.value - rightEdge) < SNAP_THRESHOLD;
-
-      if (nearCenterX) {
-        showSnapGuideX.value = true;
-        snapLineX.value = canvasWidth / 2;
-      } else if (nearLeftEdge) {
-        showSnapGuideX.value = true;
-        snapLineX.value = 0;
-      } else if (nearRightEdge) {
-        showSnapGuideX.value = true;
-        snapLineX.value = canvasWidth;
-      } else {
-        showSnapGuideX.value = false;
-      }
-
-      // Check vertical snapping
-      const nearCenterY = Math.abs(translateY.value - centerY) < SNAP_THRESHOLD;
-      const nearTopEdge = Math.abs(translateY.value - topEdge) < SNAP_THRESHOLD;
-      const nearBottomEdge = Math.abs(translateY.value - bottomEdge) < SNAP_THRESHOLD;
-
-      if (nearCenterY) {
-        showSnapGuideY.value = true;
-        snapLineY.value = canvasHeight / 2;
-      } else if (nearTopEdge) {
-        showSnapGuideY.value = true;
-        snapLineY.value = 0;
-      } else if (nearBottomEdge) {
-        showSnapGuideY.value = true;
-        snapLineY.value = canvasHeight;
-      } else {
-        showSnapGuideY.value = false;
-      }
+      updateSnapGuides(translateX.value, translateY.value, {
+        canvasWidth,
+        canvasHeight,
+        elementWidth: Number(elWidth),
+        elementHeight: Number(elHeight),
+      });
     })
     .onEnd(() => {
-      // Calculate snap positions
-      const elementWidth = Number(elWidth);
-      const elementHeight = Number(elHeight);
+      const snapResult = calculateSnapPosition(translateX.value, translateY.value, {
+        canvasWidth,
+        canvasHeight,
+        elementWidth: Number(elWidth),
+        elementHeight: Number(elHeight),
+      });
 
-      const centerX = (canvasWidth - elementWidth) / 2;
-      const centerY = (canvasHeight - elementHeight) / 2;
-      const leftEdge = 0;
-      const rightEdge = canvasWidth - elementWidth;
-      const topEdge = 0;
-      const bottomEdge = canvasHeight - elementHeight;
+      hideSnapGuides();
 
-      let finalX = translateX.value;
-      let finalY = translateY.value;
-
-      // Check for horizontal snapping
-      if (Math.abs(translateX.value - centerX) < SNAP_THRESHOLD) {
-        finalX = centerX;
-      } else if (Math.abs(translateX.value - leftEdge) < SNAP_THRESHOLD) {
-        finalX = leftEdge;
-      } else if (Math.abs(translateX.value - rightEdge) < SNAP_THRESHOLD) {
-        finalX = rightEdge;
-      }
-
-      // Check for vertical snapping
-      if (Math.abs(translateY.value - centerY) < SNAP_THRESHOLD) {
-        finalY = centerY;
-      } else if (Math.abs(translateY.value - topEdge) < SNAP_THRESHOLD) {
-        finalY = topEdge;
-      } else if (Math.abs(translateY.value - bottomEdge) < SNAP_THRESHOLD) {
-        finalY = bottomEdge;
-      }
-
-      // Hide snap guides
-      showSnapGuideX.value = false;
-      showSnapGuideY.value = false;
-
-      // Apply snap with smooth animation
-      translateX.value = withSpring(finalX, { damping: 20 });
-      translateY.value = withSpring(finalY, { damping: 20 });
+      translateX.value = withSpring(snapResult.finalX, { damping: 20 });
+      translateY.value = withSpring(snapResult.finalY, { damping: 20 });
 
       onUpdate({
-        x: finalX,
-        y: finalY,
+        x: snapResult.finalX,
+        y: snapResult.finalY,
       });
     })
     .runOnJS(true);
@@ -227,28 +164,6 @@ const DraggableText: FC<Props> = props => {
     height: Number(boxHeight.value),
   }));
 
-  const snapGuideXStyle = useAnimatedStyle(() => ({
-    opacity: showSnapGuideX.value ? Opacity.high : Opacity.none,
-    position: 'absolute',
-    left: snapLineX.value - 0.5,
-    top: 0,
-    width: Spacing.tiny,
-    height: canvasHeight,
-    backgroundColor: Colors.snapColor,
-    zIndex: zIndex.modal,
-  }));
-
-  const snapGuideYStyle = useAnimatedStyle(() => ({
-    opacity: showSnapGuideY.value ? Opacity.high : Opacity.none,
-    position: 'absolute',
-    left: 0,
-    top: snapLineY.value - 0.5,
-    width: canvasWidth,
-    height: Spacing.tiny,
-    backgroundColor: Colors.snapColor,
-    zIndex: zIndex.modal,
-  }));
-
   const getBoxStyle = () => {
     if (isElementSelected) {
       return [styles.box, styles.editableBox];
@@ -278,10 +193,14 @@ const DraggableText: FC<Props> = props => {
   return (
     <>
       {isElementSelected && (
-        <>
-          <Animated.View style={snapGuideXStyle} />
-          <Animated.View style={snapGuideYStyle} />
-        </>
+        <SnapGuides
+          showSnapGuideX={showSnapGuideX}
+          showSnapGuideY={showSnapGuideY}
+          snapLineX={snapLineX}
+          snapLineY={snapLineY}
+          canvasWidth={canvasWidth}
+          canvasHeight={canvasHeight}
+        />
       )}
 
       <TouchableWithoutFeedback>
