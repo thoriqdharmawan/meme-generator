@@ -10,6 +10,31 @@ export interface CanvasPanOptions {
   screenHeight: number;
 }
 
+/**
+ * Custom hook for handling canvas pan gestures with boundary constraints
+ *
+ * This hook provides pan gesture functionality for a canvas element, allowing users
+ * to drag and move content while respecting screen boundaries. The pan movement
+ * is constrained to prevent content from moving too far off-screen.
+ *
+ * @param options - Configuration options including screen dimensions
+ * @returns Object containing pan gesture, translation values, and reset function
+ *
+ * @example
+ * ```typescript
+ * const { pan, translationX, translationY, resetPosition } = useCanvasPan({
+ *   screenWidth: Dimensions.get('window').width,
+ *   screenHeight: Dimensions.get('window').height,
+ * });
+ *
+ * // Use with Animated.View
+ * <Animated.View style={[{ transform: [{ translateX: translationX }, { translateY: translationY }] }]}>
+ *   <GestureDetector gesture={pan}>
+ *     <YourCanvasContent />
+ *   </GestureDetector>
+ * </Animated.View>
+ * ```
+ */
 export const useCanvasPan = (options: CanvasPanOptions) => {
   const { screenWidth, screenHeight } = options;
 
@@ -25,6 +50,7 @@ export const useCanvasPan = (options: CanvasPanOptions) => {
       prevTranslationY.value = translationY.value;
     })
     .onUpdate(event => {
+      // Calculate maximum translation boundaries (50px margin from screen edges)
       const maxTranslateX = screenWidth / 2 - 50;
       const maxTranslateY = screenHeight / 2 - 50;
 
