@@ -1,43 +1,20 @@
 import { BottomDrawer, Button } from '@/components';
+import { MEME_TEMPLATES, type MemeTemplate } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { CanvasElement } from '@/types/editor';
 import { calculateCanvasDimensions } from '@/utils';
 import { FC, useState } from 'react';
-import { FlatList, Image, ImageSourcePropType, TouchableWithoutFeedback, View } from 'react-native';
+import { FlatList, Image, TouchableWithoutFeedback, View } from 'react-native';
 import { templateStyles } from './style';
-
-import meme1 from '../../../assets/images/meme1.jpg';
-import meme2 from '../../../assets/images/meme2.jpg';
-import meme3 from '../../../assets/images/meme3.jpg';
 
 interface DrawerUseTemplateProps {
   visible: boolean;
   onClose: () => void;
 }
 
-interface TemplateItemInterface {
-  id: string;
-  source: ImageSourcePropType;
-}
-
 const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => {
   const { setCanvases, setSelectedCanvas } = useMemeEditor();
-  const [selectedTemplate, setSelectedTemplate] = useState<TemplateItemInterface | null>(null);
-
-  const templates: TemplateItemInterface[] = [
-    { id: '1', source: meme1 },
-    { id: '2', source: meme2 },
-    { id: '3', source: meme3 },
-    { id: '12', source: meme1 },
-    { id: '22', source: meme2 },
-    { id: '32', source: meme3 },
-    { id: '123', source: meme1 },
-    { id: '223', source: meme2 },
-    { id: '323', source: meme3 },
-    { id: '1234', source: meme1 },
-    { id: '2234', source: meme2 },
-    { id: '3234', source: meme3 },
-  ];
+  const [selectedTemplate, setSelectedTemplate] = useState<MemeTemplate | null>(null);
 
   const handleUseTemplate = async () => {
     if (selectedTemplate) {
@@ -62,7 +39,7 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
     }
   };
 
-  const renderTemplateItem = ({ item }: { item: TemplateItemInterface }) => (
+  const renderTemplateItem = ({ item }: { item: MemeTemplate }) => (
     <TouchableWithoutFeedback onPress={() => setSelectedTemplate(item)}>
       <View
         style={[
@@ -74,10 +51,11 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
       </View>
     </TouchableWithoutFeedback>
   );
+
   return (
     <BottomDrawer visible={visible} onClose={onClose}>
       <FlatList
-        data={templates}
+        data={MEME_TEMPLATES}
         renderItem={renderTemplateItem}
         keyExtractor={item => item.id}
         numColumns={2}
