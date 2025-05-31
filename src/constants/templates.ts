@@ -4,6 +4,7 @@ import { CanvasTextElement } from '@/types/editor';
 import meme1 from '../assets/images/meme1.jpg';
 import meme2 from '../assets/images/meme2.jpg';
 import meme3 from '../assets/images/meme3.jpg';
+import meme4 from '../assets/images/meme4.jpg';
 
 export interface MemeTemplate {
   id: string;
@@ -116,8 +117,48 @@ const ELEMENTS_DEMO_MEME3: CanvasTextElement[] = [
   },
 ];
 
+const ELEMENTS_DEMO_MEME4: CanvasTextElement[] = [
+  {
+    id: 'el-demo-meme-2',
+    text: 'Mahasiswa Semester Akhir',
+    x: 61.880950927734375,
+    y: 250.00112676620483,
+    width: 225.34523459843228,
+    color: '#FFFFFF',
+    fontWeight: '800',
+    textAlign: 'center',
+    fontSize: 17,
+    backgroundColor: 'transparent',
+  },
+  {
+    id: 'el-demo-meme-1',
+    text: 'Belajar buat ujian',
+    x: 20.22023904323578,
+    y: 58.27678394317627,
+    width: 105.05543109348844,
+    color: '#FFFFFF',
+    fontWeight: '800',
+    textAlign: 'right',
+    fontSize: 17,
+    backgroundColor: 'transparent',
+  },
+  {
+    id: '1748677200781-copy',
+    text: 'Nonton teori konspirasi 3 jam di YT',
+    x: 182.89099872112274,
+    y: 47.167428851127625,
+    width: 125.16592284611295,
+    color: '#FFFFFF',
+    fontWeight: '800',
+    textAlign: 'left',
+    fontSize: 17,
+    backgroundColor: 'transparent',
+  },
+];
+
 export const MEME_TEMPLATES: MemeTemplate[] = [
   { id: '1', source: meme1, elemets: ELEMENTS_DEMO_MEME1 },
   { id: '2', source: meme2, elemets: ELEMENTS_DEMO_MEME2 },
   { id: '3', source: meme3, elemets: ELEMENTS_DEMO_MEME3 },
+  { id: '4', source: meme4, elemets: ELEMENTS_DEMO_MEME4 },
 ];
