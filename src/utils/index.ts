@@ -1,3 +1,4 @@
+import { AspectRatio } from '@/types/editor';
 import { Dimensions, Image, ImageSourcePropType } from 'react-native';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
@@ -52,6 +53,79 @@ export const calculateCanvasDimensions = (
       }
     );
   });
+};
+
+export interface AspectRatioCalculationOptions {
+  horizontalMargin?: number;
+  verticalMargin?: number;
+}
+
+/**
+ * Calculates canvas dimensions based on aspect ratio and screen constraints
+ * @param aspectRatio - The desired aspect ratio for the canvas
+ * @param options - Configuration options for margins
+ * @returns Canvas dimensions that fit within screen bounds
+ */
+export const calculateCanvasDimensionsForAspectRatio = (
+  aspectRatio: AspectRatio,
+  options: AspectRatioCalculationOptions = {}
+): CanvasDimensions => {
+  const { horizontalMargin = 64, verticalMargin = 200 } = options;
+
+  const maxAvailableWidth = screenWidth - horizontalMargin;
+  const maxAvailableHeight = screenHeight - verticalMargin;
+
+  let width: number;
+  let height: number;
+
+  switch (aspectRatio) {
+    case '1:1': {
+      const squareSize = Math.min(maxAvailableWidth, maxAvailableHeight);
+      width = squareSize;
+      height = squareSize;
+      break;
+    }
+
+    case '9:16': {
+      width = maxAvailableWidth;
+      height = (width * 16) / 9;
+
+      if (height > maxAvailableHeight) {
+        height = maxAvailableHeight;
+        width = (height * 9) / 16;
+      }
+      break;
+    }
+
+    case '4:5': {
+      width = maxAvailableWidth;
+      height = (width * 5) / 4;
+
+      if (height > maxAvailableHeight) {
+        height = maxAvailableHeight;
+        width = (height * 4) / 5;
+      }
+      break;
+    }
+
+    case '2:3': {
+      width = maxAvailableWidth;
+      height = (width * 3) / 2;
+
+      if (height > maxAvailableHeight) {
+        height = maxAvailableHeight;
+        width = (height * 2) / 3;
+      }
+      break;
+    }
+
+    default: {
+      width = maxAvailableWidth;
+      height = maxAvailableWidth;
+    }
+  }
+
+  return { width: Math.round(width), height: Math.round(height) };
 };
 
 export { screenHeight, screenWidth };

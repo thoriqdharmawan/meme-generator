@@ -2,7 +2,7 @@ import BottomDrawer from '@/components/BottomDrawer';
 import { Spacing } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { AspectRatio, CanvasElement } from '@/types/editor';
-import { screenHeight, screenWidth } from '@/utils';
+import { calculateCanvasDimensionsForAspectRatio } from '@/utils';
 import { FC, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import CanvasItem from './CanvasItem';
@@ -20,66 +20,11 @@ const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
 
   const handleAddCanvas = (aspectRatio: AspectRatio) => {
     setSelectedAspectRatio(aspectRatio);
-    const horizontalMargin = Spacing.xxl;
-    const verticalMargin = Spacing.containerPadding * 10;
 
-    const maxAvailableWidth = screenWidth - horizontalMargin;
-    const maxAvailableHeight = screenHeight - verticalMargin;
-
-    const calculateDimensions = (ratio: AspectRatio) => {
-      let width: number;
-      let height: number;
-
-      switch (ratio) {
-        case '1:1': {
-          const squareSize = Math.min(maxAvailableWidth, maxAvailableHeight);
-          width = squareSize;
-          height = squareSize;
-          break;
-        }
-
-        case '9:16': {
-          width = maxAvailableWidth;
-          height = (width * 16) / 9;
-
-          if (height > maxAvailableHeight) {
-            height = maxAvailableHeight;
-            width = (height * 9) / 16;
-          }
-          break;
-        }
-
-        case '4:5': {
-          width = maxAvailableWidth;
-          height = (width * 5) / 4;
-
-          if (height > maxAvailableHeight) {
-            height = maxAvailableHeight;
-            width = (height * 4) / 5;
-          }
-          break;
-        }
-        case '2:3': {
-          width = maxAvailableWidth;
-          height = (width * 3) / 2;
-
-          if (height > maxAvailableHeight) {
-            height = maxAvailableHeight;
-            width = (height * 2) / 3;
-          }
-          break;
-        }
-
-        default: {
-          width = maxAvailableWidth;
-          height = maxAvailableWidth;
-        }
-      }
-
-      return { width: Math.round(width), height: Math.round(height) };
-    };
-
-    const dimensions = calculateDimensions(aspectRatio);
+    const dimensions = calculateCanvasDimensionsForAspectRatio(aspectRatio, {
+      horizontalMargin: Spacing.xxl,
+      verticalMargin: Spacing.containerPadding * 10,
+    });
 
     const newCanvas: CanvasElement = {
       id: `canvas-${Date.now()}`,
