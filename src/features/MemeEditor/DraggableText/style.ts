@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
   },
   resizeHandle: {
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.primary,
     borderRadius: BorderRadius.xs,
     height: Layout.textBox.resizeHandleSize,
     position: 'absolute',
