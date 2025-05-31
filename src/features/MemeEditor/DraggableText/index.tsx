@@ -117,7 +117,7 @@ const DraggableText: FC<Props> = props => {
   useEffect(() => {
     updatePosition(element.x, element.y);
     updateAngle(element.rotate || 0);
-  }, [element, updatePosition, updateAngle]);
+  }, [element]);
 
   useEffect(() => {
     if (!isElementSelected) {
