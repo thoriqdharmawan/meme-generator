@@ -217,8 +217,6 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     setIsEditing(false);
   };
 
-  console.log(imageElements);
-
   const value: MemeEditorContextType = {
     hasCanvas: canvases.length > 0,
     canvases,

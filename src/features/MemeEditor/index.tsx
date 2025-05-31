@@ -1,8 +1,9 @@
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
-import { Image, TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 import ActionInitial from './ActionInitial';
 import ActionText from './ActionText';
 import CanvasContainer from './CanvasContainer';
+import DraggableImage from './DraggableImage';
 import DraggableText from './DraggableText';
 
 const MemeEditor = () => {
@@ -19,6 +20,11 @@ const MemeEditor = () => {
     selectedCanvas,
     canvases,
     imageElements,
+    selectedImageElement,
+    updateImageElement,
+    deleteImageElement,
+    duplicateImageElement,
+    handleSelectImageElement,
   } = useMemeEditor();
 
   const canvas = selectedCanvas || canvases[0];
@@ -28,7 +34,12 @@ const MemeEditor = () => {
   return (
     <>
       <CanvasContainer>
-        <TouchableWithoutFeedback onPress={() => handleSelectElement(null)}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            handleSelectElement(null);
+            handleSelectImageElement(null);
+          }}
+        >
           <View>
             {elements.map(el => (
               <DraggableText
@@ -46,17 +57,23 @@ const MemeEditor = () => {
               />
             ))}
             {imageElements.map(el => (
-              <Image
+              <DraggableImage
                 key={el.id}
-                source={el.source}
-                style={{ width: el.width, height: el.height }}
+                element={el}
+                onUpdate={updates => updateImageElement(el.id, updates)}
+                onDelete={() => deleteImageElement(el.id)}
+                onDuplicate={position => duplicateImageElement(el.id, position)}
+                selectedImageElement={selectedImageElement}
+                onSelectImageElement={handleSelectImageElement}
+                canvasWidth={canvasWidth}
+                canvasHeight={canvasHeight}
               />
             ))}
           </View>
         </TouchableWithoutFeedback>
       </CanvasContainer>
 
-      {hasCanvas && !selectedElement && <ActionInitial />}
+      {hasCanvas && !selectedElement && !selectedImageElement && <ActionInitial />}
       {selectedElement && !isEditing && <ActionText />}
     </>
   );
