@@ -31,10 +31,11 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
         setCanvases(prev => [...prev, newCanvas]);
         setSelectedCanvas(newCanvas);
 
-        onClose();
         setSelectedTemplate(null);
+        onClose();
       } catch (error) {
-        console.error('Error calculating canvas dimensions:', error);
+        setSelectedTemplate(null);
+        onClose();
       }
     }
   };

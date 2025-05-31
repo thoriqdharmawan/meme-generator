@@ -1,6 +1,6 @@
 import { Animations } from '@/constants';
 import { screenHeight } from '@/utils';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
@@ -27,6 +27,7 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
   children,
   height = DEFAULT_DRAWER_HEIGHT,
 }) => {
+  const [shouldRender, setShouldRender] = useState(false);
   const translateY = useSharedValue(height);
   const overlayOpacity = useSharedValue(0);
 
@@ -38,11 +39,16 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
     overlayOpacity.value = withTiming(1, { duration: Animations.duration.normal });
   };
 
+  const handleAnimationComplete = () => {
+    setShouldRender(false);
+    onClose();
+  };
+
   const closeDrawer = () => {
     translateY.value = withTiming(height, { duration: Animations.duration.fast });
     overlayOpacity.value = withTiming(0, { duration: Animations.duration.fast }, finished => {
       if (finished) {
-        runOnJS(onClose)();
+        runOnJS(handleAnimationComplete)();
       }
     });
   };
@@ -87,15 +93,26 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
 
   useEffect(() => {
     if (visible) {
+      setShouldRender(true);
       translateY.value = height;
       overlayOpacity.value = 0;
-      requestAnimationFrame(() => {
-        openDrawer();
-      });
-    }
-  }, [visible]);
 
-  if (!visible) {
+      // Use a small delay to ensure the component is mounted before starting animation
+      const timeoutId = setTimeout(() => {
+        openDrawer();
+      }, 16); // ~1 frame at 60fps
+
+      return () => clearTimeout(timeoutId);
+    }
+
+    if (shouldRender) {
+      closeDrawer();
+    }
+
+    return undefined;
+  }, [visible, shouldRender]);
+
+  if (!shouldRender) {
     return null;
   }
 
