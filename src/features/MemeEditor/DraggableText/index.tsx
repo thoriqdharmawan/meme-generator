@@ -172,7 +172,7 @@ const DraggableText: FC<Props> = props => {
     return [styles.box, styles.idleBox];
   };
 
-  const handleDuplocate = () => {
+  const handleDuplicate = () => {
     onDuplicate({ x: translateX.value + Spacing.lg, y: translateY.value + Spacing.lg });
   };
 
@@ -254,7 +254,7 @@ const DraggableText: FC<Props> = props => {
                     icon={<Icon library='Feather' name='copy' size={16} color={Colors.primary} />}
                     size='small'
                     variant='ghost'
-                    onPress={handleDuplocate}
+                    onPress={handleDuplicate}
                   />
                   <Button
                     icon={<Icon library='Feather' name='trash' size={16} color={Colors.error} />}
