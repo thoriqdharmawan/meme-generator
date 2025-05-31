@@ -17,6 +17,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@react-native-community/slider": "^4.5.7",
     "react": "19.0.0",
     "react-native": "0.79.2",
     "react-native-gesture-handler": "^2.25.0",
