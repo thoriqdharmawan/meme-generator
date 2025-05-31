@@ -1,7 +1,7 @@
 import { AspectRatio } from '@/types/editor';
 import { Dimensions, Image, ImageSourcePropType } from 'react-native';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+export const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export interface CanvasDimensions {
   width: number;
@@ -131,5 +131,3 @@ export const calculateCanvasDimensionsForAspectRatio = (
 export const clamp = (value: number, min: number, max: number): number => {
   return Math.min(Math.max(value, min), max);
 };
-
-export { screenHeight, screenWidth };
