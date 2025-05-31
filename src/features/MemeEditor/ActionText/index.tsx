@@ -1,7 +1,6 @@
 import Button from '@/components/Button';
 import Footer from '@/components/Footer';
 import Icon from '@/components/Icon';
-import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
 import DrawerColors from './DrawerColors';
@@ -23,14 +22,6 @@ const DEFAULT_VISIBLE_STATE: VisibleState = {
 
 const ActionText = () => {
   const [isVisible, setIsVisible] = useState<VisibleState>(DEFAULT_VISIBLE_STATE);
-
-  const { selectedElement, updateElement } = useMemeEditor();
-
-  const handleChangeColor = (color: string) => {
-    if (selectedElement) {
-      updateElement(selectedElement.id, { color });
-    }
-  };
 
   return (
     <>
@@ -66,7 +57,6 @@ const ActionText = () => {
       <DrawerColors
         visible={isVisible.drawerColors}
         onClose={() => setIsVisible(DEFAULT_VISIBLE_STATE)}
-        onColorSelect={handleChangeColor}
       />
 
       <DrawerFormat

@@ -203,6 +203,7 @@ const DraggableText: FC<Props> = props => {
       textTransform: element.textTransform,
       textAlign: element.textAlign,
       textDecorationLine: getTextDecorationLine(),
+      backgroundColor: element.backgroundColor,
     }),
     [
       element.color,
@@ -213,6 +214,7 @@ const DraggableText: FC<Props> = props => {
       element.textAlign,
       element.textDecorationUnderline,
       element.textDecorationLineThrough,
+      element.backgroundColor,
     ]
   );
 

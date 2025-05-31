@@ -22,6 +22,7 @@ export interface CanvasTextElement {
   textDecorationLineThrough?: 'line-through';
   textTransform?: 'uppercase';
   textAlign?: TextStyle['textAlign'];
+  backgroundColor?: TextStyle['backgroundColor'];
 }
 
 export type CanvasTextFields = keyof CanvasTextElement;

@@ -2,7 +2,7 @@ export {
   Animations,
   BorderRadius,
   Colors,
-  DefaultTextColorOptions,
+  DefaultColorOptions,
   Layout,
   Shadows,
   Spacing,

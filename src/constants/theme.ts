@@ -210,7 +210,7 @@ export const TextColors = {
   gold: '#FFD700',
 };
 
-export const DefaultTextColorOptions = [
+export const DefaultColorOptions = [
   { color: TextColors.black, name: 'Black' },
   { color: TextColors.white, name: 'White' },
   { color: TextColors.red, name: 'Red' },
@@ -265,7 +265,7 @@ export const zIndex = {
 export const Theme = {
   colors: Colors,
   textColors: TextColors,
-  defaultTextColorOptions: DefaultTextColorOptions,
+  defaultTextColorOptions: DefaultColorOptions,
   spacing: Spacing,
   typography: Typography,
   borderRadius: BorderRadius,

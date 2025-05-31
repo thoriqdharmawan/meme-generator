@@ -34,6 +34,15 @@ export const drawerColorStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  labelNone: {
+    color: Colors.black,
+    fontSize: Typography.fontSize.sm,
+  },
+  title: {
+    fontSize: Typography.fontSize.lg,
+    fontWeight: Typography.fontWeight.semiBold,
+    marginBottom: Spacing.md,
+  },
   whiteColorBorder: {
     borderColor: Colors.gray,
     borderWidth: 1,
