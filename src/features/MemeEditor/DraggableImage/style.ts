@@ -46,10 +46,15 @@ export const styles = StyleSheet.create({
   },
   resizeHandle: {
     backgroundColor: Colors.primary,
+    borderBottomLeftRadius: BorderRadius.full,
+    borderBottomRightRadius: BorderRadius.full,
     borderRadius: BorderRadius.xs,
-    height: Layout.textBox.resizeHandleSize,
+    borderTopLeftRadius: BorderRadius.full,
+    borderTopRightRadius: BorderRadius.full,
+    bottom: -(Spacing.md / 2),
+    height: Spacing.md,
     position: 'absolute',
-    right: -Spacing.xs,
-    width: Layout.textBox.resizeHandleWidth,
+    right: -(Spacing.md / 2),
+    width: Spacing.md,
   },
 });

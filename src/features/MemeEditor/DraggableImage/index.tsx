@@ -191,12 +191,7 @@ const DraggableImage: FC<Props> = props => {
                 </Pressable>
 
                 <GestureDetector gesture={resizeGesture}>
-                  <Animated.View
-                    style={[
-                      styles.resizeHandle,
-                      { top: elHeight / 2 - Layout.textBox.resizeHandleSize / 2 },
-                    ]}
-                  />
+                  <Animated.View style={styles.resizeHandle} />
                 </GestureDetector>
               </>
             )}
