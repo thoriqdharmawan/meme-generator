@@ -18,7 +18,7 @@ const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
 
   const [selectedAspectRatio, setSelectedAspectRatio] = useState<AspectRatio | null>(null);
 
-  const handleAddCanvas = (aspectRatio: AspectRatio) => {
+  const handleSelectCanvas = (aspectRatio: AspectRatio) => {
     setSelectedAspectRatio(aspectRatio);
 
     const dimensions = calculateCanvasDimensionsForAspectRatio(aspectRatio, {
@@ -41,25 +41,25 @@ const DrawerAddCanvas: FC<DrawerAddCanvasProps> = ({ visible, onClose }) => {
       label: '1:1',
       aspectRatio: '1:1',
       isActive: selectedAspectRatio === '1:1',
-      onPress: () => handleAddCanvas('1:1'),
+      onPress: () => handleSelectCanvas('1:1'),
     },
     {
       label: '4:5',
       aspectRatio: '4:5',
       isActive: selectedAspectRatio === '4:5',
-      onPress: () => handleAddCanvas('4:5'),
+      onPress: () => handleSelectCanvas('4:5'),
     },
     {
       label: '2:3',
       aspectRatio: '2:3',
       isActive: selectedAspectRatio === '2:3',
-      onPress: () => handleAddCanvas('2:3'),
+      onPress: () => handleSelectCanvas('2:3'),
     },
     {
       label: '9:16',
       aspectRatio: '9:16',
       isActive: selectedAspectRatio === '9:16',
-      onPress: () => handleAddCanvas('9:16'),
+      onPress: () => handleSelectCanvas('9:16'),
     },
   ];
 
