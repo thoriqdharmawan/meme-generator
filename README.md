@@ -25,6 +25,20 @@ A powerful and intuitive React Native application for creating, editing, and sha
 - ↩️ **Undo/Redo** - Never lose your creative progress
 - 🎨 **Modern UI** - Beautiful and responsive design
 
+## 📱 Screenshots
+
+<div align="center">
+
+### 🤖 Android
+
+<img src="src/assets/screenshot/android.png" alt="Android Screenshot" width="300"/>
+
+### 🍎 iOS
+
+<img src="src/assets/screenshot/ios.png" alt="iOS Screenshot" width="300"/>
+
+</div>
+
 ## 🚀 Quick Start
 
 > **📋 Prerequisites**: Ensure you have completed the [React Native Environment Setup](https://reactnative.dev/docs/set-up-your-environment) guide.
