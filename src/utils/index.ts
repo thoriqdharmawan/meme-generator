@@ -132,6 +132,6 @@ export const clamp = (value: number, min: number, max: number): number => {
   return Math.min(Math.max(value, min), max);
 };
 
-export const convertXCoordinate = (coord: number, device1: number, device2: number): number => {
-  return (coord * device2) / device1;
+export const getComparison = (value: number, device1: number, device2: number): number => {
+  return (value * device2) / device1;
 };
