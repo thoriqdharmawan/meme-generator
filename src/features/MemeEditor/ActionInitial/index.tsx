@@ -38,6 +38,14 @@ const ActionInitial = () => {
       <Footer>
         <ScrollView horizontal style={style.container}>
           <Button
+            icon={<Icon library='MaterialCommunityIcons' name='image-edit-outline' />}
+            style={style.action}
+            textStyle={style.actionText}
+            title='Template'
+            variant='ghost'
+            onPress={() => handleOpenDrawer('openImage')}
+          />
+          <Button
             icon={<Icon library='MaterialCommunityIcons' name='format-text' />}
             style={style.action}
             textStyle={style.actionText}
@@ -45,20 +53,14 @@ const ActionInitial = () => {
             variant='ghost'
             onPress={() => handleOpenDrawer('openText')}
           />
-          <Button
-            icon={<Icon library='MaterialCommunityIcons' name='image' />}
-            style={style.action}
-            textStyle={style.actionText}
-            title='Image'
-            variant='ghost'
-            onPress={() => handleOpenDrawer('openImage')}
-          />
+
           <Button
             icon={<Icon library='MaterialCommunityIcons' name='sticker-emoji' />}
             style={style.action}
             textStyle={style.actionText}
             title='Sticker'
             variant='ghost'
+            onPress={() => handleOpenDrawer('openImage')}
           />
           <Button
             icon={<Icon library='Feather' name='trash' color={Colors.error} />}
