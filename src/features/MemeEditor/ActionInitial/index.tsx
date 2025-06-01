@@ -6,11 +6,19 @@ import Button from '@components/Button';
 import Footer from '@components/Footer';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
+import DrawerUseTemplate from '../CanvasContainer/DrawerUseTemplate';
 import DrawerImage from './DrawerImage';
 import DrawerText from './DrawerText';
 import { style } from './style';
 
+interface DrawerState {
+  openTemplate: boolean;
+  openText: boolean;
+  openImage: boolean;
+}
+
 const DEFAULT_DRAWER_STATE = {
+  openTemplate: false,
   openText: false,
   openImage: false,
 };
@@ -18,11 +26,11 @@ const DEFAULT_DRAWER_STATE = {
 const ActionInitial = () => {
   const { onResetAll } = useMemeEditor();
 
-  const [drawer, setDrawer] = useState(DEFAULT_DRAWER_STATE);
+  const [drawer, setDrawer] = useState<DrawerState>(DEFAULT_DRAWER_STATE);
 
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
 
-  const handleOpenDrawer = (field: 'openText' | 'openImage') => {
+  const handleOpenDrawer = (field: keyof DrawerState) => {
     setDrawer(prev => ({ ...prev, [field]: true }));
   };
 
@@ -43,7 +51,7 @@ const ActionInitial = () => {
             textStyle={style.actionText}
             title='Template'
             variant='ghost'
-            onPress={() => handleOpenDrawer('openImage')}
+            onPress={() => handleOpenDrawer('openTemplate')}
           />
           <Button
             icon={<Icon library='MaterialCommunityIcons' name='format-text' />}
@@ -76,6 +84,11 @@ const ActionInitial = () => {
       <DrawerText visible={drawer.openText} onClose={closeDrawer} />
 
       <DrawerImage visible={drawer.openImage} onClose={closeDrawer} />
+
+      <DrawerUseTemplate
+        visible={drawer.openTemplate}
+        onClose={() => setDrawer(DEFAULT_DRAWER_STATE)}
+      />
 
       <ConfirmationDialog
         visible={showDeleteConfirmation}
