@@ -6,6 +6,11 @@ import meme2 from '../assets/images/meme2.jpg';
 import meme3 from '../assets/images/meme3.jpg';
 import meme4 from '../assets/images/meme4.jpg';
 
+import calendar from '../assets/stickers/calendar.png';
+import paperPlane from '../assets/stickers/paper-plane.png';
+import thumbsUp from '../assets/stickers/thumbs-up.png';
+import webDevelopment from '../assets/stickers/web-development.png';
+
 // developer emulator device size, for comparison purposes
 export const PROPORTIONAL_WIDTH = 411.428571;
 export const PROPORTIONAL_HEIGHT = 914.285714;
@@ -179,8 +184,8 @@ export const MEME_TEMPLATES: MemeTemplate[] = [
 ];
 
 export const IMAGES: ImageInterface[] = [
-  { id: '1', source: meme1 },
-  { id: '2', source: meme2 },
-  { id: '3', source: meme3 },
-  { id: '4', source: meme4 },
+  { id: '1', source: calendar },
+  { id: '2', source: paperPlane },
+  { id: '3', source: thumbsUp },
+  { id: '4', source: webDevelopment },
 ];

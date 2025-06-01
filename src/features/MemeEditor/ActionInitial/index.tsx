@@ -14,13 +14,13 @@ import { style } from './style';
 interface DrawerState {
   openTemplate: boolean;
   openText: boolean;
-  openImage: boolean;
+  openSticker: boolean;
 }
 
 const DEFAULT_DRAWER_STATE = {
   openTemplate: false,
   openText: false,
-  openImage: false,
+  openSticker: false,
 };
 
 const ActionInitial = () => {
@@ -68,7 +68,7 @@ const ActionInitial = () => {
             textStyle={style.actionText}
             title='Sticker'
             variant='ghost'
-            onPress={() => handleOpenDrawer('openImage')}
+            onPress={() => handleOpenDrawer('openSticker')}
           />
           <Button
             icon={<Icon library='Feather' name='trash' color={Colors.error} />}
@@ -83,7 +83,7 @@ const ActionInitial = () => {
 
       <DrawerText visible={drawer.openText} onClose={closeDrawer} />
 
-      <DrawerImage visible={drawer.openImage} onClose={closeDrawer} />
+      <DrawerImage visible={drawer.openSticker} onClose={closeDrawer} />
 
       <DrawerUseTemplate
         visible={drawer.openTemplate}
