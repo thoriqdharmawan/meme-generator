@@ -7,6 +7,12 @@ import meme3 from '../assets/images/meme3.jpg';
 import meme4 from '../assets/images/meme4.jpg';
 
 import calendar from '../assets/stickers/calendar.png';
+import chat from '../assets/stickers/chat.png';
+import cloud from '../assets/stickers/cloud.png';
+import customerService from '../assets/stickers/customer-service.png';
+import device from '../assets/stickers/device.png';
+import megaphone from '../assets/stickers/megaphone.png';
+import mobileApplication from '../assets/stickers/mobile-application.png';
 import paperPlane from '../assets/stickers/paper-plane.png';
 import thumbsUp from '../assets/stickers/thumbs-up.png';
 import webDevelopment from '../assets/stickers/web-development.png';
@@ -188,4 +194,10 @@ export const IMAGES: ImageInterface[] = [
   { id: '2', source: paperPlane },
   { id: '3', source: thumbsUp },
   { id: '4', source: webDevelopment },
+  { id: '5', source: chat },
+  { id: '6', source: cloud },
+  { id: '7', source: customerService },
+  { id: '8', source: device },
+  { id: '9', source: megaphone },
+  { id: '10', source: mobileApplication },
 ];
