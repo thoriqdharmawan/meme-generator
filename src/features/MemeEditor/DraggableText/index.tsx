@@ -175,6 +175,7 @@ const DraggableText: FC<Props> = props => {
       textAlign: element.textAlign,
       textDecorationLine: getTextDecorationLine(),
       backgroundColor: element.backgroundColor,
+      opacity: element.opacity ?? 1,
     }),
     [
       element.color,
@@ -186,6 +187,7 @@ const DraggableText: FC<Props> = props => {
       element.textDecorationUnderline,
       element.textDecorationLineThrough,
       element.backgroundColor,
+      element.opacity,
     ]
   );
 
