@@ -1,16 +1,64 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 😎 Meme Generator
 
-# Getting Started
+<div align="center">
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+**🎨 Create hilarious memes with ease! 🎭**
 
-## Step 1: Start Metro
+A powerful and intuitive React Native application for creating, editing, and sharing memes with your friends and social media.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+[![React Native](https://img.shields.io/badge/React%20Native-0.75-blue?style=for-the-badge&logo=react)](https://reactnative.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![iOS](https://img.shields.io/badge/iOS-Compatible-black?style=for-the-badge&logo=apple)](https://developer.apple.com/ios/)
+[![Android](https://img.shields.io/badge/Android-Compatible-green?style=for-the-badge&logo=android)](https://developer.android.com/)
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+</div>
 
-```sh
+---
+
+## 🌟 Features
+
+- 🖼️ **Rich Image Editor** - Add text, stickers, and effects to your images
+- 📱 **Cross-Platform** - Works seamlessly on both iOS and Android
+- ⚡ **Fast Refresh** - See your changes instantly during development
+- 🎯 **Touch Controls** - Intuitive drag, resize, and rotate interactions
+- 📐 **Snap Guides** - Perfect alignment for professional-looking memes
+- ↩️ **Undo/Redo** - Never lose your creative progress
+- 🎨 **Modern UI** - Beautiful and responsive design
+
+## 🚀 Quick Start
+
+> **📋 Prerequisites**: Ensure you have completed the [React Native Environment Setup](https://reactnative.dev/docs/set-up-your-environment) guide.
+
+### 🔧 Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/thoriqdharmawan/meme-generator/
+   cd MemeGenerator
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   # Using npm
+   npm install
+
+   # OR using Yarn
+   yarn install
+   ```
+
+3. **iOS Setup** (macOS only)
+   ```bash
+   # Install CocoaPods dependencies
+   cd ios && pod install && cd ..
+   ```
+
+### 🏃‍♂️ Running the Application
+
+#### 📱 Start Metro Bundler
+
+```bash
 # Using npm
 npm start
 
@@ -18,13 +66,9 @@ npm start
 yarn start
 ```
 
-## Step 2: Build and run your app
+#### 🤖 Android
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
+```bash
 # Using npm
 npm run android
 
@@ -32,25 +76,9 @@ npm run android
 yarn android
 ```
 
-### iOS
+#### 🍎 iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
+```bash
 # Using npm
 npm run ios
 
@@ -58,40 +86,51 @@ npm run ios
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 🛠️ Development
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### 📝 Available Scripts
 
-## Step 3: Modify your app
+| Command              | Description                       |
+| -------------------- | --------------------------------- |
+| `npm start`          | 🚀 Start Metro bundler            |
+| `npm run android`    | 🤖 Run on Android device/emulator |
+| `npm run ios`        | 🍎 Run on iOS device/simulator    |
+| `npm run lint`       | 🔍 Run ESLint                     |
+| `npm run lint:fix`   | 🔧 Fix ESLint issues              |
+| `npm run format`     | ✨ Format code with Prettier      |
+| `npm run type-check` | 📋 Run TypeScript checks          |
+| `npm run test`       | 🧪 Run tests                      |
 
-Now that you have successfully run the app, let's make changes!
+### 🎯 Development Tips
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+- **Fast Refresh**: Save any file to see changes instantly
+- **Debug Menu**:
+  - **Android**: <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS)
+  - **iOS**: <kbd>Cmd ⌘</kbd> + <kbd>D</kbd>
+- **Reload App**:
+  - **Android**: Press <kbd>R</kbd> twice
+  - **iOS**: Press <kbd>R</kbd> in simulator
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 🏗️ Project Structure
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+```
+src/
+├── 🎨 assets/           # Images, fonts, stickers
+├── 🧩 components/       # Reusable UI components
+├── 📱 screens/         # App screens
+├── 🎛️ features/        # Feature-specific modules
+├── 🔧 hooks/           # Custom React hooks
+├── 🌐 contexts/        # React contexts
+├── 📦 types/           # TypeScript type definitions
+└── 🛠️ utils/           # Utility functions
+```
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
+<div align="center">
 
-### Now what?
+**🎉 Happy Meme Making! 🎊**
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+Made with ❤️ and ☕
 
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+</div>
