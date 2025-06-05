@@ -3,7 +3,7 @@ import { MEME_TEMPLATES, type MemeTemplate } from '@/constants';
 import { PROPORTIONAL_HEIGHT, PROPORTIONAL_WIDTH } from '@/constants/templates';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import type { CanvasElement } from '@/types/editor';
-import { calculateCanvasDimensions, getComparison, screenHeight, screenWidth } from '@/utils';
+import { calculateCanvasDimensions, getComparison, windowHeight, windowWidth } from '@/utils';
 import { FC, useState } from 'react';
 import { FlatList, Image, TouchableWithoutFeedback, View } from 'react-native';
 import { templateStyles } from './style';
@@ -40,11 +40,11 @@ const DrawerUseTemplate: FC<DrawerUseTemplateProps> = ({ onClose, visible }) => 
 
               return {
                 ...element,
-                x: getComparison(element.x, PROPORTIONAL_WIDTH, screenWidth),
-                y: getComparison(element.y, PROPORTIONAL_HEIGHT, screenHeight),
-                fontSize: getComparison(element.fontSize || 0, PROPORTIONAL_WIDTH, screenWidth),
-                width: getComparison(element.width, PROPORTIONAL_WIDTH, screenWidth),
-                rotate: getComparison(element.rotate || 0, PROPORTIONAL_WIDTH, screenWidth),
+                x: getComparison(element.x, PROPORTIONAL_WIDTH, windowWidth),
+                y: getComparison(element.y, PROPORTIONAL_HEIGHT, windowHeight),
+                fontSize: getComparison(element.fontSize || 0, PROPORTIONAL_WIDTH, windowWidth),
+                width: getComparison(element.width, PROPORTIONAL_WIDTH, windowWidth),
+                rotate: getComparison(element.rotate || 0, PROPORTIONAL_WIDTH, windowWidth),
               };
             }) || []
           );

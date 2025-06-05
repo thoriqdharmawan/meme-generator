@@ -1,5 +1,5 @@
 import { Animations } from '@/constants';
-import { screenHeight } from '@/utils';
+import { windowHeight } from '@/utils';
 import { ReactNode, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -19,7 +19,7 @@ interface BottomDrawerProps {
   height?: number;
 }
 
-const DEFAULT_DRAWER_HEIGHT = screenHeight * 0.85;
+const DEFAULT_DRAWER_HEIGHT = windowHeight * 0.85;
 
 const BottomDrawer: React.FC<BottomDrawerProps> = ({
   visible,

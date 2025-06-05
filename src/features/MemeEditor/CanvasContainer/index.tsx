@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import Icon from '@/components/icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { useCanvasPan } from '@/hooks';
-import { clamp, screenHeight, screenWidth } from '@/utils';
+import { clamp, windowHeight, windowWidth } from '@/utils';
 import { FC, useState } from 'react';
 import { ImageBackground, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -31,8 +31,8 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
   const [drawer, setDrawer] = useState<DrawerState>(DEFAULT_DRAWER_STATE);
 
   const { pan, translationX, translationY } = useCanvasPan({
-    screenWidth,
-    screenHeight,
+    windowWidth,
+    windowHeight,
   });
 
   const scale = useSharedValue(1);
@@ -46,7 +46,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
       scale.value = clamp(
         startScale.value * event.scale,
         0.5,
-        Math.min(screenWidth / 100, screenHeight / 100)
+        Math.min(windowWidth / 100, windowHeight / 100)
       );
     })
     .runOnJS(true);
