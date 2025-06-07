@@ -4,6 +4,7 @@ import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
 export interface PinchGestureOptions {
+  selectedId?: string;
   initialScale?: number;
   minScale?: number;
   maxScale?: number;
@@ -45,6 +46,7 @@ export const usePinchGesture = (options: PinchGestureOptions = {}) => {
     onStart,
     onUpdate,
     onEnd,
+    selectedId,
   } = options;
 
   const scale = useSharedValue(initialScale);
@@ -53,7 +55,7 @@ export const usePinchGesture = (options: PinchGestureOptions = {}) => {
   useEffect(() => {
     scale.value = initialScale;
     startScale.value = initialScale;
-  }, [initialScale, scale, startScale]);
+  }, [initialScale, scale, startScale, selectedId]);
 
   const optimizedClamp = useCallback(clamp, []);
 

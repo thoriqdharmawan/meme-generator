@@ -33,6 +33,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
   const { pan, translationX, translationY } = useCanvasPan();
 
   const { pinch, scale } = usePinchGesture({
+    selectedId: selectedCanvas?.id,
     initialScale: (selectedCanvas || canvases[0])?.scale || 1,
     minScale: 0.5,
     maxScale: Math.min(screenWidth / 100, screenHeight / 100),
