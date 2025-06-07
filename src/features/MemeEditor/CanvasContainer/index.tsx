@@ -3,7 +3,7 @@ import Icon from '@/components/icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { useCanvasPan } from '@/hooks';
 import { clamp, screenHeight, screenWidth } from '@/utils';
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { ImageBackground, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
@@ -38,12 +38,14 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
   const scale = useSharedValue(1);
   const startScale = useSharedValue(1);
 
-  const pinch = Gesture.Pinch()
+  const optimizedClamp = useCallback(clamp, []);
+
+  const pinchGestureHandler = Gesture.Pinch()
     .onStart(() => {
       startScale.value = scale.value;
     })
     .onUpdate(event => {
-      scale.value = clamp(
+      scale.value = optimizedClamp(
         startScale.value * event.scale,
         0.5,
         Math.min(screenWidth / 100, screenHeight / 100)
@@ -59,7 +61,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
     ],
   }));
 
-  const combinedGesture = Gesture.Simultaneous(pan, pinch);
+  const combinedGesture = Gesture.Simultaneous(pan, pinchGestureHandler);
 
   const canvasStyle = {
     width: selectedCanvas?.width || canvases[0]?.width,
