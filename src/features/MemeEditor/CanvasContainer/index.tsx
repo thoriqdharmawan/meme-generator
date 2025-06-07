@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import Icon from '@/components/icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { useCanvasPan } from '@/hooks';
-import { clamp, windowHeight, windowWidth } from '@/utils';
+import { clamp, screenHeight, screenWidth, windowHeight, windowWidth } from '@/utils';
 import { FC, useState } from 'react';
 import { ImageBackground, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -46,7 +46,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
       scale.value = clamp(
         startScale.value * event.scale,
         0.5,
-        Math.min(windowWidth / 100, windowHeight / 100)
+        Math.min(screenWidth / 100, screenHeight / 100)
       );
     })
     .runOnJS(true);
