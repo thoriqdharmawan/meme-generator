@@ -33,11 +33,9 @@ export const useCanvasPan = () => {
   const prevTranslationY = useSharedValue(0);
 
   useEffect(() => {
-    if (canvases.length === 0) {
-      translationX.value = 0;
-      translationY.value = 0;
-    }
-  }, [canvases]);
+    translationX.value = 0;
+    translationY.value = 0;
+  }, [canvases?.[0]?.id]);
 
   const pan = Gesture.Pan()
     .minDistance(1)
