@@ -1,9 +1,10 @@
+import type { CanvasElementItem } from '@/types/editor';
 import { Gesture } from 'react-native-gesture-handler';
 
-export interface TapElementOptions {
+export interface TapElementOptions<T extends CanvasElementItem = CanvasElementItem> {
   isElementSelected: boolean;
-  element: any;
-  onSelectElement: (element: any) => void;
+  element: T;
+  onSelectElement: (element: T | null) => void;
   onTapAction?: () => void;
   numberOfTaps?: number;
   maxDelayMs?: number;
@@ -29,7 +30,9 @@ export interface TapElementOptions {
  * </GestureDetector>
  * ```
  */
-export const useTapElement = (options: TapElementOptions) => {
+export const useTapElement = <T extends CanvasElementItem = CanvasElementItem>(
+  options: TapElementOptions<T>
+) => {
   const {
     isElementSelected,
     element,

@@ -1,7 +1,9 @@
+import type { CanvasElementItem } from '@/types/editor';
 import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue, withSpring } from 'react-native-reanimated';
+import type { SnapBounds, SnapResult } from './useSnapGuide';
 
-export interface DragElementOptions {
+export interface DragElementOptions<T extends CanvasElementItem = CanvasElementItem> {
   initialX: number;
   initialY: number;
   canvasWidth: number;
@@ -9,10 +11,10 @@ export interface DragElementOptions {
   elementWidth: number;
   elementHeight: number;
   isElementSelected: boolean;
-  onSelectElement: (element: any) => void;
-  onUpdate: (updates: any) => void;
-  updateSnapGuides: (x: number, y: number, bounds: any) => void;
-  calculateSnapPosition: (x: number, y: number, bounds: any) => { finalX: number; finalY: number };
+  onSelectElement: (element: T | null) => void;
+  onUpdate: (updates: Partial<T>) => void;
+  updateSnapGuides: (x: number, y: number, bounds: SnapBounds) => void;
+  calculateSnapPosition: (x: number, y: number, bounds: SnapBounds) => SnapResult;
   hideSnapGuides: () => void;
 }
 
@@ -54,7 +56,9 @@ export interface DragElementOptions {
  * </Animated.View>
  * ```
  */
-export const useDragElement = (options: DragElementOptions) => {
+export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
+  options: DragElementOptions<T>
+) => {
   const {
     initialX,
     initialY,
@@ -112,7 +116,7 @@ export const useDragElement = (options: DragElementOptions) => {
       onUpdate({
         x: snapResult.finalX,
         y: snapResult.finalY,
-      });
+      } as Partial<T>);
     })
     .runOnJS(true);
 
