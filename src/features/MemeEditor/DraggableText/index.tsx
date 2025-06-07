@@ -89,6 +89,7 @@ const DraggableText: FC<Props> = props => {
   });
 
   const { resizeGesture, boxWidth, boxHeight } = useResizeElement({
+    elementId: element.id,
     initialWidth: elWidth,
     initialHeight: elHeight,
     minWidth: Layout.textBox.minWidth,

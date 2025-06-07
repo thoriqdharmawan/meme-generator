@@ -75,6 +75,7 @@ const DraggableImage: FC<Props> = props => {
   });
 
   const { resizeGesture, boxWidth, boxHeight } = useResizeElement({
+    elementId: element.id,
     initialWidth: elWidth,
     initialHeight: Number(elHeight),
     minWidth: Layout.textBox.minWidth,

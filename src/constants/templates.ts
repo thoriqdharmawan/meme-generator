@@ -29,7 +29,7 @@ export interface MemeTemplate {
 
 const ELEMENTS_DEMO_MEME1: CanvasElementItem[] = [
   {
-    id: 'el-demo-meme-1',
+    id: 'el-demo-meme-1-1',
     type: 'text',
     text: 'Thoriq Dharmawan',
     x: 190.00928622484207,
@@ -41,7 +41,7 @@ const ELEMENTS_DEMO_MEME1: CanvasElementItem[] = [
     fontSize: 24,
   },
   {
-    id: 'el-demo-meme-2',
+    id: 'el-demo-meme-2-1',
     type: 'text',
     text: 'Kandidat Lain',
     x: 189.24924212694168,
@@ -100,7 +100,7 @@ const ELEMENTS_DEMO_MEME2: CanvasElementItem[] = [
 
 const ELEMENTS_DEMO_MEME3: CanvasElementItem[] = [
   {
-    id: 'el-demo-meme-1',
+    id: 'el-demo-meme-1-3',
     type: 'text',
     text: 'Thoriq Dharmawan',
     x: 45.31287384033203,
@@ -113,7 +113,7 @@ const ELEMENTS_DEMO_MEME3: CanvasElementItem[] = [
     backgroundColor: '#FFFFFF',
   },
   {
-    id: 'el-demo-meme-2',
+    id: 'el-demo-meme-2-3',
     type: 'text',
     text: 'Kandidat Lain',
     x: 248.14694690704346,
@@ -126,7 +126,7 @@ const ELEMENTS_DEMO_MEME3: CanvasElementItem[] = [
     backgroundColor: '#FFFFFF',
   },
   {
-    id: 'el-demo-meme-3',
+    id: 'el-demo-meme-3-3',
     type: 'text',
     text: 'Lahelu',
     x: 176.73475110530853,
@@ -142,7 +142,7 @@ const ELEMENTS_DEMO_MEME3: CanvasElementItem[] = [
 
 const ELEMENTS_DEMO_MEME4: CanvasElementItem[] = [
   {
-    id: 'el-demo-meme-2',
+    id: 'el-demo-meme-2-4',
     type: 'text',
     text: 'Mahasiswa Semester Akhir',
     x: 61.880950927734375,
@@ -155,7 +155,7 @@ const ELEMENTS_DEMO_MEME4: CanvasElementItem[] = [
     backgroundColor: 'transparent',
   },
   {
-    id: 'el-demo-meme-1',
+    id: 'el-demo-meme-1-4',
     type: 'text',
     text: 'Belajar buat ujian',
     x: 20.22023904323578,
@@ -168,7 +168,7 @@ const ELEMENTS_DEMO_MEME4: CanvasElementItem[] = [
     backgroundColor: 'transparent',
   },
   {
-    id: '1748677200781-copy',
+    id: '1748677200781-copy-4',
     type: 'text',
     text: 'Nonton teori konspirasi 3 jam di YT',
     x: 182.89099872112274,

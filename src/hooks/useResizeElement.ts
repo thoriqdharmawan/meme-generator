@@ -4,6 +4,7 @@ import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
 export interface ResizeElementOptions {
+  elementId: string;
   initialWidth: number;
   initialHeight: number;
   minWidth?: number;
@@ -41,6 +42,7 @@ export interface ResizeElementOptions {
  */
 export const useResizeElement = (options: ResizeElementOptions) => {
   const {
+    elementId,
     initialWidth,
     initialHeight,
     minWidth = 10,
@@ -62,7 +64,7 @@ export const useResizeElement = (options: ResizeElementOptions) => {
   useEffect(() => {
     boxWidth.value = initialWidth;
     boxHeight.value = initialHeight;
-  }, [initialWidth, initialHeight, boxWidth, boxHeight]);
+  }, [elementId]);
 
   /**
    * Calculate new dimensions with constraints applied
