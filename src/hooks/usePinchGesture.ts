@@ -1,5 +1,5 @@
 import { clamp, screenHeight, screenWidth } from '@/utils';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -50,6 +50,11 @@ export const usePinchGesture = (options: PinchGestureOptions = {}) => {
   const scale = useSharedValue(initialScale);
   const startScale = useSharedValue(initialScale);
 
+  useEffect(() => {
+    scale.value = initialScale;
+    startScale.value = initialScale;
+  }, [initialScale, scale, startScale]);
+
   const optimizedClamp = useCallback(clamp, []);
 
   const pinch = Gesture.Pinch()
@@ -67,16 +72,10 @@ export const usePinchGesture = (options: PinchGestureOptions = {}) => {
     })
     .runOnJS(true);
 
-  const resetScale = useCallback(() => {
-    scale.value = initialScale;
-    startScale.value = initialScale;
-  }, [initialScale]);
-
   return {
     pinch,
     scale,
     startScale,
-    resetScale,
   };
 };
 
