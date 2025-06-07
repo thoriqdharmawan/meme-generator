@@ -26,15 +26,23 @@ const DEFAULT_DRAWER_STATE: DrawerState = {
 };
 
 const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
-  const { hasCanvas, selectedCanvas, canvases, setSelectedCanvas } = useMemeEditor();
+  const { hasCanvas, selectedCanvas, canvases, setSelectedCanvas, updateCanvas } = useMemeEditor();
 
   const [drawer, setDrawer] = useState<DrawerState>(DEFAULT_DRAWER_STATE);
 
   const { pan, translationX, translationY } = useCanvasPan();
 
   const { pinch, scale } = usePinchGesture({
+    initialScale: (selectedCanvas || canvases[0])?.scale || 1,
     minScale: 0.5,
     maxScale: Math.min(screenWidth / 100, screenHeight / 100),
+    onEnd: finalScale => {
+      const canvas = selectedCanvas || canvases[0];
+
+      if (canvas) {
+        updateCanvas(canvas.id, { scale: finalScale });
+      }
+    },
   });
 
   const boxAnimatedStyles = useAnimatedStyle(() => ({

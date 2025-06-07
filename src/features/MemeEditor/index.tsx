@@ -47,6 +47,7 @@ const MemeEditor = () => {
                     setIsEditing={setIsEditing}
                     canvasWidth={canvasWidth}
                     canvasHeight={canvasHeight}
+                    canvasScale={canvas?.scale || 1}
                   />
                 );
               }
@@ -61,6 +62,7 @@ const MemeEditor = () => {
                   onSelectImageElement={handleSelectElement}
                   canvasWidth={canvasWidth}
                   canvasHeight={canvasHeight}
+                  canvasScale={canvas?.scale || 1}
                 />
               );
             })}

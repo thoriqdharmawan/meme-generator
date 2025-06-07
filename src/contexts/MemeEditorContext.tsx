@@ -9,6 +9,7 @@ interface MemeEditorContextType {
   setCanvases: React.Dispatch<React.SetStateAction<CanvasElement[]>>;
   selectedCanvas: CanvasElement | null;
   setSelectedCanvas: (canvas: CanvasElement | null) => void;
+  updateCanvas: (id: string, updates: Partial<CanvasElement>) => void;
 
   elements: CanvasElementItem[];
   setElements: React.Dispatch<React.SetStateAction<CanvasElementItem[]>>;
@@ -170,6 +171,21 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     setSelectedCanvas(canvas);
   };
 
+  const updateCanvas = (id: string, updates: Partial<CanvasElement>) => {
+    const newCanvases = canvases.map(canvas => {
+      if (canvas.id === id) {
+        const updatedCanvas = { ...canvas, ...updates };
+        if (selectedCanvas?.id === id) {
+          setSelectedCanvas(updatedCanvas);
+        }
+        return updatedCanvas;
+      }
+      return canvas;
+    });
+
+    setCanvases(newCanvases);
+  };
+
   const onResetAll = () => {
     setCanvases([]);
     setSelectedCanvas(null);
@@ -193,6 +209,7 @@ export const MemeEditorProvider: React.FC<MemeEditorProviderProps> = ({ children
     setCanvases,
     selectedCanvas,
     setSelectedCanvas: handleSelectCanvas,
+    updateCanvas,
 
     elements,
     setElements,

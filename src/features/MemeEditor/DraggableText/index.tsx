@@ -38,6 +38,7 @@ interface Props {
   setIsEditing: (isEditing: boolean) => void;
   canvasWidth?: number;
   canvasHeight?: number;
+  canvasScale: number;
 }
 
 const DraggableText: FC<Props> = props => {
@@ -51,6 +52,7 @@ const DraggableText: FC<Props> = props => {
     setIsEditing,
     canvasWidth = 0,
     canvasHeight = 0,
+    canvasScale = 1,
   } = props;
 
   const [layoutElement, setLayoutElement] = useState<LayoutRectangle | null>(null);
@@ -78,6 +80,7 @@ const DraggableText: FC<Props> = props => {
     elementWidth: Number(elWidth),
     elementHeight: Number(elHeight),
     isElementSelected,
+    canvasScale,
     onSelectElement,
     onUpdate,
     updateSnapGuides,

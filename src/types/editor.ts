@@ -5,6 +5,7 @@ export interface CanvasElement {
   width: number;
   height: number;
   backgroundImage?: ImageSourcePropType;
+  scale?: number;
 }
 
 export interface BaseElement {

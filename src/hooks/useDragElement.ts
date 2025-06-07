@@ -11,6 +11,7 @@ export interface DragElementOptions<T extends CanvasElementItem = CanvasElementI
   elementWidth: number;
   elementHeight: number;
   isElementSelected: boolean;
+  canvasScale?: number; // Optional scale factor for the canvas
   onSelectElement: (element: T | null) => void;
   onUpdate: (updates: Partial<T>) => void;
   updateSnapGuides: (x: number, y: number, bounds: SnapBounds) => void;
@@ -41,6 +42,7 @@ export interface DragElementOptions<T extends CanvasElementItem = CanvasElementI
  *   elementWidth: 80,
  *   elementHeight: 80,
  *   isElementSelected: true,
+ *   canvasScale: 1,
  *   onSelectElement: (element) => setSelectedElement(element),
  *   onUpdate: (updates) => handleElementUpdate(updates),
  *   updateSnapGuides: (x, y, bounds) => showSnapGuides(x, y, bounds),
@@ -67,6 +69,7 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
     elementWidth,
     elementHeight,
     isElementSelected,
+    canvasScale = 1,
     onSelectElement,
     onUpdate,
     updateSnapGuides,
@@ -90,8 +93,8 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
         onSelectElement(null);
       }
 
-      translateX.value = startX.value + e.translationX;
-      translateY.value = startY.value + e.translationY;
+      translateX.value = startX.value + e.translationX / canvasScale;
+      translateY.value = startY.value + e.translationY / canvasScale;
 
       updateSnapGuides(translateX.value, translateY.value, {
         canvasWidth,
