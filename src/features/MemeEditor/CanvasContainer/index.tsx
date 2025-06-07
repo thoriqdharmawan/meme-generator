@@ -30,10 +30,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
 
   const [drawer, setDrawer] = useState<DrawerState>(DEFAULT_DRAWER_STATE);
 
-  const { pan, translationX, translationY } = useCanvasPan({
-    screenWidth,
-    screenHeight,
-  });
+  const { pan, translationX, translationY } = useCanvasPan();
 
   const scale = useSharedValue(1);
   const startScale = useSharedValue(1);

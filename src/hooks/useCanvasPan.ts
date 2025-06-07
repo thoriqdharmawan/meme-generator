@@ -1,30 +1,20 @@
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
-import { clamp } from '@/utils';
 import { useEffect } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
-export interface CanvasPanOptions {
-  screenWidth: number;
-  screenHeight: number;
-}
-
 /**
- * Custom hook for handling canvas pan gestures with boundary constraints
+ * Custom hook for handling canvas pan gestures without boundaries
  *
  * This hook provides pan gesture functionality for a canvas element, allowing users
- * to drag and move content while respecting screen boundaries. The pan movement
- * is constrained to prevent content from moving too far off-screen.
+ * to drag and move content freely without any constraints. The pan movement
+ * can extend infinitely in any direction.
  *
- * @param options - Configuration options including screen dimensions
- * @returns Object containing pan gesture, translation values, and reset function
+ * @returns Object containing pan gesture and translation values
  *
  * @example
  * ```typescript
- * const { pan, translationX, translationY, resetPosition } = useCanvasPan({
- *   screenWidth: Dimensions.get('screen').width,
- *   screenHeight: Dimensions.get('screen').height,
- * });
+ * const { pan, translationX, translationY } = useCanvasPan();
  *
  * // Use with Animated.View
  * <Animated.View style={[{ transform: [{ translateX: translationX }, { translateY: translationY }] }]}>
@@ -34,9 +24,7 @@ export interface CanvasPanOptions {
  * </Animated.View>
  * ```
  */
-export const useCanvasPan = (options: CanvasPanOptions) => {
-  const { screenWidth, screenHeight } = options;
-
+export const useCanvasPan = () => {
   const { canvases } = useMemeEditor();
 
   const translationX = useSharedValue(0);
@@ -58,20 +46,8 @@ export const useCanvasPan = (options: CanvasPanOptions) => {
       prevTranslationY.value = translationY.value;
     })
     .onUpdate(event => {
-      // Calculate maximum translation boundaries (50px margin from screen edges)
-      const maxTranslateX = screenWidth / 2 - 50;
-      const maxTranslateY = screenHeight / 2 - 50;
-
-      translationX.value = clamp(
-        prevTranslationX.value + event.translationX,
-        -maxTranslateX,
-        maxTranslateX
-      );
-      translationY.value = clamp(
-        prevTranslationY.value + event.translationY,
-        -maxTranslateY,
-        maxTranslateY
-      );
+      translationX.value = prevTranslationX.value + event.translationX;
+      translationY.value = prevTranslationY.value + event.translationY;
     })
     .runOnJS(true);
 
