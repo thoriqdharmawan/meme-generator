@@ -5,8 +5,8 @@ import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
 export interface CanvasPanOptions {
-  windowWidth: number;
-  windowHeight: number;
+  screenWidth: number;
+  screenHeight: number;
 }
 
 /**
@@ -22,8 +22,8 @@ export interface CanvasPanOptions {
  * @example
  * ```typescript
  * const { pan, translationX, translationY, resetPosition } = useCanvasPan({
- *   windowWidth: Dimensions.get('window').width,
- *   windowHeight: Dimensions.get('window').height,
+ *   screenWidth: Dimensions.get('screen').width,
+ *   screenHeight: Dimensions.get('screen').height,
  * });
  *
  * // Use with Animated.View
@@ -35,7 +35,7 @@ export interface CanvasPanOptions {
  * ```
  */
 export const useCanvasPan = (options: CanvasPanOptions) => {
-  const { windowWidth, windowHeight } = options;
+  const { screenWidth, screenHeight } = options;
 
   const { canvases } = useMemeEditor();
 
@@ -59,8 +59,8 @@ export const useCanvasPan = (options: CanvasPanOptions) => {
     })
     .onUpdate(event => {
       // Calculate maximum translation boundaries (50px margin from screen edges)
-      const maxTranslateX = windowWidth / 2 - 50;
-      const maxTranslateY = windowHeight / 2 - 50;
+      const maxTranslateX = screenWidth / 2 - 50;
+      const maxTranslateY = screenHeight / 2 - 50;
 
       translationX.value = clamp(
         prevTranslationX.value + event.translationX,
