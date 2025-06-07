@@ -1,4 +1,5 @@
 import { clamp } from '@/utils';
+import { useEffect } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -42,8 +43,8 @@ export const useResizeElement = (options: ResizeElementOptions) => {
   const {
     initialWidth,
     initialHeight,
-    minWidth = 50,
-    minHeight = 25,
+    minWidth = 10,
+    minHeight = 10,
     maxWidth = Infinity,
     maxHeight = Infinity,
     maintainAspectRatio = false,
@@ -57,6 +58,11 @@ export const useResizeElement = (options: ResizeElementOptions) => {
   const startHeight = useSharedValue(initialHeight);
 
   const aspectRatio = initialWidth / initialHeight;
+
+  useEffect(() => {
+    boxWidth.value = initialWidth;
+    boxHeight.value = initialHeight;
+  }, [initialWidth, initialHeight, boxWidth, boxHeight]);
 
   /**
    * Calculate new dimensions with constraints applied
