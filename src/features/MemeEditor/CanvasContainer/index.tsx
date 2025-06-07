@@ -1,12 +1,12 @@
 import Button from '@/components/Button';
 import Icon from '@/components/icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
-import { useCanvasPan } from '@/hooks';
-import { clamp, screenHeight, screenWidth } from '@/utils';
-import { FC, useCallback, useState } from 'react';
+import { useCanvasPan, usePinchGesture } from '@/hooks';
+import { screenHeight, screenWidth } from '@/utils';
+import { FC, useState } from 'react';
 import { ImageBackground, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import DrawerAddCanvas from './DrawerAddCanvas';
 import DrawerUseTemplate from './DrawerUseTemplate';
 import { styles } from './style';
@@ -32,23 +32,10 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
 
   const { pan, translationX, translationY } = useCanvasPan();
 
-  const scale = useSharedValue(1);
-  const startScale = useSharedValue(1);
-
-  const optimizedClamp = useCallback(clamp, []);
-
-  const pinchGestureHandler = Gesture.Pinch()
-    .onStart(() => {
-      startScale.value = scale.value;
-    })
-    .onUpdate(event => {
-      scale.value = optimizedClamp(
-        startScale.value * event.scale,
-        0.5,
-        Math.min(screenWidth / 100, screenHeight / 100)
-      );
-    })
-    .runOnJS(true);
+  const { pinch, scale } = usePinchGesture({
+    minScale: 0.5,
+    maxScale: Math.min(screenWidth / 100, screenHeight / 100),
+  });
 
   const boxAnimatedStyles = useAnimatedStyle(() => ({
     transform: [
@@ -58,7 +45,7 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
     ],
   }));
 
-  const combinedGesture = Gesture.Simultaneous(pan, pinchGestureHandler);
+  const combinedGesture = Gesture.Simultaneous(pan, pinch);
 
   const canvasStyle = {
     width: selectedCanvas?.width || canvases[0]?.width,

@@ -14,6 +14,12 @@ export { useRotationElement, type RotationElementOptions } from './useRotationEl
 
 export { useTapElement, type TapElementOptions } from './useTapElement';
 
-export { useCanvasPan, type CanvasPanOptions } from './useCanvasPan';
+export { useCanvasPan } from './useCanvasPan';
+
+export {
+  usePinchGesture,
+  type PinchGestureOptions,
+  type UsePinchGestureReturn,
+} from './usePinchGesture';
 
 export { useHistory, type HistoryState, type UseHistoryReturn } from './useHistory';
