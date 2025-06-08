@@ -3,7 +3,7 @@ import Icon from '@/components/icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import { useCanvasPan, usePinchGesture } from '@/hooks';
 import { screenHeight, screenWidth } from '@/utils';
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { ImageBackground, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
@@ -56,12 +56,16 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
 
   const combinedGesture = Gesture.Simultaneous(pan, pinch);
 
-  const canvasStyle = {
-    width: selectedCanvas?.width || canvases[0]?.width,
-    height: selectedCanvas?.height || canvases[0]?.height,
-  };
-
   const currentCanvas = selectedCanvas || canvases[0];
+
+  const canvasStyle = useMemo(
+    () => ({
+      width: currentCanvas?.width,
+      height: currentCanvas?.height,
+    }),
+    [currentCanvas?.width, currentCanvas?.height]
+  );
+
   const hasBackgroundImage = currentCanvas?.backgroundImage;
 
   const renderCanvasContent = () => {
