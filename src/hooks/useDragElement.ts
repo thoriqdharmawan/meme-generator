@@ -94,8 +94,9 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
         onSelectElement(null);
       }
 
-      translateX.value = startX.value + e.translationX / canvasScale;
-      translateY.value = startY.value + e.translationY / canvasScale;
+      const safeCanvasScale = canvasScale && canvasScale !== 0 ? canvasScale : 1;
+      translateX.value = startX.value + e.translationX / safeCanvasScale;
+      translateY.value = startY.value + e.translationY / safeCanvasScale;
 
       updateSnapGuides(translateX.value, translateY.value, {
         canvasWidth,
