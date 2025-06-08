@@ -1,3 +1,4 @@
+import { CANVAS_SNAP_SCALE_FACTOR } from '@/constants/templates';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import type { ImageElement, TextElement } from '@/types/editor';
 import { TouchableWithoutFeedback, View } from 'react-native';
@@ -45,8 +46,8 @@ const MemeEditor = () => {
                     onSelectElement={handleSelectElement}
                     isEditing={isEditing}
                     setIsEditing={setIsEditing}
-                    canvasWidth={canvasWidth}
-                    canvasHeight={canvasHeight}
+                    canvasWidth={canvasWidth - CANVAS_SNAP_SCALE_FACTOR}
+                    canvasHeight={canvasHeight - CANVAS_SNAP_SCALE_FACTOR}
                     canvasScale={canvas?.scale || 1}
                   />
                 );
@@ -60,8 +61,8 @@ const MemeEditor = () => {
                   onDuplicate={position => duplicateElement(el.id, position)}
                   selectedImageElement={selectedElement as ImageElement}
                   onSelectImageElement={handleSelectElement}
-                  canvasWidth={canvasWidth}
-                  canvasHeight={canvasHeight}
+                  canvasWidth={canvasWidth - CANVAS_SNAP_SCALE_FACTOR}
+                  canvasHeight={canvasHeight - CANVAS_SNAP_SCALE_FACTOR}
                   canvasScale={canvas?.scale || 1}
                 />
               );

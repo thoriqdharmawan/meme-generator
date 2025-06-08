@@ -1,3 +1,4 @@
+import { CANVAS_SNAP_SCALE_FACTOR } from '@/constants/templates';
 import type { CanvasElementItem } from '@/types/editor';
 import { Gesture } from 'react-native-gesture-handler';
 import { useSharedValue, withSpring } from 'react-native-reanimated';
@@ -83,6 +84,9 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
   const translateX = useSharedValue(initialX);
   const translateY = useSharedValue(initialY);
 
+  const canvasWidthScaled = canvasWidth;
+  const canvasHeightScaled = canvasHeight;
+
   const dragGesture = Gesture.Pan()
     .onStart(() => {
       startX.value = translateX.value;
@@ -97,29 +101,29 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
       translateY.value = startY.value + e.translationY / canvasScale;
 
       updateSnapGuides(translateX.value, translateY.value, {
-        canvasWidth,
-        canvasHeight,
+        canvasWidth: canvasWidthScaled,
+        canvasHeight: canvasHeightScaled,
         elementWidth,
         elementHeight,
       });
     })
     .onEnd(() => {
       const snapResult = calculateSnapPosition(translateX.value, translateY.value, {
-        canvasWidth,
-        canvasHeight,
+        canvasWidth: canvasWidthScaled,
+        canvasHeight: canvasHeightScaled,
         elementWidth,
         elementHeight,
       });
 
       hideSnapGuides();
 
-      translateX.value = withSpring(snapResult.finalX, { damping: 20 });
-      translateY.value = withSpring(snapResult.finalY, { damping: 20 });
+      const finalSnapX = snapResult.finalX - CANVAS_SNAP_SCALE_FACTOR;
+      const finalSnapY = snapResult.finalY - CANVAS_SNAP_SCALE_FACTOR;
 
-      onUpdate({
-        x: snapResult.finalX,
-        y: snapResult.finalY,
-      } as Partial<T>);
+      translateX.value = withSpring(finalSnapX, { damping: 20 });
+      translateY.value = withSpring(finalSnapY, { damping: 20 });
+
+      onUpdate({ x: finalSnapX, y: finalSnapY } as Partial<T>);
     })
     .runOnJS(true);
 

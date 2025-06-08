@@ -1,4 +1,5 @@
-import { Colors, Opacity, Spacing, zIndex } from '@/constants/theme';
+import { CANVAS_SNAP_WIDTH } from '@/constants/templates';
+import { Colors, Opacity, zIndex } from '@/constants/theme';
 import { FC } from 'react';
 import Animated, { type SharedValue, useAnimatedStyle } from 'react-native-reanimated';
 
@@ -24,10 +25,10 @@ const SnapGuides: FC<SnapGuidesProps> = ({
     position: 'absolute',
     left: snapLineX.value - 0.5,
     top: 0,
-    width: Spacing.tiny,
+    width: CANVAS_SNAP_WIDTH,
     height: canvasHeight,
     backgroundColor: Colors.snapColor,
-    zIndex: zIndex.modal,
+    zIndex: zIndex.background,
   }));
 
   const snapGuideYStyle = useAnimatedStyle(() => ({
@@ -36,9 +37,9 @@ const SnapGuides: FC<SnapGuidesProps> = ({
     left: 0,
     top: snapLineY.value - 0.5,
     width: canvasWidth,
-    height: Spacing.tiny,
+    height: CANVAS_SNAP_WIDTH,
     backgroundColor: Colors.snapColor,
-    zIndex: zIndex.modal,
+    zIndex: zIndex.background,
   }));
 
   return (

@@ -1,6 +1,7 @@
-import { ImageSourcePropType } from 'react-native';
-
 import { CanvasElementItem, ImageInterface } from '@/types/editor';
+import { ImageSourcePropType } from 'react-native';
+import { Spacing } from './theme';
+
 import meme1 from '../assets/images/meme1.jpg';
 import meme2 from '../assets/images/meme2.jpg';
 import meme3 from '../assets/images/meme3.jpg';
@@ -20,6 +21,9 @@ import webDevelopment from '../assets/stickers/web-development.png';
 // developer emulator device size, for comparison purposes
 export const PROPORTIONAL_WIDTH = 411.428571;
 export const PROPORTIONAL_HEIGHT = 914.285714;
+
+export const CANVAS_SNAP_WIDTH = Spacing.tiny;
+export const CANVAS_SNAP_SCALE_FACTOR = CANVAS_SNAP_WIDTH * 2;
 
 export interface MemeTemplate {
   id: string;
