@@ -3,17 +3,12 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.white,
     flex: 1,
+    position: 'relative',
   },
   header: {
     alignItems: 'center',
     padding: 20,
-  },
-  playground: {
-    backgroundColor: Colors.backgroundSecondary,
-    flex: 1,
-    position: 'relative',
   },
   subtitle: {
     color: Colors.gray,

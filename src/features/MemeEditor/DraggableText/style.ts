@@ -1,4 +1,5 @@
 import { BorderRadius, Colors, Layout, Spacing, Typography } from '@/constants';
+import { zIndex } from '@/constants/theme';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -24,6 +25,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top: -Layout.textBox.actionBarOffset,
+    zIndex: zIndex.modal,
   },
   box: {
     backgroundColor: Colors.transparent,

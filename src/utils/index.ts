@@ -1,7 +1,8 @@
 import { AspectRatio } from '@/types/editor';
 import { Dimensions, Image, ImageSourcePropType } from 'react-native';
 
-export const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+export const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
+export const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
 
 export interface CanvasDimensions {
   width: number;
@@ -29,8 +30,8 @@ export const calculateCanvasDimensions = (
     Image.getSize(
       Image.resolveAssetSource(imageSource).uri,
       (imageWidth, imageHeight) => {
-        const maxAvailableWidth = screenWidth - horizontalMargin;
-        const maxAvailableHeight = screenHeight - verticalMargin;
+        const maxAvailableWidth = windowWidth - horizontalMargin;
+        const maxAvailableHeight = windowHeight - verticalMargin;
 
         const scaleWidth = maxAvailableWidth / imageWidth;
         const scaleHeight = maxAvailableHeight / imageHeight;
@@ -42,8 +43,8 @@ export const calculateCanvasDimensions = (
         resolve({ width: canvasWidth, height: canvasHeight });
       },
       () => {
-        const maxAvailableWidth = screenWidth - horizontalMargin;
-        const maxAvailableHeight = screenHeight - verticalMargin;
+        const maxAvailableWidth = windowWidth - horizontalMargin;
+        const maxAvailableHeight = windowHeight - verticalMargin;
         const squareSize = Math.min(maxAvailableWidth, maxAvailableHeight);
 
         resolve({
@@ -72,8 +73,8 @@ export const calculateCanvasDimensionsForAspectRatio = (
 ): CanvasDimensions => {
   const { horizontalMargin = 64, verticalMargin = 200 } = options;
 
-  const maxAvailableWidth = screenWidth - horizontalMargin;
-  const maxAvailableHeight = screenHeight - verticalMargin;
+  const maxAvailableWidth = windowWidth - horizontalMargin;
+  const maxAvailableHeight = windowHeight - verticalMargin;
 
   let width: number;
   let height: number;

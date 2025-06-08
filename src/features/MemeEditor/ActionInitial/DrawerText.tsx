@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import { Colors, Spacing, Typography } from '@/constants';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
 import type { TextElement } from '@/types/editor';
-import { screenWidth } from '@/utils';
+import { windowWidth } from '@/utils';
 import { FC } from 'react';
 import { View } from 'react-native';
 import { styleDrawer } from './style';
@@ -24,7 +24,7 @@ interface TextVariant {
 }
 
 const DEFAULT_SPACING = Spacing.sectionSpacing;
-const DEFAULT_WIDTH = screenWidth - DEFAULT_SPACING * 4;
+const DEFAULT_WIDTH = windowWidth - DEFAULT_SPACING * 4;
 
 const DrawerText: FC<DrawerTextProps> = ({ visible, onClose }) => {
   const { addElement } = useMemeEditor();

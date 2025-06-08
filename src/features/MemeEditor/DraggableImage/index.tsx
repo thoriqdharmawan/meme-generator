@@ -26,6 +26,7 @@ interface Props {
   onSelectImageElement: (element: ImageElement | null) => void;
   canvasWidth?: number;
   canvasHeight?: number;
+  canvasScale: number;
 }
 
 const DraggableImage: FC<Props> = props => {
@@ -37,6 +38,7 @@ const DraggableImage: FC<Props> = props => {
     onSelectImageElement,
     canvasWidth = 0,
     canvasHeight = 0,
+    canvasScale,
   } = props;
 
   const [layoutElement, setLayoutElement] = useState<LayoutRectangle | null>(null);
@@ -64,6 +66,7 @@ const DraggableImage: FC<Props> = props => {
     elementWidth: Number(elWidth),
     elementHeight: Number(elHeight),
     isElementSelected,
+    canvasScale,
     onSelectElement: onSelectImageElement,
     onUpdate,
     updateSnapGuides,
@@ -72,25 +75,17 @@ const DraggableImage: FC<Props> = props => {
   });
 
   const { resizeGesture, boxWidth, boxHeight } = useResizeElement({
+    elementId: element.id,
     initialWidth: elWidth,
     initialHeight: Number(elHeight),
     minWidth: Layout.textBox.minWidth,
     minHeight: Layout.textBox.minHeight,
-    onUpdate: updates => {
-      onUpdate({
-        width: updates.width,
-        height: updates.height,
-      });
-    },
+    onUpdate,
   });
 
   const { rotationGesture, angle, updateAngle } = useRotationElement({
     initialAngle: element.rotate || 0,
-    onUpdate: updates => {
-      onUpdate({
-        rotate: updates.rotate,
-      });
-    },
+    onUpdate,
   });
 
   const { tapGesture, handleTap } = useTapElement({

@@ -1,12 +1,12 @@
 import Button from '@/components/Button';
 import Icon from '@/components/icon';
 import { useMemeEditor } from '@/contexts/MemeEditorContext';
-import { useCanvasPan } from '@/hooks';
-import { clamp, screenHeight, screenWidth } from '@/utils';
-import { FC, useState } from 'react';
+import { useCanvasPan, usePinchGesture } from '@/hooks';
+import { screenHeight, screenWidth } from '@/utils';
+import { FC, useMemo, useState } from 'react';
 import { ImageBackground, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import DrawerAddCanvas from './DrawerAddCanvas';
 import DrawerUseTemplate from './DrawerUseTemplate';
 import { styles } from './style';
@@ -26,30 +26,25 @@ const DEFAULT_DRAWER_STATE: DrawerState = {
 };
 
 const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
-  const { hasCanvas, selectedCanvas, canvases, setSelectedCanvas } = useMemeEditor();
+  const { hasCanvas, selectedCanvas, canvases, setSelectedCanvas, updateCanvas } = useMemeEditor();
 
   const [drawer, setDrawer] = useState<DrawerState>(DEFAULT_DRAWER_STATE);
 
-  const { pan, translationX, translationY } = useCanvasPan({
-    screenWidth,
-    screenHeight,
+  const { pan, translationX, translationY } = useCanvasPan();
+
+  const { pinch, scale } = usePinchGesture({
+    selectedId: selectedCanvas?.id,
+    initialScale: (selectedCanvas || canvases[0])?.scale || 1,
+    minScale: 0.5,
+    maxScale: Math.min(screenWidth / 100, screenHeight / 100),
+    onEnd: finalScale => {
+      const canvas = selectedCanvas || canvases[0];
+
+      if (canvas) {
+        updateCanvas(canvas.id, { scale: finalScale });
+      }
+    },
   });
-
-  const scale = useSharedValue(1);
-  const startScale = useSharedValue(1);
-
-  const pinch = Gesture.Pinch()
-    .onStart(() => {
-      startScale.value = scale.value;
-    })
-    .onUpdate(event => {
-      scale.value = clamp(
-        startScale.value * event.scale,
-        0.5,
-        Math.min(screenWidth / 100, screenHeight / 100)
-      );
-    })
-    .runOnJS(true);
 
   const boxAnimatedStyles = useAnimatedStyle(() => ({
     transform: [
@@ -61,12 +56,16 @@ const CanvasContainer: FC<CanvasContainerProps> = ({ children }) => {
 
   const combinedGesture = Gesture.Simultaneous(pan, pinch);
 
-  const canvasStyle = {
-    width: selectedCanvas?.width || canvases[0]?.width,
-    height: selectedCanvas?.height || canvases[0]?.height,
-  };
-
   const currentCanvas = selectedCanvas || canvases[0];
+
+  const canvasStyle = useMemo(
+    () => ({
+      width: currentCanvas?.width,
+      height: currentCanvas?.height,
+    }),
+    [currentCanvas?.width, currentCanvas?.height]
+  );
+
   const hasBackgroundImage = currentCanvas?.backgroundImage;
 
   const renderCanvasContent = () => {
