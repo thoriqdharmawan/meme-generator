@@ -84,9 +84,6 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
   const translateX = useSharedValue(initialX);
   const translateY = useSharedValue(initialY);
 
-  const canvasWidthScaled = canvasWidth;
-  const canvasHeightScaled = canvasHeight;
-
   const dragGesture = Gesture.Pan()
     .onStart(() => {
       startX.value = translateX.value;
@@ -101,16 +98,16 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
       translateY.value = startY.value + e.translationY / canvasScale;
 
       updateSnapGuides(translateX.value, translateY.value, {
-        canvasWidth: canvasWidthScaled,
-        canvasHeight: canvasHeightScaled,
+        canvasWidth,
+        canvasHeight,
         elementWidth,
         elementHeight,
       });
     })
     .onEnd(() => {
       const snapResult = calculateSnapPosition(translateX.value, translateY.value, {
-        canvasWidth: canvasWidthScaled,
-        canvasHeight: canvasHeightScaled,
+        canvasWidth,
+        canvasHeight,
         elementWidth,
         elementHeight,
       });
