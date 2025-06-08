@@ -105,7 +105,7 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
       });
     })
     .onEnd(() => {
-      const snapResult = calculateSnapPosition(translateX.value, translateY.value, {
+      const { finalX, finalY } = calculateSnapPosition(translateX.value, translateY.value, {
         canvasWidth,
         canvasHeight,
         elementWidth,
@@ -114,8 +114,8 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
 
       hideSnapGuides();
 
-      const finalSnapX = snapResult.finalX - CANVAS_SNAP_SCALE_FACTOR;
-      const finalSnapY = snapResult.finalY - CANVAS_SNAP_SCALE_FACTOR;
+      const finalSnapX = finalX - (finalX === 0 ? 0 : CANVAS_SNAP_SCALE_FACTOR);
+      const finalSnapY = finalY - (finalY === 0 ? 0 : CANVAS_SNAP_SCALE_FACTOR);
 
       translateX.value = withSpring(finalSnapX, { damping: 20 });
       translateY.value = withSpring(finalSnapY, { damping: 20 });
