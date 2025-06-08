@@ -84,6 +84,10 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
   const translateX = useSharedValue(initialX);
   const translateY = useSharedValue(initialY);
 
+  const adjustForSnapScale = (value: number) => {
+    return value - (value === 0 ? 0 : CANVAS_SNAP_SCALE_FACTOR);
+  };
+
   const dragGesture = Gesture.Pan()
     .onStart(() => {
       startX.value = translateX.value;
@@ -115,8 +119,8 @@ export const useDragElement = <T extends CanvasElementItem = CanvasElementItem>(
 
       hideSnapGuides();
 
-      const finalSnapX = finalX - (finalX === 0 ? 0 : CANVAS_SNAP_SCALE_FACTOR);
-      const finalSnapY = finalY - (finalY === 0 ? 0 : CANVAS_SNAP_SCALE_FACTOR);
+      const finalSnapX = adjustForSnapScale(finalX);
+      const finalSnapY = adjustForSnapScale(finalY);
 
       translateX.value = withSpring(finalSnapX, { damping: 20 });
       translateY.value = withSpring(finalSnapY, { damping: 20 });
