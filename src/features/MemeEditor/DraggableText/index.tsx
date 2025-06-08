@@ -94,12 +94,12 @@ const DraggableText: FC<Props> = props => {
     initialHeight: elHeight,
     minWidth: Layout.textBox.minWidth,
     minHeight: Layout.textBox.minHeight,
-    onUpdate: ({ height, width }) => onUpdate({ width, height }),
+    onUpdate,
   });
 
   const { rotationGesture, angle, updateAngle } = useRotationElement({
     initialAngle: element.rotate || 0,
-    onUpdate: ({ rotate }) => onUpdate({ rotate }),
+    onUpdate,
   });
 
   const { tapGesture, handleTap } = useTapElement({
